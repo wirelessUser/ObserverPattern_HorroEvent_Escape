@@ -10,6 +10,18 @@ public class SoundManager : MonoBehaviour
 
     public Sounds[] AudioList;
 
+    public static Action<SoundType, bool> OnPlaySoundEffects;
+
+    private void OnEnable()
+    {
+        OnPlaySoundEffects += PlaySoundEffects;
+    }
+
+    private void OnDisable()
+    {
+        OnPlaySoundEffects -= PlaySoundEffects;
+    }
+
     // Plays the given SoundType as Sound Effects.
     public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
     {
@@ -69,6 +81,11 @@ public enum SoundType
     GameOver,
     Jump,
     Land,
+    Giggle,
+    ScarySound1,
+    ScarySound2,
+    ScarySound3,
+    DoorSlam
 }
 
 
