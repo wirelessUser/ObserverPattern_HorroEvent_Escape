@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -30,6 +31,10 @@ public class PlayerController : MonoBehaviour
     private float VerticalAxis { get => Input.GetAxis("Vertical"); }
     private bool IsGrounded { get => Physics.Raycast(transform.position, -transform.up, raycastLength); }
 
+    // Actions:
+    public static Action OnPlayerInteracted;
+    public static int s_KeysEquipped = 0;
+
     void Start()
     {
         m_rigidbody = GetComponent<Rigidbody>();
@@ -54,5 +59,8 @@ public class PlayerController : MonoBehaviour
 
         //Jump:
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded) { m_rigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); }
+
+        if (Input.GetKeyDown(KeyCode.E))
+            OnPlayerInteracted?.Invoke();
     }
 }

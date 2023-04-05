@@ -26,6 +26,7 @@ public class PlayerSanity : MonoBehaviour
             m_SanityLevel = 0;
             GameOver();
         }
+        m_UIManager.UpdateInsanity(1f - m_SanityLevel / m_MaxSanity);
     }
 
     public void IncreaseSanity(float amountToIncrease)
@@ -37,9 +38,7 @@ public class PlayerSanity : MonoBehaviour
 
     void Update()
     {
-        if(m_IsPlayerInDark)
-            DecreaseSanity(m_SanityDropRate);
-        m_UIManager.UpdateInsanity(1f - m_SanityLevel/m_MaxSanity);
+        DecreaseSanity(m_SanityDropRate * Time.deltaTime);
 
         // Hotkeys:
         if(Input.GetKeyDown(KeyCode.P))

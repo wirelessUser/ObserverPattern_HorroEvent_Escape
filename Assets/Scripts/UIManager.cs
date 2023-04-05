@@ -28,6 +28,15 @@ public class UIManager : MonoBehaviour
     [Header("Player Sanity")]
     [SerializeField] Image m_InsanityImage;
 
+    [Header("Keys UI")]
+    [SerializeField] TextMeshProUGUI m_KeysFoundText;
+
+
+    private void OnEnable()
+    {
+        Key.OnKeyPickedUp += OnKeyPickedUp;
+    }
+
     private void Start()
     {
         if (m_BlackoutCoroutine != null)
@@ -40,6 +49,11 @@ public class UIManager : MonoBehaviour
 
             m_InstructionCoroutine = StartCoroutine(SetInstructions(m_Instructions.Find(x => x.instructionType == InstructionType.PlayerSpawned).instruction));
         }));
+    }
+
+    private void OnDisable()
+    {
+        Key.OnKeyPickedUp -= OnKeyPickedUp;
     }
 
     private IEnumerator ToggleBlackoutScreen(bool setActive, Action callback = null)
@@ -61,6 +75,12 @@ public class UIManager : MonoBehaviour
     public void UpdateInsanity(float playerSanity)
     {
         m_InsanityImage.rectTransform.localScale = new Vector3(1, playerSanity, 1);
+    }
+
+    private void OnKeyPickedUp()
+    {
+        PlayerController.s_KeysEquipped++;
+        m_KeysFoundText.SetText($"Keys Found: {PlayerController.s_KeysEquipped}/3");
     }
 
 }
