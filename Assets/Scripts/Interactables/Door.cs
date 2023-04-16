@@ -16,39 +16,42 @@ public class Door : MonoBehaviour
         m_CurrentState = DoorState.Locked;
     }
 
-    private void DoorInteraction()
-    {
-        switch(m_CurrentState)
-        {
-            case DoorState.Locked:
-                if (PlayerController.s_KeysEquipped >= m_RequiredKeys)
-                {
-                    transform.Rotate(0f, m_SwingAngle, 0f);
-                    m_CurrentState = DoorState.Open;
-                }
-                break;
-            case DoorState.Close:
-                transform.Rotate(0f, m_SwingAngle, 0f);
-                m_CurrentState = DoorState.Open;
-                break;
-            case DoorState.Open:
-                transform.Rotate(0f, -m_SwingAngle, 0f);
-                m_CurrentState = DoorState.Close;
-                break;
-        }
-
-    }
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
-            PlayerController.OnPlayerInteracted += DoorInteraction;
+            PlayerInteractionHandler.OnPlayerInteracted += DoorInteraction;
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
-            PlayerController.OnPlayerInteracted -= DoorInteraction;
+            PlayerInteractionHandler.OnPlayerInteracted -= DoorInteraction;
+    }
+
+    private void DoorInteraction()
+    {
+        switch (m_CurrentState)
+        {
+            case DoorState.Locked:
+                if (PlayerController.KeysEquipped >= m_RequiredKeys)
+                {
+                    transform.Rotate(0f, transform.rotation.y + m_SwingAngle, 0f);
+                    m_CurrentState = DoorState.Open;
+                    SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorOpen, false);
+                }
+                break;
+            case DoorState.Close:
+                transform.Rotate(0f, transform.rotation.y + m_SwingAngle, 0f);
+                m_CurrentState = DoorState.Open;
+                SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorOpen, false);
+                break;
+            case DoorState.Open:
+                transform.Rotate(0f, transform.rotation.y - m_SwingAngle, 0f);
+                m_CurrentState = DoorState.Close;
+                SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorSlam, false);
+                break;
+        }
+
     }
 
     public enum DoorState

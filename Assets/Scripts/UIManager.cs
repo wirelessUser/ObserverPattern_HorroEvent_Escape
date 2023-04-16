@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
@@ -27,14 +28,39 @@ public class UIManager : MonoBehaviour
 
     [Header("Player Sanity")]
     [SerializeField] Image m_InsanityImage;
+    [SerializeField] Image m_RedVignette;
 
     [Header("Keys UI")]
     [SerializeField] TextMeshProUGUI m_KeysFoundText;
 
+    [Header("Game Over Panel")]
+    [SerializeField] GameObject m_GameOverPanel;
+    [SerializeField] Button m_TryAgainButton;
+    [SerializeField] Button m_QuitButton;
+
 
     private void OnEnable()
     {
-        Key.OnKeyPickedUp += OnKeyPickedUp;
+        PlayerController.OnKeyEquipped += OnKeyEquipped;
+        LightsOffEventTrigger.OnLightsOff += ShowLightOffInstructions;
+        LightsOffEventTrigger.OnLightsOff += SetRedVignette;
+        RatRushEventTrigger.OnRatRush += SetRedVignette;
+        SkullDropEventTrigger.OnSkullDrop += SetRedVignette;
+        PlayerSanity.OnPlayerDeath += SetRedVignette;
+        PlayerSanity.OnPlayerDeath += OnPlayerDeath;
+        m_TryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
+        m_QuitButton.onClick.AddListener(OnQuitButtonClicked);
+    }
+
+    private void OnDisable()
+    {
+        PlayerController.OnKeyEquipped -= OnKeyEquipped;
+        LightsOffEventTrigger.OnLightsOff -= ShowLightOffInstructions;
+        LightsOffEventTrigger.OnLightsOff -= SetRedVignette;
+        RatRushEventTrigger.OnRatRush -= SetRedVignette;
+        SkullDropEventTrigger.OnSkullDrop -= SetRedVignette;
+        PlayerSanity.OnPlayerDeath -= SetRedVignette;
+        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
     }
 
     private void Start()
@@ -47,13 +73,8 @@ public class UIManager : MonoBehaviour
             if (m_InstructionCoroutine != null)
                 StopCoroutine(m_InstructionCoroutine);
 
-            m_InstructionCoroutine = StartCoroutine(SetInstructions(m_Instructions.Find(x => x.instructionType == InstructionType.PlayerSpawned).instruction));
+            m_InstructionCoroutine = StartCoroutine(SetInstructions(InstructionType.PlayerSpawned));
         }));
-    }
-
-    private void OnDisable()
-    {
-        Key.OnKeyPickedUp -= OnKeyPickedUp;
     }
 
     private IEnumerator ToggleBlackoutScreen(bool setActive, Action callback = null)
@@ -63,11 +84,24 @@ public class UIManager : MonoBehaviour
         callback?.Invoke();
     }
 
-    private IEnumerator SetInstructions(string instructionToSet)
+    private IEnumerator SetInstructions(InstructionType type)
     {
+        string instructionToSet = "";
+        foreach (Instruction instruction in m_Instructions)
+        {
+            if (instruction.instructionType == type && !instruction.displayed)
+            {
+                instructionToSet = instruction.instruction;
+                instruction.displayed = true;
+                break;
+            }
+        }
+
         m_InstructionPopup.SetActive(true);
         m_InstructionsText.SetText(instructionToSet);
+
         yield return new WaitForSeconds(m_InstructionDisplayDuration);
+
         m_InstructionsText.SetText(string.Empty);
         m_InstructionPopup.SetActive(false);
     }
@@ -77,19 +111,55 @@ public class UIManager : MonoBehaviour
         m_InsanityImage.rectTransform.localScale = new Vector3(1, playerSanity, 1);
     }
 
-    private void OnKeyPickedUp()
+    private void OnKeyEquipped()
     {
-        PlayerController.s_KeysEquipped++;
-        m_KeysFoundText.SetText($"Keys Found: {PlayerController.s_KeysEquipped}/3");
+        m_KeysFoundText.SetText($"Keys Found: {PlayerController.KeysEquipped}/3");
+    }
+
+    private void ShowLightOffInstructions()
+    {
+        if (m_InstructionCoroutine != null)
+            StopCoroutine(m_InstructionCoroutine);
+
+        m_InstructionCoroutine = StartCoroutine(SetInstructions(InstructionType.LightsOff));
+    }
+
+    private void SetRedVignette()
+    {
+        m_RedVignette.enabled = true;
+        m_RedVignette.canvasRenderer.SetAlpha(0.5f);
+        m_RedVignette.CrossFadeAlpha(0,5,false);
+    }
+
+    private void OnPlayerDeath()
+    {
+        StartCoroutine(ToggleGameOverPanel());
+    }
+
+    private IEnumerator ToggleGameOverPanel()
+    {
+        yield return new WaitForSeconds(2f);
+        m_GameOverPanel.SetActive(true);
+    }
+
+    private void OnQuitButtonClicked()
+    {
+        Application.Quit();
+    }
+
+    private void OnTryAgainButtonClicked()
+    {
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
 }
 
 [Serializable]
-public struct Instruction
+public class Instruction
 {
     public InstructionType instructionType;
     public string instruction;
+    public bool displayed;
 }
 
 [Serializable]

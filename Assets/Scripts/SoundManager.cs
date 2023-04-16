@@ -5,8 +5,8 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource audioEffects;
-    public AudioSource BackgroundMusic;
+    public AudioSource m_AudioEffects;
+    public AudioSource m_BackgroundMusic;
 
     public Sounds[] AudioList;
 
@@ -22,14 +22,19 @@ public class SoundManager : MonoBehaviour
         OnPlaySoundEffects -= PlaySoundEffects;
     }
 
+    private void Start()
+    {
+        PlayBackgroundMusic(SoundType.BackgroundMusic, true);
+    }
+
     // Plays the given SoundType as Sound Effects.
-    public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
+    private void PlaySoundEffects(SoundType soundType, bool loopSound = false)
     {
         AudioClip clip = GetSoundClip(soundType);
         if (clip != null)
         {
-            audioEffects.loop = loopSound;
-            audioEffects.PlayOneShot(clip);
+            m_AudioEffects.loop = loopSound;
+            m_AudioEffects.PlayOneShot(clip);
         }
         else
         {
@@ -38,13 +43,13 @@ public class SoundManager : MonoBehaviour
     }
 
     // Plays the given SoundType as Background Music.
-    public void PlayBackgroundMusic(SoundType soundType, bool loopSound = false)
+    private void PlayBackgroundMusic(SoundType soundType, bool loopSound = false)
     {
         AudioClip clip = GetSoundClip(soundType);
         if (clip != null)
         {
-            BackgroundMusic.loop = loopSound;
-            BackgroundMusic.PlayOneShot(clip);
+            m_BackgroundMusic.loop = loopSound;
+            m_BackgroundMusic.PlayOneShot(clip);
         }
         else
         {
@@ -53,7 +58,7 @@ public class SoundManager : MonoBehaviour
     }
 
     // Fetches the Sound Clip for the given SoundType.
-    public AudioClip GetSoundClip(SoundType soundType)
+    private AudioClip GetSoundClip(SoundType soundType)
     {
         Sounds st = Array.Find(AudioList, item => item.soundType == soundType);
         if (st != null)
@@ -66,8 +71,14 @@ public class SoundManager : MonoBehaviour
     // Sets the audio clip to null.
     public void StopSoundEffect()
     {
-        audioEffects.Stop();
-        audioEffects.clip = null;
+        m_AudioEffects.Stop();
+        m_AudioEffects.clip = null;
+    }
+
+    public void StopBackgroundMusic()
+    {
+        m_BackgroundMusic.Stop();
+        m_BackgroundMusic.clip = null;
     }
 
 }
@@ -77,15 +88,13 @@ public enum SoundType
 {
     BackgroundMusic,
     SwitchSound,
-    PlayerDeath,
-    GameOver,
-    Jump,
-    Land,
-    Giggle,
-    ScarySound1,
-    ScarySound2,
-    ScarySound3,
-    DoorSlam
+    DoorOpen,
+    DoorSlam,
+    SpookyGiggle,
+    JumpScare1,
+    JumpScare2,
+    JumpScare3,
+    KeyPickUp,
 }
 
 
