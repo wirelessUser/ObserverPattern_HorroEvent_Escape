@@ -48,12 +48,14 @@ public class PlayerController : MonoBehaviour
     {
         Key.OnKeyPickedUp += OnKeyPickedUp;
         PlayerSanity.OnPlayerDeath += OnPlayerDeath;
+        PlayerEscapedEventTrigger.OnPlayerEscaped += DisableControls;
     }
 
     private void OnDisable()
     {
         Key.OnKeyPickedUp -= OnKeyPickedUp;
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
+        PlayerEscapedEventTrigger.OnPlayerEscaped -= DisableControls;
     }
 
     void Start()
@@ -90,8 +92,6 @@ public class PlayerController : MonoBehaviour
         OnKeyEquipped?.Invoke();
     }
 
-
-
     private void OnPlayerDeath()
     {
         m_SlenderMan.position += m_SlenderManOffset;
@@ -111,6 +111,11 @@ public class PlayerController : MonoBehaviour
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
             yield return null;
         }
+    }
+
+    private void DisableControls()
+    {
+        enabled = false;
     }
 
 }

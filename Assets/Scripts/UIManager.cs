@@ -27,6 +27,7 @@ public class UIManager : MonoBehaviour
     private Coroutine m_InstructionCoroutine;
 
     [Header("Player Sanity")]
+    [SerializeField] GameObject m_RootViewPanel;
     [SerializeField] Image m_InsanityImage;
     [SerializeField] Image m_RedVignette;
 
@@ -38,6 +39,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button m_TryAgainButton;
     [SerializeField] Button m_QuitButton;
 
+    [Header("Game Won Panel")]
+    [SerializeField] GameObject m_GameWonPanel;
+    [SerializeField] Button m_TryAgainButton2;
+    [SerializeField] Button m_QuitButton2;
+
 
     private void OnEnable()
     {
@@ -48,8 +54,12 @@ public class UIManager : MonoBehaviour
         SkullDropEventTrigger.OnSkullDrop += SetRedVignette;
         PlayerSanity.OnPlayerDeath += SetRedVignette;
         PlayerSanity.OnPlayerDeath += OnPlayerDeath;
+        PlayerEscapedEventTrigger.OnPlayerEscaped += OnPlayerEscaped;
+
         m_TryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         m_QuitButton.onClick.AddListener(OnQuitButtonClicked);
+        m_TryAgainButton2.onClick.AddListener(OnTryAgainButtonClicked);
+        m_QuitButton2.onClick.AddListener(OnQuitButtonClicked);
     }
 
     private void OnDisable()
@@ -61,6 +71,7 @@ public class UIManager : MonoBehaviour
         SkullDropEventTrigger.OnSkullDrop -= SetRedVignette;
         PlayerSanity.OnPlayerDeath -= SetRedVignette;
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
+        PlayerEscapedEventTrigger.OnPlayerEscaped -= OnPlayerEscaped;
     }
 
     private void Start()
@@ -150,6 +161,11 @@ public class UIManager : MonoBehaviour
     private void OnTryAgainButtonClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
+
+    private void OnPlayerEscaped()
+    {
+        m_GameWonPanel.SetActive(true);
     }
 
 }
