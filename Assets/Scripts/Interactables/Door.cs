@@ -51,7 +51,11 @@ public class Door : MonoBehaviour
                 SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorSlam, false);
                 break;
         }
+    }
 
+    private void OnDestroy()
+    {
+        PlayerInteractionHandler.OnPlayerInteracted -= DoorInteraction;
     }
 
     public enum DoorState
