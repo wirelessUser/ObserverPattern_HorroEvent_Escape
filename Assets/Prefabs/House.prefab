@@ -16871,6 +16871,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Box (2)
       objectReference: {fileID: 0}
+    - target: {fileID: 1727798833912166, guid: 4b28435a7a6da3145a05f2df550b8dc3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4646216868946240, guid: 4b28435a7a6da3145a05f2df550b8dc3, type: 3}
       propertyPath: m_RootOrder
       value: 4
@@ -17433,6 +17437,10 @@ PrefabInstance:
     - target: {fileID: 1727798833912166, guid: 4b28435a7a6da3145a05f2df550b8dc3, type: 3}
       propertyPath: m_Name
       value: Box (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 1727798833912166, guid: 4b28435a7a6da3145a05f2df550b8dc3, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4646216868946240, guid: 4b28435a7a6da3145a05f2df550b8dc3, type: 3}
       propertyPath: m_RootOrder
