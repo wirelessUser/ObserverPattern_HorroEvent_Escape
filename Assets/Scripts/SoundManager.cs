@@ -95,6 +95,7 @@ public enum SoundType
     JumpScare2,
     JumpScare3,
     KeyPickUp,
+    DrinkPotion
 }
 
 

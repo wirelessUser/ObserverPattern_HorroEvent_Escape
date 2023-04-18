@@ -10,13 +10,19 @@ public class Key : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
+        {
             PlayerInteractionHandler.OnPlayerInteracted += InteractedWithKey;
+            UIManager.OnPlayerNearInteractable?.Invoke();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
+        {
             PlayerInteractionHandler.OnPlayerInteracted -= InteractedWithKey;
+            UIManager.OnPlayerNotNearInteractable?.Invoke();
+        }
     }
 
     private void InteractedWithKey()
@@ -24,6 +30,7 @@ public class Key : MonoBehaviour
         OnKeyPickedUp?.Invoke();
         PlayerInteractionHandler.OnPlayerInteracted -= InteractedWithKey;
         SoundManager.OnPlaySoundEffects?.Invoke(SoundType.KeyPickUp, false);
+        UIManager.OnPlayerNotNearInteractable?.Invoke();
         gameObject.SetActive(false);
     }
 }

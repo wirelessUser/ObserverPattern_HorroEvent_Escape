@@ -17,10 +17,6 @@ public class LightSwitch : MonoBehaviour
         LightsOffEventTrigger.OnLightsOff += OnLigthsOff;
     }
 
-    private void OnEnable()
-    {
-    }
-
     private void OnDisable()
     {
         LightsOffEventTrigger.OnLightsOff -= OnLigthsOff;
@@ -29,13 +25,19 @@ public class LightSwitch : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
+        {
             PlayerInteractionHandler.OnPlayerInteracted += OnInteractedWithSwitch;
+            UIManager.OnPlayerNearInteractable?.Invoke();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
+        {
             PlayerInteractionHandler.OnPlayerInteracted -= OnInteractedWithSwitch;
+            UIManager.OnPlayerNotNearInteractable?.Invoke();
+        }
     }
 
     private void OnInteractedWithSwitch()

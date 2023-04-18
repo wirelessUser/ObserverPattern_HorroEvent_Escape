@@ -44,6 +44,8 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button m_TryAgainButton2;
     [SerializeField] Button m_QuitButton2;
 
+    public static Action OnPlayerNearInteractable;
+    public static Action OnPlayerNotNearInteractable;
 
     private void OnEnable()
     {
@@ -55,6 +57,8 @@ public class UIManager : MonoBehaviour
         PlayerSanity.OnPlayerDeath += SetRedVignette;
         PlayerSanity.OnPlayerDeath += OnPlayerDeath;
         PlayerEscapedEventTrigger.OnPlayerEscaped += OnPlayerEscaped;
+        OnPlayerNearInteractable += ShowInteractInstructions;
+        OnPlayerNotNearInteractable += StopShowingInstructions;
 
         m_TryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         m_QuitButton.onClick.AddListener(OnQuitButtonClicked);
@@ -72,6 +76,8 @@ public class UIManager : MonoBehaviour
         PlayerSanity.OnPlayerDeath -= SetRedVignette;
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
         PlayerEscapedEventTrigger.OnPlayerEscaped -= OnPlayerEscaped;
+        OnPlayerNearInteractable -= ShowInteractInstructions;
+        OnPlayerNotNearInteractable -= StopShowingInstructions;
     }
 
     private void Start()
@@ -94,8 +100,8 @@ public class UIManager : MonoBehaviour
         yield return new WaitForSeconds(m_BlackoutFadeDuration);
         callback?.Invoke();
     }
-
-    private IEnumerator SetInstructions(InstructionType type)
+    
+    private IEnumerator SetInstructions(InstructionType type, bool oneShot = true)
     {
         string instructionToSet = "";
         foreach (Instruction instruction in m_Instructions)
@@ -103,7 +109,7 @@ public class UIManager : MonoBehaviour
             if (instruction.instructionType == type && !instruction.displayed)
             {
                 instructionToSet = instruction.instruction;
-                instruction.displayed = true;
+                instruction.displayed = oneShot;
                 break;
             }
         }
@@ -133,6 +139,23 @@ public class UIManager : MonoBehaviour
             StopCoroutine(m_InstructionCoroutine);
 
         m_InstructionCoroutine = StartCoroutine(SetInstructions(InstructionType.LightsOff));
+    }
+
+    private void ShowInteractInstructions()
+    {
+        if (m_InstructionCoroutine != null)
+            StopCoroutine(m_InstructionCoroutine);
+
+        m_InstructionCoroutine = StartCoroutine(SetInstructions(InstructionType.Interact, false));
+    }
+
+    private void StopShowingInstructions()
+    {
+        if (m_InstructionCoroutine != null)
+            StopCoroutine(m_InstructionCoroutine);
+
+        m_InstructionsText.SetText(string.Empty);
+        m_InstructionPopup.SetActive(false);
     }
 
     private void SetRedVignette()
@@ -183,5 +206,6 @@ public enum InstructionType
 {
     PlayerSpawned,
     LightsOff,
+    Interact,
     OpenDoor
 }

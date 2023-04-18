@@ -19,13 +19,19 @@ public class Door : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
+        {
             PlayerInteractionHandler.OnPlayerInteracted += DoorInteraction;
+            UIManager.OnPlayerNearInteractable?.Invoke();
+        }
     }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
+        {
             PlayerInteractionHandler.OnPlayerInteracted -= DoorInteraction;
+            UIManager.OnPlayerNotNearInteractable?.Invoke();
+        }
     }
 
     private void DoorInteraction()
