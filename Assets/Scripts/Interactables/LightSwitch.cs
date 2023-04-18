@@ -13,7 +13,7 @@ public class LightSwitch : MonoBehaviour
 
     private void Start()
     {
-        m_CurrentState = SwitchState.On;
+        m_CurrentState = SwitchState.Off;
         LightsOffEventTrigger.OnLightsOff += OnLigthsOff;
     }
 
@@ -42,7 +42,7 @@ public class LightSwitch : MonoBehaviour
 
     private void OnInteractedWithSwitch()
     {
-        switch(m_CurrentState)
+        switch (m_CurrentState)
         {
             case SwitchState.On:
                 m_CurrentState = SwitchState.Off;
