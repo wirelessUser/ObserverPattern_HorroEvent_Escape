@@ -123,6 +123,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &10142419 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2203743623112579815, guid: d2470b45bfcea9e4780d1866d7cd0f8c, type: 3}
+  m_PrefabInstance: {fileID: 2958658673975465302}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &333025223
 GameObject:
   m_ObjectHideFlags: 0
@@ -2077,6 +2082,105 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!1001 &1489244178
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 10142419}
+    m_Modifications:
+    - target: {fileID: 1319831335411548, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_Name
+      value: Bottlev2
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_RootOrder
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.24999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.25
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.24999994
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.10899937
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.9555317
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.14599992
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+--- !u!1 &1489244179 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 1319831335411548, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}
+  m_PrefabInstance: {fileID: 1489244178}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1489244180
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489244179}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bb1030b30bb78a24282ed6b17523aa48, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!135 &1489244181
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1489244179}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 2.5
+  m_Center: {x: -0.00000023841858, y: 0.42596614, z: -0.000000014901161}
 --- !u!1 &1506977973
 GameObject:
   m_ObjectHideFlags: 0
@@ -2456,8 +2560,11 @@ MonoBehaviour:
     instruction: Standing in darkness will increase your Insanity faster. Use switches
       to turn on Lights and survive.
     displayed: 0
+  - instructionType: 2
+    instruction: Press E to Interact
+    displayed: 0
   m_InstructionDisplayDuration: 6
-  m_RootViewPanel: {fileID: 0}
+  m_RootViewPanel: {fileID: 574964454}
   m_InsanityImage: {fileID: 1506977975}
   m_RedVignette: {fileID: 1550849811}
   m_KeysFoundText: {fileID: 722220107}
@@ -4437,6 +4544,18 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5284993976690606565, guid: d2470b45bfcea9e4780d1866d7cd0f8c, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.622
+      objectReference: {fileID: 0}
+    - target: {fileID: 5284993976690606565, guid: d2470b45bfcea9e4780d1866d7cd0f8c, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.086
+      objectReference: {fileID: 0}
+    - target: {fileID: 6727410243442948164, guid: d2470b45bfcea9e4780d1866d7cd0f8c, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f129fc6bb18d1ff41a3e7adde25203c7, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2470b45bfcea9e4780d1866d7cd0f8c, type: 3}
 --- !u!1 &3020872921440332423
