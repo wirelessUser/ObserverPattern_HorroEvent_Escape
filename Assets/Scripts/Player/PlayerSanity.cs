@@ -13,8 +13,7 @@ public class PlayerSanity : MonoBehaviour
     [SerializeField] private UIManager m_UIManager;
     private float m_MaxSanity;
     private bool m_IsPlayerInDark = false;
-    
-    public static Action OnPlayerDeath;
+    public static Action OnPlayerDeath; // TODO - Remove Static
 
     private void Start()
     {
