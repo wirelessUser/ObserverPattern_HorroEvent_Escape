@@ -27,6 +27,7 @@ public class PlayerSanity : MonoBehaviour
         LightSwitch.OnLightsOn += OnLightsOn;
         RatRushEventTrigger.OnRatRush += OnSupernaturalEvent;
         SkullDropEventTrigger.OnSkullDrop += OnSupernaturalEvent;
+        Potion.OnDrankPotion += OnDrankPotion;
     }
 
     private void OnDisable()
@@ -35,6 +36,7 @@ public class PlayerSanity : MonoBehaviour
         LightSwitch.OnLightsOn -= OnLightsOn;
         RatRushEventTrigger.OnRatRush -= OnSupernaturalEvent;
         SkullDropEventTrigger.OnSkullDrop -= OnSupernaturalEvent;
+        Potion.OnDrankPotion -= OnDrankPotion;
     }
 
     void Update()
@@ -68,6 +70,7 @@ public class PlayerSanity : MonoBehaviour
         m_SanityLevel += amountToIncrease;
         if (m_SanityLevel > 100)
             m_SanityLevel = 100;
+        m_UIManager.UpdateInsanity(1f - m_SanityLevel / m_MaxSanity);
     }
 
 
@@ -91,5 +94,10 @@ public class PlayerSanity : MonoBehaviour
     private void OnSupernaturalEvent()
     {
         DecreaseSanity(m_SanityDropAmountPerEvent);
+    }
+
+    private void OnDrankPotion()
+    {
+        IncreaseSanity(20);
     }
 }
