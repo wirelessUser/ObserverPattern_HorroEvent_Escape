@@ -3,9 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEscapedEventTrigger : MonoBehaviour
+public class PlayerEscapedEventTrigger : EventTrigger
 {
-    public static Action OnPlayerEscaped;
+    /*public static Action OnPlayerEscaped;*/
 
     private void OnTriggerEnter(Collider other)
     {
