@@ -4,13 +4,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class LightsOffEventTrigger : MonoBehaviour
-{   
-    [SerializeField] int m_KeysRequiredToTrigger;
+{
+    [SerializeField] private int m_KeysRequiredToTrigger;
+    private Collider triggerCollider;
     public static Action OnLightsOff;
+
 
     private void Awake()
     {
-        GetComponent<Collider>().isTrigger = true;
+        triggerCollider = GetComponent<Collider>();
+        triggerCollider.isTrigger = true; // We can set this as trigger in prefab itself
     }
 
     private void OnTriggerEnter(Collider other)
@@ -19,6 +22,8 @@ public class LightsOffEventTrigger : MonoBehaviour
         {
             OnLightsOff?.Invoke();
             SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SpookyGiggle, false);
+            triggerCollider.enabled = false;
+
         }
     }
 }
