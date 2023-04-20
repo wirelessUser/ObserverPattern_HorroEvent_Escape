@@ -697,6 +697,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087b504c723c94d4eb3fd9b901e16181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_KeysRequiredToTrigger: 0
 --- !u!1 &1009958302
 GameObject:
   m_ObjectHideFlags: 0
@@ -836,7 +837,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2dd3a0e7cef97e446944ff466916b8dc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_RequiredKeysForEvent: 3
+  m_KeysRequiredToTrigger: 3
 --- !u!65 &7355686457802459229
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1188,7 +1189,7 @@ GameObject:
   - component: {fileID: 1557848010}
   - component: {fileID: 1557848009}
   m_Layer: 0
-  m_Name: LightsOffEventTrigger
+  m_Name: LightsOffEventTrigger-Hallway
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1916,7 +1917,7 @@ GameObject:
   - component: {fileID: 2037498415}
   - component: {fileID: 2037498414}
   m_Layer: 0
-  m_Name: SupernaturalEventTrigger
+  m_Name: LightsOffEventTrigger-GamingRoom
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8270,6 +8271,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8787843487b364ab9d933c1a9bb5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_KeysRequiredToTrigger: 0
 --- !u!1 &3208006595908345156
 GameObject:
   m_ObjectHideFlags: 0
