@@ -109,7 +109,7 @@ public class PlayerController : MonoBehaviour
             Vector3 direction = target.position - transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
             transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            yield return null;
+            yield return null; // is there any reason to introduce co-routines if we are not waiting?
         }
     }
 
