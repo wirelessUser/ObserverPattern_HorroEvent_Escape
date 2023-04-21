@@ -26,7 +26,7 @@ public class LightSwitch : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerInteractionHandler.OnPlayerInteracted += OnInteractedWithSwitch;
+            PlayerInteractedEventTrigger.OnPlayerInteracted += OnInteractedWithSwitch;
             UIManager.OnPlayerNearInteractable?.Invoke();
         }
     }
@@ -35,7 +35,7 @@ public class LightSwitch : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerInteractionHandler.OnPlayerInteracted -= OnInteractedWithSwitch;
+            PlayerInteractedEventTrigger.OnPlayerInteracted -= OnInteractedWithSwitch;
             UIManager.OnPlayerNotNearInteractable?.Invoke();
         }
     }

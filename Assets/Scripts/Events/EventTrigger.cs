@@ -12,6 +12,7 @@ public class EventTrigger : MonoBehaviour
     public static Action OnSkullDrop;
     public static Action OnRatRush;
     public static Action OnPlayerEscaped;
+    public static Action OnPlayerInteracted;
 
     private void Awake()
     {

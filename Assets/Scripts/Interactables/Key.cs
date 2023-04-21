@@ -11,7 +11,7 @@ public class Key : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerInteractionHandler.OnPlayerInteracted += InteractedWithKey;
+            PlayerInteractedEventTrigger.OnPlayerInteracted += InteractedWithKey;
             UIManager.OnPlayerNearInteractable?.Invoke();
         }
     }
@@ -20,7 +20,7 @@ public class Key : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerInteractionHandler.OnPlayerInteracted -= InteractedWithKey;
+            PlayerInteractedEventTrigger.OnPlayerInteracted -= InteractedWithKey;
             UIManager.OnPlayerNotNearInteractable?.Invoke();
         }
     }
@@ -28,7 +28,7 @@ public class Key : MonoBehaviour
     private void InteractedWithKey()
     {
         OnKeyPickedUp?.Invoke();
-        PlayerInteractionHandler.OnPlayerInteracted -= InteractedWithKey;
+        PlayerInteractedEventTrigger.OnPlayerInteracted -= InteractedWithKey;
         SoundManager.OnPlaySoundEffects?.Invoke(SoundType.KeyPickUp, false);
         UIManager.OnPlayerNotNearInteractable?.Invoke();
         gameObject.SetActive(false);

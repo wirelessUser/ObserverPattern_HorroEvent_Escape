@@ -20,7 +20,7 @@ public class Door : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerInteractionHandler.OnPlayerInteracted += DoorInteraction;
+            PlayerInteractedEventTrigger.OnPlayerInteracted += DoorInteraction;
             UIManager.OnPlayerNearInteractable?.Invoke();
         }
     }
@@ -29,7 +29,7 @@ public class Door : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerInteractionHandler.OnPlayerInteracted -= DoorInteraction;
+            PlayerInteractedEventTrigger.OnPlayerInteracted -= DoorInteraction;
             UIManager.OnPlayerNotNearInteractable?.Invoke();
         }
     }
@@ -61,7 +61,7 @@ public class Door : MonoBehaviour
 
     private void OnDestroy()
     {
-        PlayerInteractionHandler.OnPlayerInteracted -= DoorInteraction;
+        PlayerInteractedEventTrigger.OnPlayerInteracted -= DoorInteraction;
     }
 
     public enum DoorState

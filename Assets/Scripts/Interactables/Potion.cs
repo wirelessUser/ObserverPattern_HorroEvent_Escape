@@ -11,7 +11,7 @@ public class Potion : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerInteractionHandler.OnPlayerInteracted += InteractedWithPotion;
+            PlayerInteractedEventTrigger.OnPlayerInteracted += InteractedWithPotion;
             UIManager.OnPlayerNearInteractable?.Invoke();
         }
     }
@@ -20,7 +20,7 @@ public class Potion : MonoBehaviour
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            PlayerInteractionHandler.OnPlayerInteracted -= InteractedWithPotion;
+            PlayerInteractedEventTrigger.OnPlayerInteracted -= InteractedWithPotion;
             UIManager.OnPlayerNotNearInteractable?.Invoke();
         }
     }
@@ -28,7 +28,7 @@ public class Potion : MonoBehaviour
     private void InteractedWithPotion()
     {
         OnDrankPotion?.Invoke();
-        PlayerInteractionHandler.OnPlayerInteracted -= InteractedWithPotion;
+        PlayerInteractedEventTrigger.OnPlayerInteracted -= InteractedWithPotion;
         SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DrinkPotion, false);
         UIManager.OnPlayerNotNearInteractable?.Invoke();
         gameObject.SetActive(false);
