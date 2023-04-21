@@ -3,7 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour
+public class
+    SoundManager : MonoBehaviour
 {
     public AudioSource audioEffects;
     public AudioSource backgroundMusic;
@@ -14,11 +15,13 @@ public class SoundManager : MonoBehaviour
     private void OnEnable()
     {
         OnPlaySoundEffects += PlaySoundEffects;
+        PlayerSanity.OnPlayerDeath += OnPlayerDeath;
     }
 
     private void OnDisable()
     {
         OnPlaySoundEffects -= PlaySoundEffects;
+        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
     }
 
     private void Start()
@@ -78,6 +81,14 @@ public class SoundManager : MonoBehaviour
     {
         backgroundMusic.Stop();
         backgroundMusic.clip = null;
+    }
+
+
+    private void OnPlayerDeath()
+    {
+        Debug.Log("Player Died");
+        OnPlaySoundEffects?.Invoke(SoundType.JumpScare1, false);
+        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
     }
 
 }
