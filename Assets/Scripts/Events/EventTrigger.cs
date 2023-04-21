@@ -14,6 +14,10 @@ public class EventTrigger : MonoBehaviour
     public static Action OnPlayerEscaped;
     public static Action OnPlayerInteracted;
 
+    //Interactables
+    public static Action OnKeyPickedUp;
+    public static Action OnLightsSwitchToggled;
+
     private void Awake()
     {
         triggerCollider = GetComponent<Collider>();
