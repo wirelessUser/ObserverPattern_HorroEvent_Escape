@@ -7,7 +7,7 @@ public class RatSwarm : MonoBehaviour
 {
     [SerializeField] private Transform Rats;
     [SerializeField] private Transform target;
-    [SerializeField] private float speed = 5f;
+    private float speed = 7.5f;
 
     private bool rushActive = false;
     private bool reachedTarget = false;
