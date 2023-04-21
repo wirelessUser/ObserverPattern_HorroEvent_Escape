@@ -4,8 +4,8 @@ using UnityEngine;
 public class CameraController : MonoBehaviour
 {
     private Vector3 originalPosition;
-    [SerializeField] private float m_DefaultShakeDuration; // do not use m_ naming convention , its used in C++ not in C#
-    [SerializeField] private float m_DefaultShakeMagnitude;
+    [SerializeField] private float defaultShakeDuration; // do not use m_ naming convention , its used in C++ not in C#
+    [SerializeField] private float defaultShakeMagnitude;
 
     private void Start()
     {
@@ -30,7 +30,7 @@ public class CameraController : MonoBehaviour
 
     public void Shake()
     {
-        StartCoroutine(ShakeCoroutine(m_DefaultShakeDuration, m_DefaultShakeMagnitude));
+        StartCoroutine(ShakeCoroutine(defaultShakeDuration, defaultShakeMagnitude));
     }
 
     private IEnumerator ShakeCoroutine(float shakeDuration, float shakeMagnitude)

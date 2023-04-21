@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class EventTrigger : MonoBehaviour
 {
-    [SerializeField] protected int m_KeysRequiredToTrigger;
+    [SerializeField] protected int keysRequiredToTrigger;
     protected Collider triggerCollider;
-
 
     public static Action OnLightsOff;
     public static Action OnSkullDrop;
@@ -17,6 +16,5 @@ public class EventTrigger : MonoBehaviour
     private void Awake()
     {
         triggerCollider = GetComponent<Collider>();
-        GetComponent<Collider>().isTrigger = true; // TODO - This thing is not needed, but I havnt removed this bcoz I dont know the reason
     }
 }

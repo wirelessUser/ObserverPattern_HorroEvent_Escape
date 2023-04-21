@@ -10,39 +10,39 @@ public class UIManager : MonoBehaviour
 {
     [Header("Blackout Screen")] 
     [SerializeField]
-    private Image m_BlackOutScreen;
+    private Image blackOutScreen;
     [SerializeField]
-    private float m_BlackoutFadeDuration;
-    private Coroutine m_BlackoutCoroutine;
+    private float blackoutFadeDuration;
+    private Coroutine blackoutCoroutine;
 
     [Header("Instruction Popup")]
     [SerializeField]
-    private GameObject m_InstructionPopup;
+    private GameObject instructionPopup;
     [SerializeField]
-    private TextMeshProUGUI m_InstructionsText;
+    private TextMeshProUGUI instructionsText;
     [SerializeField]
-    private List<Instruction> m_Instructions;
+    private List<Instruction> instructions;
     [SerializeField]
-    private float m_InstructionDisplayDuration;
-    private Coroutine m_InstructionCoroutine;
+    private float instructionDisplayDuration;
+    private Coroutine instructionCoroutine;
 
     [Header("Player Sanity")]
-    [SerializeField] GameObject m_RootViewPanel;
-    [SerializeField] Image m_InsanityImage;
-    [SerializeField] Image m_RedVignette;
+    [SerializeField] GameObject rootViewPanel;
+    [SerializeField] Image insanityImage;
+    [SerializeField] Image redVignette;
 
     [Header("Keys UI")]
-    [SerializeField] TextMeshProUGUI m_KeysFoundText;
+    [SerializeField] TextMeshProUGUI keysFoundText;
 
     [Header("Game Over Panel")]
-    [SerializeField] GameObject m_GameOverPanel;
-    [SerializeField] Button m_TryAgainButton;
-    [SerializeField] Button m_QuitButton;
+    [SerializeField] GameObject gameOverPanel;
+    [SerializeField] Button tryAgainButton;
+    [SerializeField] Button quitButton;
 
     [Header("Game Won Panel")]
-    [SerializeField] GameObject m_GameWonPanel;
-    [SerializeField] Button m_TryAgainButton2;
-    [SerializeField] Button m_QuitButton2;
+    [SerializeField] GameObject gameWonPanel;
+    [SerializeField] Button tryAgainButton2;
+    [SerializeField] Button quitButton2;
 
     public static Action OnPlayerNearInteractable;
     public static Action OnPlayerNotNearInteractable;
@@ -60,10 +60,10 @@ public class UIManager : MonoBehaviour
         OnPlayerNearInteractable += ShowInteractInstructions;
         OnPlayerNotNearInteractable += StopShowingInstructions;
 
-        m_TryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
-        m_QuitButton.onClick.AddListener(OnQuitButtonClicked);
-        m_TryAgainButton2.onClick.AddListener(OnTryAgainButtonClicked);
-        m_QuitButton2.onClick.AddListener(OnQuitButtonClicked);
+        tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
+        quitButton.onClick.AddListener(OnQuitButtonClicked);
+        tryAgainButton2.onClick.AddListener(OnTryAgainButtonClicked);
+        quitButton2.onClick.AddListener(OnQuitButtonClicked);
     }
 
     private void OnDisable()
@@ -82,29 +82,29 @@ public class UIManager : MonoBehaviour
 
     private void Start()
     {
-        if (m_BlackoutCoroutine != null)
-            StopCoroutine(m_BlackoutCoroutine);
+        if (blackoutCoroutine != null)
+            StopCoroutine(blackoutCoroutine);
 
-        m_BlackoutCoroutine = StartCoroutine(ToggleBlackoutScreen(false, () =>
+        blackoutCoroutine = StartCoroutine(ToggleBlackoutScreen(false, () =>
         {
-            if (m_InstructionCoroutine != null)
-                StopCoroutine(m_InstructionCoroutine);
+            if (instructionCoroutine != null)
+                StopCoroutine(instructionCoroutine);
 
-            m_InstructionCoroutine = StartCoroutine(SetInstructions(InstructionType.PlayerSpawned));
+            instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.PlayerSpawned));
         }));
     }
 
     private IEnumerator ToggleBlackoutScreen(bool setActive, Action callback = null)
     {
-        m_BlackOutScreen.CrossFadeAlpha(setActive?1f:0f, m_BlackoutFadeDuration, true);
-        yield return new WaitForSeconds(m_BlackoutFadeDuration);
+        blackOutScreen.CrossFadeAlpha(setActive?1f:0f, blackoutFadeDuration, true);
+        yield return new WaitForSeconds(blackoutFadeDuration);
         callback?.Invoke();
     }
     
     private IEnumerator SetInstructions(InstructionType type, bool oneShot = true)
     {
         string instructionToSet = "";
-        foreach (Instruction instruction in m_Instructions)
+        foreach (Instruction instruction in instructions)
         {
             if (instruction.instructionType == type && !instruction.displayed)
             {
@@ -114,55 +114,55 @@ public class UIManager : MonoBehaviour
             }
         }
 
-        m_InstructionPopup.SetActive(true);
-        m_InstructionsText.SetText(instructionToSet);
+        instructionPopup.SetActive(true);
+        instructionsText.SetText(instructionToSet);
 
-        yield return new WaitForSeconds(m_InstructionDisplayDuration);
+        yield return new WaitForSeconds(instructionDisplayDuration);
 
-        m_InstructionsText.SetText(string.Empty);
-        m_InstructionPopup.SetActive(false);
+        instructionsText.SetText(string.Empty);
+        instructionPopup.SetActive(false);
     }
 
     public void UpdateInsanity(float playerSanity)
     {
-        m_InsanityImage.rectTransform.localScale = new Vector3(1, playerSanity, 1);
+        insanityImage.rectTransform.localScale = new Vector3(1, playerSanity, 1);
     }
 
     private void OnKeyEquipped()
     {
-        m_KeysFoundText.SetText($"Keys Found: {PlayerController.KeysEquipped}/3");
+        keysFoundText.SetText($"Keys Found: {PlayerController.KeysEquipped}/3");
     }
 
     private void ShowLightOffInstructions()
     {
-        if (m_InstructionCoroutine != null)
-            StopCoroutine(m_InstructionCoroutine);
+        if (instructionCoroutine != null)
+            StopCoroutine(instructionCoroutine);
 
-        m_InstructionCoroutine = StartCoroutine(SetInstructions(InstructionType.LightsOff));
+        instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.LightsOff));
     }
 
     private void ShowInteractInstructions()
     {
-        if (m_InstructionCoroutine != null)
-            StopCoroutine(m_InstructionCoroutine);
+        if (instructionCoroutine != null)
+            StopCoroutine(instructionCoroutine);
 
-        m_InstructionCoroutine = StartCoroutine(SetInstructions(InstructionType.Interact, false));
+        instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.Interact, false));
     }
 
     private void StopShowingInstructions()
     {
-        if (m_InstructionCoroutine != null)
-            StopCoroutine(m_InstructionCoroutine);
+        if (instructionCoroutine != null)
+            StopCoroutine(instructionCoroutine);
 
-        m_InstructionsText.SetText(string.Empty);
-        m_InstructionPopup.SetActive(false);
+        instructionsText.SetText(string.Empty);
+        instructionPopup.SetActive(false);
     }
 
     private void SetRedVignette()
     {
-        m_RedVignette.enabled = true;
-        m_RedVignette.canvasRenderer.SetAlpha(0.5f);
-        m_RedVignette.CrossFadeAlpha(0,5,false);
+        redVignette.enabled = true;
+        redVignette.canvasRenderer.SetAlpha(0.5f);
+        redVignette.CrossFadeAlpha(0,5,false);
     }
 
     private void OnPlayerDeath()
@@ -173,7 +173,7 @@ public class UIManager : MonoBehaviour
     private IEnumerator ToggleGameOverPanel()
     {
         yield return new WaitForSeconds(2f);
-        m_GameOverPanel.SetActive(true);
+        gameOverPanel.SetActive(true);
     }
 
     private void OnQuitButtonClicked()
@@ -188,7 +188,7 @@ public class UIManager : MonoBehaviour
 
     private void OnPlayerEscaped()
     {
-        m_GameWonPanel.SetActive(true);
+        gameWonPanel.SetActive(true);
     }
 
 }

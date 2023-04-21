@@ -6,14 +6,14 @@ using UnityEngine.Experimental.GlobalIllumination;
 
 public class LightSwitch : MonoBehaviour
 {
-    [SerializeField] private List<Light> m_Lightsources = new List<Light>();
-    private SwitchState m_CurrentState;
+    [SerializeField] private List<Light> lightsources = new List<Light>();
+    private SwitchState currentState;
 
     public static Action OnLightsOn;
 
     private void Start()
     {
-        m_CurrentState = SwitchState.Off;
+        currentState = SwitchState.Off;
         LightsOffEventTrigger.OnLightsOff += OnLigthsOff;
     }
 
@@ -42,14 +42,14 @@ public class LightSwitch : MonoBehaviour
 
     private void OnInteractedWithSwitch()
     {
-        switch (m_CurrentState)
+        switch (currentState)
         {
             case SwitchState.On:
-                m_CurrentState = SwitchState.Off;
+                currentState = SwitchState.Off;
                 ToggleLights(false);
                 break;
             case SwitchState.Off:
-                m_CurrentState = SwitchState.On;
+                currentState = SwitchState.On;
                 ToggleLights(true);
                 OnLightsOn?.Invoke();
                 break;
@@ -62,7 +62,7 @@ public class LightSwitch : MonoBehaviour
     {
         SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SwitchSound, false);
 
-        foreach (Light lightSource in m_Lightsources)
+        foreach (Light lightSource in lightsources)
         {
             lightSource.enabled = setActive;
         }
@@ -71,7 +71,7 @@ public class LightSwitch : MonoBehaviour
     private void OnLigthsOff()
     {
         ToggleLights(false);
-        m_CurrentState = SwitchState.Off;
+        currentState = SwitchState.Off;
     }
 
     public enum SwitchState

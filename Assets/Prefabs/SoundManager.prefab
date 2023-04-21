@@ -44,9 +44,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4442a4e3b327ab44fb645202c49a95e0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_AudioEffects: {fileID: 0}
-  m_BackgroundMusic: {fileID: 0}
-  AudioList:
+  audioEffects: {fileID: 0}
+  backgroundMusic: {fileID: 0}
+  audioList:
   - soundType: 0
     audio: {fileID: 8300000, guid: fd85da68db32afe4c990c066ed309ef1, type: 3}
   - soundType: 1

@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class PlayerEscapedEventTrigger : EventTrigger
 {
-    /*public static Action OnPlayerEscaped;*/
-
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)

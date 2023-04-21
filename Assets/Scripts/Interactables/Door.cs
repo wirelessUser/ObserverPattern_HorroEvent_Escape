@@ -5,15 +5,15 @@ using UnityEngine;
 public class Door : MonoBehaviour
 {
     [SerializeField]
-    private float m_SwingAngle;
+    private float swingAngle;
     [SerializeField]
-    private int m_RequiredKeys;
+    private int requiredKeys;
 
-    private DoorState m_CurrentState;
+    private DoorState currentState;
 
     private void Start()
     {
-        m_CurrentState = DoorState.Locked;
+        currentState = DoorState.Locked;
     }
 
     private void OnTriggerEnter(Collider other)
@@ -36,24 +36,24 @@ public class Door : MonoBehaviour
 
     private void DoorInteraction()
     {
-        switch (m_CurrentState)
+        switch (currentState)
         {
             case DoorState.Locked:
-                if (PlayerController.KeysEquipped >= m_RequiredKeys)
+                if (PlayerController.KeysEquipped >= requiredKeys)
                 {
-                    transform.Rotate(0f, transform.rotation.y + m_SwingAngle, 0f);
-                    m_CurrentState = DoorState.Open;
+                    transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
+                    currentState = DoorState.Open;
                     SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorOpen, false);
                 }
                 break;
             case DoorState.Close:
-                transform.Rotate(0f, transform.rotation.y + m_SwingAngle, 0f);
-                m_CurrentState = DoorState.Open;
+                transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
+                currentState = DoorState.Open;
                 SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorOpen, false);
                 break;
             case DoorState.Open:
-                transform.Rotate(0f, transform.rotation.y - m_SwingAngle, 0f);
-                m_CurrentState = DoorState.Close;
+                transform.Rotate(0f, transform.rotation.y - swingAngle, 0f);
+                currentState = DoorState.Close;
                 SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorSlam, false);
                 break;
         }

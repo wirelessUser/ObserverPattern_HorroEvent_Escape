@@ -7,17 +7,17 @@ using System;
 /// </summary>
 public class PlayerSanity : MonoBehaviour
 {
-    [SerializeField] private float m_SanityLevel = 100.0f;
-    [SerializeField] private float m_SanityDropRate = 0.1f;
-    [SerializeField] private float m_SanityDropAmountPerEvent = 10f;
-    [SerializeField] private UIManager m_UIManager;
-    private float m_MaxSanity;
-    private bool m_IsPlayerInDark = false;
+    [SerializeField] private float sanityLevel = 100.0f;
+    [SerializeField] private float sanityDropRate = 0.2f;
+    [SerializeField] private float sanityDropAmountPerEvent = 10f;
+    [SerializeField] private UIManager UIManager;
+    private float maxSanity;
+    private bool isPlayerInDark = false;
     public static Action OnPlayerDeath; // TODO - Remove Static
 
     private void Start()
     {
-        m_MaxSanity = m_SanityLevel;
+        maxSanity = sanityLevel;
     }
 
     private void OnEnable()
@@ -40,10 +40,10 @@ public class PlayerSanity : MonoBehaviour
 
     void Update()
     {
-        if (m_IsPlayerInDark)
-            DecreaseSanity(m_SanityDropRate * Time.deltaTime * 10);
+        if (isPlayerInDark)
+            DecreaseSanity(sanityDropRate * Time.deltaTime * 10);
         else
-            DecreaseSanity(m_SanityDropRate * Time.deltaTime);
+            DecreaseSanity(sanityDropRate * Time.deltaTime);
 
         // Hotkeys:
         if (Input.GetKeyDown(KeyCode.P))
@@ -55,21 +55,21 @@ public class PlayerSanity : MonoBehaviour
 
     public void DecreaseSanity(float amountToDecrease)
     {
-        m_SanityLevel -= amountToDecrease;
-        if (m_SanityLevel <= 0)
+        sanityLevel -= amountToDecrease;
+        if (sanityLevel <= 0)
         {
-            m_SanityLevel = 0;
+            sanityLevel = 0;
             GameOver();
         }
-        m_UIManager.UpdateInsanity(1f - m_SanityLevel / m_MaxSanity);
+        UIManager.UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 
     public void IncreaseSanity(float amountToIncrease)
     {
-        m_SanityLevel += amountToIncrease;
-        if (m_SanityLevel > 100)
-            m_SanityLevel = 100;
-        m_UIManager.UpdateInsanity(1f - m_SanityLevel / m_MaxSanity);
+        sanityLevel += amountToIncrease;
+        if (sanityLevel > 100)
+            sanityLevel = 100;
+        UIManager.UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 
 
@@ -82,17 +82,17 @@ public class PlayerSanity : MonoBehaviour
 
     private void OnLightsOff()
     {
-        m_IsPlayerInDark = true;
+        isPlayerInDark = true;
     }
 
     private void OnLightsOn()
     {
-        m_IsPlayerInDark = false;
+        isPlayerInDark = false;
     }
 
     private void OnSupernaturalEvent()
     {
-        DecreaseSanity(m_SanityDropAmountPerEvent);
+        DecreaseSanity(sanityDropAmountPerEvent);
     }
 
     private void OnDrankPotion()

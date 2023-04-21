@@ -5,10 +5,9 @@ using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public AudioSource m_AudioEffects;
-    public AudioSource m_BackgroundMusic;
-
-    public Sounds[] AudioList;
+    public AudioSource audioEffects;
+    public AudioSource backgroundMusic;
+    public Sounds[] audioList;
 
     public static Action<SoundType, bool> OnPlaySoundEffects;
 
@@ -33,8 +32,8 @@ public class SoundManager : MonoBehaviour
         AudioClip clip = GetSoundClip(soundType);
         if (clip != null)
         {
-            m_AudioEffects.loop = loopSound;
-            m_AudioEffects.PlayOneShot(clip);
+            audioEffects.loop = loopSound;
+            audioEffects.PlayOneShot(clip);
         }
         else
         {
@@ -48,8 +47,8 @@ public class SoundManager : MonoBehaviour
         AudioClip clip = GetSoundClip(soundType);
         if (clip != null)
         {
-            m_BackgroundMusic.loop = loopSound;
-            m_BackgroundMusic.PlayOneShot(clip);
+            backgroundMusic.loop = loopSound;
+            backgroundMusic.PlayOneShot(clip);
         }
         else
         {
@@ -60,7 +59,7 @@ public class SoundManager : MonoBehaviour
     // Fetches the Sound Clip for the given SoundType.
     private AudioClip GetSoundClip(SoundType soundType)
     {
-        Sounds st = Array.Find(AudioList, item => item.soundType == soundType);
+        Sounds st = Array.Find(audioList, item => item.soundType == soundType);
         if (st != null)
         {
             return st.audio;
@@ -71,14 +70,14 @@ public class SoundManager : MonoBehaviour
     // Sets the audio clip to null.
     public void StopSoundEffect()
     {
-        m_AudioEffects.Stop();
-        m_AudioEffects.clip = null;
+        audioEffects.Stop();
+        audioEffects.clip = null;
     }
 
     public void StopBackgroundMusic()
     {
-        m_BackgroundMusic.Stop();
-        m_BackgroundMusic.clip = null;
+        backgroundMusic.Stop();
+        backgroundMusic.clip = null;
     }
 
 }
