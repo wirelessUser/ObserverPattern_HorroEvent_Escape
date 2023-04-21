@@ -75,8 +75,6 @@ public class PlayerSanity : MonoBehaviour
 
     void GameOver()
     {
-        // Implement game over logic here
-        SoundManager.OnPlaySoundEffects?.Invoke(SoundType.JumpScare1, false);
         OnPlayerDeath?.Invoke();
     }
 

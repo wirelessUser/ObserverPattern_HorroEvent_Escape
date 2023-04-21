@@ -94,8 +94,10 @@ public class PlayerController : MonoBehaviour
 
     private void OnPlayerDeath()
     {
+        Debug.Log("Player Controller, OnPlayerDeath");
         slenderMan.position += slenderManOffset;
         slenderMan.gameObject.SetActive(true);
+        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
         slenderMan.LookAt(transform.position + slenderManLookAtOffset);
         // m_SlenderMan.localRotation = Quaternion.Euler(0,m_SlenderMan.rotation.y, 0);
 
