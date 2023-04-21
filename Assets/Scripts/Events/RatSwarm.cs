@@ -13,10 +13,6 @@ public class RatSwarm : MonoBehaviour
     private bool reachedTarget = false;
     private Coroutine RatRushCorroutine;
 
-    private void Awake()
-    {
-        Rats.gameObject.SetActive(false);
-    }
 
     private void OnEnable()
     {
