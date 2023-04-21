@@ -95,24 +95,7 @@ public class PlayerController : MonoBehaviour
     private void OnPlayerDeath()
     {
         Debug.Log("Player Controller, OnPlayerDeath");
-        slenderMan.position += slenderManOffset;
-        slenderMan.gameObject.SetActive(true);
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
-        slenderMan.LookAt(transform.position + slenderManLookAtOffset);
-        // m_SlenderMan.localRotation = Quaternion.Euler(0,m_SlenderMan.rotation.y, 0);
-
-        StartCoroutine(RotateCameraToTarget(jumpScareLookAtTarget, jumpScareRotationSpeed));
-    }
-
-    private IEnumerator RotateCameraToTarget(Transform target, float rotationSpeed)
-    {
-        while (transform.rotation != Quaternion.LookRotation((target.position - transform.position).normalized, Vector3.up))
-        {
-            Vector3 direction = target.position - transform.position;
-            Quaternion targetRotation = Quaternion.LookRotation(direction.normalized, Vector3.up);
-            transform.rotation = Quaternion.RotateTowards(transform.rotation, targetRotation, rotationSpeed * Time.deltaTime);
-            yield return null; // is there any reason to introduce co-routines if we are not waiting?
-        }
     }
 
     private void DisableControls()
