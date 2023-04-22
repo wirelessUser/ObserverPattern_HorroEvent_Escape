@@ -10,6 +10,7 @@ public class
     public AudioSource backgroundMusic;
     public Sounds[] audioList;
 
+    //Todo - Make SoundManager Singleton -> Move this Action into EventManager
     public static Action<SoundType, bool> OnPlaySoundEffects;
 
     private void OnEnable()
