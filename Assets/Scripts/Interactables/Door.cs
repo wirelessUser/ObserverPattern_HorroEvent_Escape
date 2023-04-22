@@ -26,18 +26,18 @@ public class Door : Interactable
                 {
                     transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
                     currentState = DoorState.Open;
-                    SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorOpen, false);
+                    SoundManager.Instance.PlaySoundEffects(SoundType.DoorOpen, false);
                 }
                 break;
             case DoorState.Close:
                 transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
                 currentState = DoorState.Open;
-                SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorOpen, false);
+                SoundManager.Instance.PlaySoundEffects(SoundType.DoorOpen, false);
                 break;
             case DoorState.Open:
                 transform.Rotate(0f, transform.rotation.y - swingAngle, 0f);
                 currentState = DoorState.Close;
-                SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DoorSlam, false);
+                SoundManager.Instance.PlaySoundEffects(SoundType.DoorSlam, false);
                 break;
         }
     }

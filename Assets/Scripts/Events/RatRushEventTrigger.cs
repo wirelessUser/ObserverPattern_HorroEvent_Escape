@@ -9,8 +9,8 @@ public class RatRushEventTrigger : CoreEventTrigger
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            EventManager.instance.InvokeOnRatRush();
-            SoundManager.OnPlaySoundEffects?.Invoke(SoundType.JumpScare2, false);
+            EventManager.Instance.InvokeOnRatRush();
+            SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare2, false);
             triggerCollider.enabled = false;
         }
     }

@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EventManager : MonoBehaviour
+public class EventManager : GenericMonoSingleton<EventManager>
 {
 
     //Core Game Events
@@ -17,22 +17,10 @@ public class EventManager : MonoBehaviour
     public static event Action OnPotionDrink;
     public static event Action<bool> OnLightsSwitchToggled;
 
-
-    public static EventManager instance;
-
-    private void Awake()
+    protected override void Awake()
     {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-            Debug.LogError("Event Manager instance already exists");
-        }
+        base.Awake();
     }
-
 
     public void InvokeOnPotionDrink()
     {

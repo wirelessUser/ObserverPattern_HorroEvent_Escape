@@ -3,25 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class
-    SoundManager : MonoBehaviour
+public class SoundManager : GenericMonoSingleton<SoundManager>
 {
     public AudioSource audioEffects;
     public AudioSource backgroundMusic;
     public Sounds[] audioList;
 
-    //Todo - Make SoundManager Singleton -> Move this Action into EventManager
-    public static Action<SoundType, bool> OnPlaySoundEffects;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
 
     private void OnEnable()
     {
-        OnPlaySoundEffects += PlaySoundEffects;
         PlayerSanity.OnPlayerDeath += OnPlayerDeath;
     }
 
     private void OnDisable()
     {
-        OnPlaySoundEffects -= PlaySoundEffects;
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
     }
 
@@ -31,7 +31,7 @@ public class
     }
 
     // Plays the given SoundType as Sound Effects.
-    private void PlaySoundEffects(SoundType soundType, bool loopSound = false)
+    public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
     {
         AudioClip clip = GetSoundClip(soundType);
         if (clip != null)
@@ -46,7 +46,7 @@ public class
     }
 
     // Plays the given SoundType as Background Music.
-    private void PlayBackgroundMusic(SoundType soundType, bool loopSound = false)
+    public void PlayBackgroundMusic(SoundType soundType, bool loopSound = false)
     {
         AudioClip clip = GetSoundClip(soundType);
         if (clip != null)
@@ -88,7 +88,7 @@ public class
     private void OnPlayerDeath()
     {
         Debug.Log("Player Died");
-        OnPlaySoundEffects?.Invoke(SoundType.JumpScare1, false);
+        PlaySoundEffects(SoundType.JumpScare1, false);
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
     }
 

@@ -49,7 +49,7 @@ public class LightSwitch : Interactable
                 break;
         }
 
-        EventManager.instance.InvokeOnLightsSwitchToggled(lights);
+        EventManager.Instance.InvokeOnLightsSwitchToggled(lights);
 
         foreach (Light lightSource in lightsources)
         {
@@ -68,7 +68,7 @@ public class LightSwitch : Interactable
             currentState = SwitchState.Off;
         }
 
-        EventManager.instance.InvokeOnLightsSwitchToggled(lights);
+        EventManager.Instance.InvokeOnLightsSwitchToggled(lights);
         foreach (Light lightSource in lightsources)
         {
             lightSource.enabled = lights;
@@ -80,12 +80,12 @@ public class LightSwitch : Interactable
         base.Interact();
         Debug.Log("Light Switch Toggled");
         ToggleLights();
-        SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SwitchSound, false);
+        SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
         UIManager.instance.ShowInteractInstructions(false);
     }
     private void OnLightsOffByGhostEvent()
     {
-        SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SwitchSound, false);
+        SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
         setLights(false);
     }
 }

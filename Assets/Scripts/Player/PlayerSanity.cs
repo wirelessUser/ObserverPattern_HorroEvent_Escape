@@ -51,7 +51,7 @@ public class
         // Hotkeys:
         if (Input.GetKeyDown(KeyCode.P))
         {
-            SoundManager.OnPlaySoundEffects?.Invoke(SoundType.JumpScare1, false);
+            SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare1, false);
             OnPlayerDeath?.Invoke();
         }
     }

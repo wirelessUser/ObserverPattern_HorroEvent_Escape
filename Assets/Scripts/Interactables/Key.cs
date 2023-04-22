@@ -12,8 +12,8 @@ public class Key : Interactable
         base.Interact();
         keysEquipped++;
 
-        EventManager.instance.InvokeOnKeyPickedUp(keysEquipped);
-        SoundManager.OnPlaySoundEffects?.Invoke(SoundType.KeyPickUp, false);
+        EventManager.Instance.InvokeOnKeyPickedUp(keysEquipped);
+        SoundManager.Instance.PlaySoundEffects(SoundType.KeyPickUp, false);
         gameObject.SetActive(false);
     }
 }

@@ -9,8 +9,8 @@ public class SkullDropEventTrigger : CoreEventTrigger
     {
         if (other.GetComponent<PlayerController>() != null && PlayerController.KeysEquipped >= keysRequiredToTrigger)
         {
-            EventManager.instance.InvokeOnSkullDrop();
-            SoundManager.OnPlaySoundEffects?.Invoke(SoundType.JumpScare1, false);
+            EventManager.Instance.InvokeOnSkullDrop();
+            SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare1, false);
             triggerCollider.enabled = false;
         }
     }
