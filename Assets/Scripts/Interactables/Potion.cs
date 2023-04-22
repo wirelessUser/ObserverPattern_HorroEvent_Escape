@@ -8,7 +8,7 @@ public class Potion : Interactable
     public override void Interact()
     {
         base.Interact();
-        OnPotionDrink?.Invoke();
+        EventManager.instance.InvokeOnPotionDrink();
         SoundManager.OnPlaySoundEffects?.Invoke(SoundType.DrinkPotion, false);
         gameObject.SetActive(false);
     }
