@@ -9,7 +9,7 @@ public class LightsOffEventTrigger : EventTrigger
     {
         if (other.GetComponent<PlayerController>() != null && PlayerController.KeysEquipped == keysRequiredToTrigger)
         {
-            OnLightsOff?.Invoke();
+            OnLightsOffByGhost?.Invoke();
             SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SpookyGiggle, false);
             triggerCollider.enabled = false;
 

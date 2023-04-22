@@ -4,34 +4,39 @@ using UnityEngine;
 
 public class PlayerInteractedEventTrigger : EventTrigger
 {
+    private bool Isinteracted;
 
-    /*  private void Update()
-      {
-          if (Input.GetKeyDown(KeyCode.E))
-              OnPlayerInteracted?.Invoke();
-      }*/
-    private void OnTriggerStay(Collider other)
+    private void Update()
     {
-        if (other.GetComponent<Interactable>() != null)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            // PlayerInteractedEventTrigger.OnPlayerInteracted += InteractedWithKey;
-            UIManager.OnPlayerNearInteractable?.Invoke();
-
-            if (Input.GetKeyDown(KeyCode.E))
-            {
-                Debug.Log("Player Interacted");
-                OnPlayerInteracted?.Invoke();
-                other.GetComponent<Interactable>().Interact();
-            }
+            Isinteracted = true;
         }
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Interactable>() != null)
+        {
+            UIManager.OnPlayerNearInteractable?.Invoke();
+        }
+    }
+
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.GetComponent<Interactable>() != null && Isinteracted)
+        {
+            Isinteracted = false;
+            Debug.Log("Player Entered Interacted");
+            other.GetComponent<Interactable>().Interact();
+        }
+    }
 
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<Interactable>() != null)
         {
-            // PlayerInteractedEventTrigger.OnPlayerInteracted -= InteractedWithKey;
+            Debug.Log("Player Entered near Interactable");
             UIManager.OnPlayerNotNearInteractable?.Invoke();
         }
     }

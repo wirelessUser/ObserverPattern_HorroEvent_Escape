@@ -5,7 +5,8 @@ using System;
 /// <summary>
 /// Responsible for handling Sanity of our Player
 /// </summary>
-public class PlayerSanity : MonoBehaviour
+public class
+    PlayerSanity : MonoBehaviour
 {
     [SerializeField] private float sanityLevel = 100.0f;
     [SerializeField] private float sanityDropRate = 0.2f;
@@ -22,20 +23,20 @@ public class PlayerSanity : MonoBehaviour
 
     private void OnEnable()
     {
-        LightsOffEventTrigger.OnLightsOff += OnLightsOff;
-        LightSwitch.OnLightsOn += OnLightsOn;
+        LightsOffEventTrigger.OnLightsOffByGhost += OnLightsOffByGhost;
+        LightSwitch.OnLightsSwitchToggled += OnLightsToggled;
         RatRushEventTrigger.OnRatRush += OnSupernaturalEvent;
         SkullDropEventTrigger.OnSkullDrop += OnSupernaturalEvent;
-        Potion.OnDrankPotion += OnDrankPotion;
+        Potion.OnPotionDrink += OnDrankPotion;
     }
 
     private void OnDisable()
     {
-        LightsOffEventTrigger.OnLightsOff -= OnLightsOff;
-        LightSwitch.OnLightsOn -= OnLightsOn;
+        LightsOffEventTrigger.OnLightsOffByGhost -= OnLightsOffByGhost;
+        LightSwitch.OnLightsSwitchToggled -= OnLightsToggled;
         RatRushEventTrigger.OnRatRush -= OnSupernaturalEvent;
         SkullDropEventTrigger.OnSkullDrop -= OnSupernaturalEvent;
-        Potion.OnDrankPotion -= OnDrankPotion;
+        Potion.OnPotionDrink -= OnDrankPotion;
     }
 
     void Update()
@@ -78,14 +79,14 @@ public class PlayerSanity : MonoBehaviour
         OnPlayerDeath?.Invoke();
     }
 
-    private void OnLightsOff()
+    private void OnLightsOffByGhost()
     {
         isPlayerInDark = true;
     }
 
-    private void OnLightsOn()
+    private void OnLightsToggled(bool lightsState)
     {
-        isPlayerInDark = false;
+        isPlayerInDark = !lightsState;
     }
 
     private void OnSupernaturalEvent()

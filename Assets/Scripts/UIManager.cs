@@ -8,7 +8,7 @@ using UnityEngine.SceneManagement;
 
 public class UIManager : MonoBehaviour
 {
-    [Header("Blackout Screen")] 
+    [Header("Blackout Screen")]
     [SerializeField]
     private Image blackOutScreen;
     [SerializeField]
@@ -49,9 +49,9 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        PlayerController.OnKeyEquipped += OnKeyEquipped;
-        LightsOffEventTrigger.OnLightsOff += ShowLightOffInstructions;
-        LightsOffEventTrigger.OnLightsOff += SetRedVignette;
+        Key.OnKeyPickedUp += OnKeyEquipped;
+        LightsOffEventTrigger.OnLightsOffByGhost += ShowLightOffInstructions;
+        LightsOffEventTrigger.OnLightsOffByGhost += SetRedVignette;
         RatRushEventTrigger.OnRatRush += SetRedVignette;
         SkullDropEventTrigger.OnSkullDrop += SetRedVignette;
         PlayerSanity.OnPlayerDeath += SetRedVignette;
@@ -68,9 +68,9 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        PlayerController.OnKeyEquipped -= OnKeyEquipped;
-        LightsOffEventTrigger.OnLightsOff -= ShowLightOffInstructions;
-        LightsOffEventTrigger.OnLightsOff -= SetRedVignette;
+        Key.OnKeyPickedUp -= OnKeyEquipped;
+        LightsOffEventTrigger.OnLightsOffByGhost -= ShowLightOffInstructions;
+        LightsOffEventTrigger.OnLightsOffByGhost -= SetRedVignette;
         RatRushEventTrigger.OnRatRush -= SetRedVignette;
         SkullDropEventTrigger.OnSkullDrop -= SetRedVignette;
         PlayerSanity.OnPlayerDeath -= SetRedVignette;
@@ -96,11 +96,11 @@ public class UIManager : MonoBehaviour
 
     private IEnumerator ToggleBlackoutScreen(bool setActive, Action callback = null)
     {
-        blackOutScreen.CrossFadeAlpha(setActive?1f:0f, blackoutFadeDuration, true);
+        blackOutScreen.CrossFadeAlpha(setActive ? 1f : 0f, blackoutFadeDuration, true);
         yield return new WaitForSeconds(blackoutFadeDuration);
         callback?.Invoke();
     }
-    
+
     private IEnumerator SetInstructions(InstructionType type, bool oneShot = true)
     {
         string instructionToSet = "";
@@ -128,9 +128,9 @@ public class UIManager : MonoBehaviour
         insanityImage.rectTransform.localScale = new Vector3(1, playerSanity, 1);
     }
 
-    private void OnKeyEquipped()
+    private void OnKeyEquipped(int keys)
     {
-        keysFoundText.SetText($"Keys Found: {PlayerController.KeysEquipped}/3");
+        keysFoundText.SetText($"Keys Found: {keys}/3");
     }
 
     private void ShowLightOffInstructions()
@@ -162,7 +162,7 @@ public class UIManager : MonoBehaviour
     {
         redVignette.enabled = true;
         redVignette.canvasRenderer.SetAlpha(0.5f);
-        redVignette.CrossFadeAlpha(0,5,false);
+        redVignette.CrossFadeAlpha(0, 5, false);
     }
 
     private void OnPlayerDeath()

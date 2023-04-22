@@ -4,73 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class LightSwitch : MonoBehaviour
+public class LightSwitch : Interactable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
     private SwitchState currentState;
 
-    public static Action OnLightsOn;
-
-    private void Start()
+    private void OnEnable()
     {
-        currentState = SwitchState.Off;
-        LightsOffEventTrigger.OnLightsOff += OnLigthsOff;
+        LightsOffEventTrigger.OnLightsOffByGhost += OnLightsOffByGhostEvent;
     }
-
     private void OnDisable()
     {
-        LightsOffEventTrigger.OnLightsOff -= OnLigthsOff;
+        LightsOffEventTrigger.OnLightsOffByGhost -= OnLightsOffByGhostEvent;
     }
-
-    private void OnTriggerEnter(Collider other)
+    private void Start()
     {
-        if (other.GetComponent<PlayerController>() != null)
-        {
-            PlayerInteractedEventTrigger.OnPlayerInteracted += OnInteractedWithSwitch;
-            UIManager.OnPlayerNearInteractable?.Invoke();
-        }
-    }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<PlayerController>() != null)
-        {
-            PlayerInteractedEventTrigger.OnPlayerInteracted -= OnInteractedWithSwitch;
-            UIManager.OnPlayerNotNearInteractable?.Invoke();
-        }
-    }
-
-    private void OnInteractedWithSwitch()
-    {
-        switch (currentState)
-        {
-            case SwitchState.On:
-                currentState = SwitchState.Off;
-                ToggleLights(false);
-                break;
-            case SwitchState.Off:
-                currentState = SwitchState.On;
-                ToggleLights(true);
-                OnLightsOn?.Invoke();
-                break;
-            case SwitchState.Unresponsive:
-                break;
-        }
-    }
-
-    private void ToggleLights(bool setActive)
-    {
-        SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SwitchSound, false);
-
-        foreach (Light lightSource in lightsources)
-        {
-            lightSource.enabled = setActive;
-        }
-    }
-
-    private void OnLigthsOff()
-    {
-        ToggleLights(false);
         currentState = SwitchState.Off;
     }
 
@@ -79,5 +27,63 @@ public class LightSwitch : MonoBehaviour
         On,
         Off,
         Unresponsive
+    }
+
+    private void ToggleLights()
+    {
+        bool lights = false;
+
+        switch (currentState)
+        {
+            case SwitchState.On:
+                currentState = SwitchState.Off;
+                lights = false;
+                break;
+            case SwitchState.Off:
+                currentState = SwitchState.On;
+                lights = true;
+                break;
+            case SwitchState.Unresponsive:
+                break;
+        }
+
+        OnLightsSwitchToggled?.Invoke(lights);
+
+        foreach (Light lightSource in lightsources)
+        {
+            lightSource.enabled = lights;
+        }
+    }
+
+    private void setLights(bool lights)
+    {
+        if (lights)
+        {
+            currentState = SwitchState.On;
+        }
+        else
+        {
+            currentState = SwitchState.Off;
+        }
+
+        OnLightsSwitchToggled?.Invoke(lights);
+        foreach (Light lightSource in lightsources)
+        {
+            lightSource.enabled = lights;
+        }
+    }
+
+    public override void Interact()
+    {
+        base.Interact();
+        Debug.Log("Light Switch Toggled");
+        ToggleLights();
+        SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SwitchSound, false);
+        UIManager.OnPlayerNotNearInteractable?.Invoke();
+    }
+    private void OnLightsOffByGhostEvent()
+    {
+        SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SwitchSound, false);
+        setLights(false);
     }
 }

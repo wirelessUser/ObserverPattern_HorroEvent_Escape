@@ -2,44 +2,27 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour
+public class Door : Interactable
 {
     [SerializeField]
     private float swingAngle;
-    [SerializeField]
-    private int requiredKeys;
-
     private DoorState currentState;
 
     private void Start()
     {
         currentState = DoorState.Locked;
     }
-
-    private void OnTriggerEnter(Collider other)
+    public override void Interact()
     {
-        if (other.GetComponent<PlayerController>() != null)
-        {
-            PlayerInteractedEventTrigger.OnPlayerInteracted += DoorInteraction;
-            UIManager.OnPlayerNearInteractable?.Invoke();
-        }
+        base.Interact();
+        DoorInteraction();
     }
-
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.GetComponent<PlayerController>() != null)
-        {
-            PlayerInteractedEventTrigger.OnPlayerInteracted -= DoorInteraction;
-            UIManager.OnPlayerNotNearInteractable?.Invoke();
-        }
-    }
-
     private void DoorInteraction()
     {
         switch (currentState)
         {
             case DoorState.Locked:
-                if (PlayerController.KeysEquipped >= requiredKeys)
+                if (PlayerController.KeysEquipped >= keysRequiredToTrigger)
                 {
                     transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
                     currentState = DoorState.Open;
@@ -59,10 +42,7 @@ public class Door : MonoBehaviour
         }
     }
 
-    private void OnDestroy()
-    {
-        PlayerInteractedEventTrigger.OnPlayerInteracted -= DoorInteraction;
-    }
+
 
     public enum DoorState
     {

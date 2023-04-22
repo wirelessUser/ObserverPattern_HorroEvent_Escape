@@ -40,10 +40,6 @@ public class PlayerController : MonoBehaviour
     private bool IsGrounded { get => Physics.Raycast(transform.position, -transform.up, raycastLength); }
     public static int KeysEquipped { get => keysEquipped; }
 
-    // Actions:
-    public static Action OnKeyEquipped;
-
-
     private void OnEnable()
     {
         Key.OnKeyPickedUp += OnKeyPickedUp;
@@ -68,8 +64,15 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
+        Debug.Log(keysEquipped);
         Cursor.visible = showCursor;
 
+        Movement();
+    }
+
+
+    private void Movement()
+    {
         //Rigidbody movement and rotation.
         playerRigidbody.MoveRotation(playerRigidbody.rotation * Quaternion.Euler(new Vector3(0, Input.GetAxis("Mouse X") * sensitivity, 0)));
         playerRigidbody.MovePosition(transform.position + Time.fixedDeltaTime * Velocity * (transform.forward * VerticalAxis + transform.right * HorizontalAxis));
@@ -86,10 +89,9 @@ public class PlayerController : MonoBehaviour
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded) { playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse); }
     }
 
-    private void OnKeyPickedUp()
+    private void OnKeyPickedUp(int keys)
     {
-        keysEquipped++;
-        OnKeyEquipped?.Invoke();
+        keysEquipped = keys;
     }
 
     private void OnPlayerDeath()
@@ -103,4 +105,20 @@ public class PlayerController : MonoBehaviour
         enabled = false;
     }
 
+    private void OnTriggerEnter(Collider other)
+    {
+        if (other.GetComponent<Interactable>() != null)
+        {
+            Debug.Log("Player Inside Interation Trigger");
+
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.GetComponent<Interactable>() != null)
+        {
+            Debug.Log("Player outside interaction trigger");
+        }
+    }
 }

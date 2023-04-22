@@ -1,8 +1,10 @@
 
 using UnityEngine;
 
-public abstract class Interactable : EventTrigger
+public class Interactable : EventTrigger
 {
-    public abstract void Interact();
-
+    public virtual void Interact()
+    {
+        UIManager.OnPlayerNotNearInteractable?.Invoke();
+    }
 }
