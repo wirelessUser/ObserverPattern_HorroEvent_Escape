@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEscapedEventTrigger : EventTrigger
+public class PlayerEscapedEventTrigger : EventManager
 {
     private void OnTriggerEnter(Collider other)
     {

@@ -64,7 +64,6 @@ public class PlayerController : MonoBehaviour
 
     private void Update()
     {
-        Debug.Log(keysEquipped);
         Cursor.visible = showCursor;
 
         Movement();

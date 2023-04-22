@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RatRushEventTrigger : EventTrigger
+public class RatRushEventTrigger : EventManager
 {
     private void OnTriggerEnter(Collider other)
     {

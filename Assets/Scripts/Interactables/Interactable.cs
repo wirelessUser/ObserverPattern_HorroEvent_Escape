@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-public class Interactable : EventTrigger
+public class Interactable : EventManager
 {
     public virtual void Interact()
     {

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerInteractedEventTrigger : EventTrigger
+public class PlayerInteractedEventTrigger : EventManager
 {
     private bool Isinteracted;
 

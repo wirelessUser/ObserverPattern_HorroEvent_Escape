@@ -3,7 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SkullDropEventTrigger : EventTrigger
+public class SkullDropEventTrigger : EventManager
 {
     private void OnTriggerEnter(Collider other)
     {
