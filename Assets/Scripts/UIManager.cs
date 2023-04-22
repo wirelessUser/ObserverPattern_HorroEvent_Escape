@@ -62,14 +62,14 @@ public class UIManager : MonoBehaviour
 
     private void OnEnable()
     {
-        Key.OnKeyPickedUp += OnKeyEquipped;
-        LightsOffEventTrigger.OnLightsOffByGhost += ShowLightOffInstructions;
-        LightsOffEventTrigger.OnLightsOffByGhost += SetRedVignette;
-        RatRushEventTrigger.OnRatRush += SetRedVignette;
-        SkullDropEventTrigger.OnSkullDrop += SetRedVignette;
+        EventManager.OnKeyPickedUp += OnKeyEquipped;
+        EventManager.OnLightsOffByGhost += ShowLightOffInstructions;
+        EventManager.OnLightsOffByGhost += SetRedVignette;
+        EventManager.OnRatRush += SetRedVignette;
+        EventManager.OnSkullDrop += SetRedVignette;
+        EventManager.OnPlayerEscaped += OnPlayerEscaped;
         PlayerSanity.OnPlayerDeath += SetRedVignette;
         PlayerSanity.OnPlayerDeath += OnPlayerDeath;
-        PlayerEscapedEventTrigger.OnPlayerEscaped += OnPlayerEscaped;
 
         tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
@@ -79,14 +79,14 @@ public class UIManager : MonoBehaviour
 
     private void OnDisable()
     {
-        Key.OnKeyPickedUp -= OnKeyEquipped;
-        LightsOffEventTrigger.OnLightsOffByGhost -= ShowLightOffInstructions;
-        LightsOffEventTrigger.OnLightsOffByGhost -= SetRedVignette;
-        RatRushEventTrigger.OnRatRush -= SetRedVignette;
-        SkullDropEventTrigger.OnSkullDrop -= SetRedVignette;
+        EventManager.OnKeyPickedUp -= OnKeyEquipped;
+        EventManager.OnLightsOffByGhost -= ShowLightOffInstructions;
+        EventManager.OnLightsOffByGhost -= SetRedVignette;
+        EventManager.OnRatRush -= SetRedVignette;
+        EventManager.OnSkullDrop -= SetRedVignette;
+        EventManager.OnPlayerEscaped -= OnPlayerEscaped;
         PlayerSanity.OnPlayerDeath -= SetRedVignette;
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
-        PlayerEscapedEventTrigger.OnPlayerEscaped -= OnPlayerEscaped;
         // OnPlayerNearInteractable -= ShowInteractInstructions;
         // OnPlayerNotNearInteractable -= StopShowingInstructions;
     }

@@ -1,8 +1,10 @@
 
 using UnityEngine;
 
-public class Interactable : EventManager
+public class Interactable : MonoBehaviour
 {
+    [SerializeField] protected int keysRequiredToTrigger;
+
     public virtual void Interact()
     {
         UIManager.instance.ShowInteractInstructions(false);

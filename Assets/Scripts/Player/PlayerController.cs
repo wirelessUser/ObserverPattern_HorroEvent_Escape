@@ -42,16 +42,16 @@ public class PlayerController : MonoBehaviour
 
     private void OnEnable()
     {
-        Key.OnKeyPickedUp += OnKeyPickedUp;
+        EventManager.OnKeyPickedUp += OnKeyPickedUp;
+        EventManager.OnPlayerEscaped += DisableControls;
         PlayerSanity.OnPlayerDeath += OnPlayerDeath;
-        PlayerEscapedEventTrigger.OnPlayerEscaped += DisableControls;
     }
 
     private void OnDisable()
     {
-        Key.OnKeyPickedUp -= OnKeyPickedUp;
+        EventManager.OnKeyPickedUp -= OnKeyPickedUp;
+        EventManager.OnPlayerEscaped -= DisableControls;
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
-        PlayerEscapedEventTrigger.OnPlayerEscaped -= DisableControls;
     }
 
     void Start()

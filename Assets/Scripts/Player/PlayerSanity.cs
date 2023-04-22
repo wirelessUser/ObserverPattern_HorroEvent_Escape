@@ -25,20 +25,20 @@ public class
 
     private void OnEnable()
     {
-        LightsOffEventTrigger.OnLightsOffByGhost += OnLightsOffByGhost;
-        LightSwitch.OnLightsSwitchToggled += OnLightsToggled;
-        RatRushEventTrigger.OnRatRush += OnSupernaturalEvent;
-        SkullDropEventTrigger.OnSkullDrop += OnSupernaturalEvent;
-        Potion.OnPotionDrink += OnDrankPotion;
+        EventManager.OnLightsOffByGhost += OnLightsOffByGhost;
+        EventManager.OnLightsSwitchToggled += OnLightsToggled;
+        EventManager.OnRatRush += OnSupernaturalEvent;
+        EventManager.OnSkullDrop += OnSupernaturalEvent;
+        EventManager.OnPotionDrink += OnDrankPotion;
     }
 
     private void OnDisable()
     {
-        LightsOffEventTrigger.OnLightsOffByGhost -= OnLightsOffByGhost;
-        LightSwitch.OnLightsSwitchToggled -= OnLightsToggled;
-        RatRushEventTrigger.OnRatRush -= OnSupernaturalEvent;
-        SkullDropEventTrigger.OnSkullDrop -= OnSupernaturalEvent;
-        Potion.OnPotionDrink -= OnDrankPotion;
+        EventManager.OnLightsOffByGhost -= OnLightsOffByGhost;
+        EventManager.OnLightsSwitchToggled -= OnLightsToggled;
+        EventManager.OnRatRush -= OnSupernaturalEvent;
+        EventManager.OnSkullDrop -= OnSupernaturalEvent;
+        EventManager.OnPotionDrink -= OnDrankPotion;
     }
 
     void Update()

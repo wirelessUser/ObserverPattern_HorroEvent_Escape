@@ -16,12 +16,12 @@ public class RatSwarm : MonoBehaviour
 
     private void OnEnable()
     {
-        RatRushEventTrigger.OnRatRush += OnRatRush;
+        EventManager.OnRatRush += OnRatRush;
     }
 
     private void OnDisable()
     {
-        RatRushEventTrigger.OnRatRush -= OnRatRush;
+        EventManager.OnRatRush -= OnRatRush;
     }
 
     void Update()

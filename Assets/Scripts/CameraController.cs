@@ -14,17 +14,17 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        LightsOffEventTrigger.OnLightsOffByGhost += Shake;
-        RatRushEventTrigger.OnRatRush += Shake;
-        SkullDropEventTrigger.OnSkullDrop += Shake;
+        EventManager.OnLightsOffByGhost += Shake;
+        EventManager.OnRatRush += Shake;
+        EventManager.OnSkullDrop += Shake;
         PlayerSanity.OnPlayerDeath += Shake;
     }
 
     private void OnDisable()
     {
-        LightsOffEventTrigger.OnLightsOffByGhost -= Shake;
-        RatRushEventTrigger.OnRatRush -= Shake;
-        SkullDropEventTrigger.OnSkullDrop -= Shake;
+        EventManager.OnLightsOffByGhost -= Shake;
+        EventManager.OnRatRush -= Shake;
+        EventManager.OnSkullDrop -= Shake;
         PlayerSanity.OnPlayerDeath -= Shake;
     }
 

@@ -9,12 +9,12 @@ public class SkullDrop : MonoBehaviour
 
     private void OnEnable()
     {
-        SkullDropEventTrigger.OnSkullDrop += OnSkullDrop;
+        EventManager.OnSkullDrop += OnSkullDrop;
     }
 
     private void OnDisable()
     {
-        SkullDropEventTrigger.OnSkullDrop -= OnSkullDrop;
+        EventManager.OnSkullDrop -= OnSkullDrop;
     }
 
     private void OnSkullDrop()

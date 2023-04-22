@@ -11,12 +11,14 @@ public class LightSwitch : Interactable
 
     private void OnEnable()
     {
-        LightsOffEventTrigger.OnLightsOffByGhost += OnLightsOffByGhostEvent;
+        EventManager.OnLightsOffByGhost += OnLightsOffByGhostEvent;
     }
+
     private void OnDisable()
     {
-        LightsOffEventTrigger.OnLightsOffByGhost -= OnLightsOffByGhostEvent;
+        EventManager.OnLightsOffByGhost -= OnLightsOffByGhostEvent;
     }
+
     private void Start()
     {
         currentState = SwitchState.Off;
@@ -47,7 +49,7 @@ public class LightSwitch : Interactable
                 break;
         }
 
-        OnLightsSwitchToggled?.Invoke(lights);
+        EventManager.instance.InvokeOnLightsSwitchToggled(lights);
 
         foreach (Light lightSource in lightsources)
         {
@@ -66,7 +68,7 @@ public class LightSwitch : Interactable
             currentState = SwitchState.Off;
         }
 
-        OnLightsSwitchToggled?.Invoke(lights);
+        EventManager.instance.InvokeOnLightsSwitchToggled(lights);
         foreach (Light lightSource in lightsources)
         {
             lightSource.enabled = lights;

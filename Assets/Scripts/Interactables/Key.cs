@@ -5,14 +5,14 @@ using UnityEngine;
 
 public class Key : Interactable
 {
-    private static int keysEqupped = 0;
+    private static int keysEquipped = 0;
     public override void Interact()
     {
         Debug.Log("Key Picked Up");
         base.Interact();
-        keysEqupped++;
+        keysEquipped++;
 
-        OnKeyPickedUp?.Invoke(keysEqupped);
+        EventManager.instance.InvokeOnKeyPickedUp(keysEquipped);
         SoundManager.OnPlaySoundEffects?.Invoke(SoundType.KeyPickUp, false);
         gameObject.SetActive(false);
     }
