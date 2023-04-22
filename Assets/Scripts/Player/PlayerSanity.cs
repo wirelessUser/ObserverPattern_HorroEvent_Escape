@@ -14,7 +14,7 @@ public class
     [SerializeField] private UIManager UIManager;
     private float maxSanity;
     private bool isPlayerInDark = false;
-    public static Action OnPlayerDeath; // TODO - Remove Static
+    public static Action OnPlayerDeath;
 
     private void Start()
     {

@@ -5,6 +5,6 @@ public class Interactable : EventManager
 {
     public virtual void Interact()
     {
-        UIManager.OnPlayerNotNearInteractable?.Invoke();
+        UIManager.instance.ShowInteractInstructions(false);
     }
 }

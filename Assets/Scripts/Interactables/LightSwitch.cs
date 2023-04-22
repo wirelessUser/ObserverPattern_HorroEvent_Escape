@@ -79,7 +79,7 @@ public class LightSwitch : Interactable
         Debug.Log("Light Switch Toggled");
         ToggleLights();
         SoundManager.OnPlaySoundEffects?.Invoke(SoundType.SwitchSound, false);
-        UIManager.OnPlayerNotNearInteractable?.Invoke();
+        UIManager.instance.ShowInteractInstructions(false);
     }
     private void OnLightsOffByGhostEvent()
     {

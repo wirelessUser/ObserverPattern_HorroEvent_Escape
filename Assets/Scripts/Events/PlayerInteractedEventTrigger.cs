@@ -18,7 +18,7 @@ public class PlayerInteractedEventTrigger : EventManager
     {
         if (other.GetComponent<Interactable>() != null)
         {
-            UIManager.OnPlayerNearInteractable?.Invoke();
+            UIManager.instance.ShowInteractInstructions(true);
         }
     }
 
@@ -37,7 +37,7 @@ public class PlayerInteractedEventTrigger : EventManager
         if (other.GetComponent<Interactable>() != null)
         {
             Debug.Log("Player Entered near Interactable");
-            UIManager.OnPlayerNotNearInteractable?.Invoke();
+            UIManager.instance.ShowInteractInstructions(false);
         }
     }
 }

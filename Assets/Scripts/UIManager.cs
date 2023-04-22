@@ -44,8 +44,21 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button tryAgainButton2;
     [SerializeField] Button quitButton2;
 
-    public static Action OnPlayerNearInteractable;
-    public static Action OnPlayerNotNearInteractable;
+
+    public static UIManager instance;
+
+    private void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+        }
+        else
+        {
+            Destroy(this.gameObject);
+            Debug.LogError("UI Manager instance already exists");
+        }
+    }
 
     private void OnEnable()
     {
@@ -57,8 +70,6 @@ public class UIManager : MonoBehaviour
         PlayerSanity.OnPlayerDeath += SetRedVignette;
         PlayerSanity.OnPlayerDeath += OnPlayerDeath;
         PlayerEscapedEventTrigger.OnPlayerEscaped += OnPlayerEscaped;
-        OnPlayerNearInteractable += ShowInteractInstructions;
-        OnPlayerNotNearInteractable += StopShowingInstructions;
 
         tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
@@ -76,8 +87,8 @@ public class UIManager : MonoBehaviour
         PlayerSanity.OnPlayerDeath -= SetRedVignette;
         PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
         PlayerEscapedEventTrigger.OnPlayerEscaped -= OnPlayerEscaped;
-        OnPlayerNearInteractable -= ShowInteractInstructions;
-        OnPlayerNotNearInteractable -= StopShowingInstructions;
+        // OnPlayerNearInteractable -= ShowInteractInstructions;
+        // OnPlayerNotNearInteractable -= StopShowingInstructions;
     }
 
     private void Start()
@@ -141,21 +152,24 @@ public class UIManager : MonoBehaviour
         instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.LightsOff));
     }
 
-    private void ShowInteractInstructions()
+    public void ShowInteractInstructions(bool shouldShow)
     {
-        if (instructionCoroutine != null)
-            StopCoroutine(instructionCoroutine);
+        if (shouldShow)
+        {
+            if (instructionCoroutine != null)
+                StopCoroutine(instructionCoroutine);
 
-        instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.Interact, false));
-    }
+            instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.Interact, false));
 
-    private void StopShowingInstructions()
-    {
-        if (instructionCoroutine != null)
-            StopCoroutine(instructionCoroutine);
+        }
+        else
+        {
+            if (instructionCoroutine != null)
+                StopCoroutine(instructionCoroutine);
 
-        instructionsText.SetText(string.Empty);
-        instructionPopup.SetActive(false);
+            instructionsText.SetText(string.Empty);
+            instructionPopup.SetActive(false);
+        }
     }
 
     private void SetRedVignette()
