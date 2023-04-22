@@ -14,6 +14,8 @@ public class
     [SerializeField] private UIManager UIManager;
     private float maxSanity;
     private bool isPlayerInDark = false;
+
+    //Todo Make this as a core event in EventManager , change all references as per that , invoke it here using singleton
     public static Action OnPlayerDeath;
 
     private void Start()
