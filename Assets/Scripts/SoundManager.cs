@@ -15,16 +15,6 @@ public class SoundManager : GenericMonoSingleton<SoundManager>
         base.Awake();
     }
 
-    private void OnEnable()
-    {
-        PlayerSanity.OnPlayerDeath += OnPlayerDeath;
-    }
-
-    private void OnDisable()
-    {
-        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
-    }
-
     private void Start()
     {
         PlayBackgroundMusic(SoundType.BackgroundMusic, true);
@@ -82,14 +72,6 @@ public class SoundManager : GenericMonoSingleton<SoundManager>
     {
         backgroundMusic.Stop();
         backgroundMusic.clip = null;
-    }
-
-
-    private void OnPlayerDeath()
-    {
-        Debug.Log("Player Died");
-        PlaySoundEffects(SoundType.JumpScare1, false);
-        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
     }
 
 }

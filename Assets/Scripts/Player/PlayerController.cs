@@ -44,14 +44,12 @@ public class PlayerController : MonoBehaviour
     {
         EventManager.OnKeyPickedUp += OnKeyPickedUp;
         EventManager.OnPlayerEscaped += DisableControls;
-        PlayerSanity.OnPlayerDeath += OnPlayerDeath;
     }
 
     private void OnDisable()
     {
         EventManager.OnKeyPickedUp -= OnKeyPickedUp;
         EventManager.OnPlayerEscaped -= DisableControls;
-        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
     }
 
     void Start()
@@ -91,12 +89,6 @@ public class PlayerController : MonoBehaviour
     private void OnKeyPickedUp(int keys)
     {
         keysEquipped = keys;
-    }
-
-    private void OnPlayerDeath()
-    {
-        Debug.Log("Player Controller, OnPlayerDeath");
-        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
     }
 
     private void DisableControls()

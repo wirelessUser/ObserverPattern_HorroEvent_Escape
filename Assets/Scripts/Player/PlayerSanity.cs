@@ -14,9 +14,7 @@ public class
     [SerializeField] private UIManager UIManager;
     private float maxSanity;
     private bool isPlayerInDark = false;
-
-    //Todo Make this as a core event in EventManager , change all references as per that , invoke it here using singleton
-    public static Action OnPlayerDeath;
+    private bool isAlive = true;
 
     private void Start()
     {
@@ -43,17 +41,13 @@ public class
 
     void Update()
     {
+        if (!isAlive)
+            return;
+
         if (isPlayerInDark)
             DecreaseSanity(sanityDropRate * Time.deltaTime * 10);
         else
             DecreaseSanity(sanityDropRate * Time.deltaTime);
-
-        // Hotkeys:
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare1, false);
-            OnPlayerDeath?.Invoke();
-        }
     }
 
     public void DecreaseSanity(float amountToDecrease)
@@ -78,7 +72,10 @@ public class
 
     void GameOver()
     {
-        OnPlayerDeath?.Invoke();
+        Debug.Log("Player Died");
+        isAlive = false;
+        EventManager.Instance.InvokeOnPlayerDeath();
+        SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare1, false);
     }
 
     private void OnLightsOffByGhost()

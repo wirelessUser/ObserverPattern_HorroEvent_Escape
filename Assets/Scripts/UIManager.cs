@@ -68,8 +68,8 @@ public class UIManager : MonoBehaviour
         EventManager.OnRatRush += SetRedVignette;
         EventManager.OnSkullDrop += SetRedVignette;
         EventManager.OnPlayerEscaped += OnPlayerEscaped;
-        PlayerSanity.OnPlayerDeath += SetRedVignette;
-        PlayerSanity.OnPlayerDeath += OnPlayerDeath;
+        EventManager.OnPlayerDeath += SetRedVignette;
+        EventManager.OnPlayerDeath += OnPlayerDeath;
 
         tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
@@ -85,8 +85,8 @@ public class UIManager : MonoBehaviour
         EventManager.OnRatRush -= SetRedVignette;
         EventManager.OnSkullDrop -= SetRedVignette;
         EventManager.OnPlayerEscaped -= OnPlayerEscaped;
-        PlayerSanity.OnPlayerDeath -= SetRedVignette;
-        PlayerSanity.OnPlayerDeath -= OnPlayerDeath;
+        EventManager.OnPlayerDeath -= SetRedVignette;
+        EventManager.OnPlayerDeath -= OnPlayerDeath;
         // OnPlayerNearInteractable -= ShowInteractInstructions;
         // OnPlayerNotNearInteractable -= StopShowingInstructions;
     }

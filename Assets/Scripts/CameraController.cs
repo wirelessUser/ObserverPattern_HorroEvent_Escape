@@ -17,7 +17,7 @@ public class CameraController : MonoBehaviour
         EventManager.OnLightsOffByGhost += Shake;
         EventManager.OnRatRush += Shake;
         EventManager.OnSkullDrop += Shake;
-        PlayerSanity.OnPlayerDeath += Shake;
+        EventManager.OnPlayerDeath += Shake;
     }
 
     private void OnDisable()
@@ -25,7 +25,7 @@ public class CameraController : MonoBehaviour
         EventManager.OnLightsOffByGhost -= Shake;
         EventManager.OnRatRush -= Shake;
         EventManager.OnSkullDrop -= Shake;
-        PlayerSanity.OnPlayerDeath -= Shake;
+        EventManager.OnPlayerDeath -= Shake;
     }
 
     public void Shake()

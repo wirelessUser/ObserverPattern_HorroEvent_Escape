@@ -11,6 +11,7 @@ public class EventManager : GenericMonoSingleton<EventManager>
     public static event Action OnSkullDrop;
     public static event Action OnRatRush;
     public static event Action OnPlayerEscaped;
+    public static event Action OnPlayerDeath;
 
     //Interactable Events
     public static event Action<int> OnKeyPickedUp;
@@ -55,6 +56,11 @@ public class EventManager : GenericMonoSingleton<EventManager>
     public void InvokeOnLightsSwitchToggled(bool isSwitchOn)
     {
         OnLightsSwitchToggled?.Invoke(isSwitchOn);
+    }
+
+    public void InvokeOnPlayerDeath()
+    {
+        OnPlayerDeath?.Invoke();
     }
 
 }
