@@ -5,9 +5,8 @@ using UnityEngine;
 
 public class EventManager : GenericMonoSingleton<EventManager>
 {
-
     //Core Game Events
-    public static event Action OnLightsOffByGhost;
+    public event Action OnLightsOffByGhost; // TODO - Remove Static from every action - use EventManager.Instance
     public static event Action OnSkullDrop;
     public static event Action OnRatRush;
     public static event Action OnPlayerEscaped;
@@ -16,23 +15,18 @@ public class EventManager : GenericMonoSingleton<EventManager>
     //Interactable Events
     public static event Action<int> OnKeyPickedUp;
     public static event Action OnPotionDrink;
-    public static event Action<bool> OnLightsSwitchToggled;
+    public event Action<bool> OnLightsSwitchToggled;
 
     protected override void Awake()
     {
         base.Awake();
     }
 
-    public void InvokeOnPotionDrink()
-    {
-        OnPotionDrink?.Invoke();
-    }
+    public void InvokeOnPotionDrink() => OnPotionDrink?.Invoke();
 
-    public void InvokeOnSkullDrop()
-    {
-        OnSkullDrop?.Invoke();
-    }
+    public void InvokeOnSkullDrop() => OnSkullDrop?.Invoke();
 
+    //TODO - Convert All these 1 line fuctions into 1 liners like above
     public void InvokeOnRatRush()
     {
         OnRatRush?.Invoke();

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class Door : Interactable
 {
-    [SerializeField]
-    private float swingAngle;
+    [SerializeField] private float swingAngle;
+    [SerializeField] private int keysRequiredToOpen;
     private DoorState currentState;
+
 
     private void Start()
     {
@@ -22,7 +23,7 @@ public class Door : Interactable
         switch (currentState)
         {
             case DoorState.Locked:
-                if (PlayerController.KeysEquipped >= keysRequiredToTrigger)
+                if (PlayerController.Instance.KeysEquipped >= keysRequiredToOpen)
                 {
                     transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
                     currentState = DoorState.Open;

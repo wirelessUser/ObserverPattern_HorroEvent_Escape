@@ -9,7 +9,7 @@ public class PlayerEscapedEventTrigger : CoreEventTrigger
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare3, false);
+            SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare3);//hardconding
             EventManager.Instance.InvokeOnPlayerEscaped();
         }
     }

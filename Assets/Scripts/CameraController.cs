@@ -14,7 +14,7 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.OnLightsOffByGhost += Shake;
+        EventManager.Instance.OnLightsOffByGhost += Shake;
         EventManager.OnRatRush += Shake;
         EventManager.OnSkullDrop += Shake;
         EventManager.OnPlayerDeath += Shake;
@@ -22,7 +22,7 @@ public class CameraController : MonoBehaviour
 
     private void OnDisable()
     {
-        EventManager.OnLightsOffByGhost -= Shake;
+        EventManager.Instance.OnLightsOffByGhost -= Shake;
         EventManager.OnRatRush -= Shake;
         EventManager.OnSkullDrop -= Shake;
         EventManager.OnPlayerDeath -= Shake;

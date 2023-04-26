@@ -2,9 +2,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerEventTrigger : MonoBehaviour
+public class PlayerEventTrigger : MonoBehaviour //view
 {
-    private bool Isinteracted;
+    private bool Isinteracted; //naming
 
     private void Update()
     {
@@ -18,7 +18,7 @@ public class PlayerEventTrigger : MonoBehaviour
     {
         if (other.GetComponent<Interactable>() != null)
         {
-            UIManager.instance.ShowInteractInstructions(true);
+            UIManager.Instance.ShowInteractInstructions(true);
         }
     }
 
@@ -37,7 +37,7 @@ public class PlayerEventTrigger : MonoBehaviour
         if (other.GetComponent<Interactable>() != null)
         {
             Debug.Log("Player Entered near Interactable");
-            UIManager.instance.ShowInteractInstructions(false);
+            UIManager.Instance.ShowInteractInstructions(false);
         }
     }
 }

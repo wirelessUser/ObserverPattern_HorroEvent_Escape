@@ -143,7 +143,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982302ef60cb0ed469db6ad515621899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 0
 --- !u!1 &374546134
 GameObject:
   m_ObjectHideFlags: 0
@@ -1692,7 +1691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89012a0248948534da59c902ae08c555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 0
   lightsources:
   - {fileID: 1080056482}
   - {fileID: 1940549445}
@@ -3489,8 +3487,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f22e00218778740ae9064142aed5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 2
   swingAngle: 90
+  keysRequiredToOpen: 2
 --- !u!1 &956796446184861478
 GameObject:
   m_ObjectHideFlags: 0
@@ -5538,8 +5536,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f22e00218778740ae9064142aed5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 1
   swingAngle: 90
+  keysRequiredToOpen: 1
 --- !u!1 &1995304864645952799
 GameObject:
   m_ObjectHideFlags: 0
@@ -10128,7 +10126,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89012a0248948534da59c902ae08c555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 0
   lightsources:
   - {fileID: 737765524}
   - {fileID: 823519278}
@@ -10245,7 +10242,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982302ef60cb0ed469db6ad515621899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 0
 --- !u!1 &4754494045238345850
 GameObject:
   m_ObjectHideFlags: 0
@@ -10731,7 +10727,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982302ef60cb0ed469db6ad515621899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 0
 --- !u!1 &4960943160992950811
 GameObject:
   m_ObjectHideFlags: 0
@@ -14741,7 +14736,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 89012a0248948534da59c902ae08c555, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 0
   lightsources:
   - {fileID: 8885038399086652200}
   - {fileID: 505198058940452130}
@@ -18337,8 +18331,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05f22e00218778740ae9064142aed5d0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 3
   swingAngle: 90
+  keysRequiredToOpen: 3
 --- !u!1001 &2958658672792222891
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -18586,7 +18580,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1030b30bb78a24282ed6b17523aa48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  keysRequiredToTrigger: 0
 --- !u!4 &2962933140333171556 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4846222521210400, guid: ff48b7d89bbc8c6479b69426b036175c, type: 3}

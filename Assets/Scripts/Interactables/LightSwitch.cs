@@ -11,12 +11,12 @@ public class LightSwitch : Interactable
 
     private void OnEnable()
     {
-        EventManager.OnLightsOffByGhost += OnLightsOffByGhostEvent;
+        EventManager.Instance.OnLightsOffByGhost += OnLightsOffByGhostEvent;
     }
 
     private void OnDisable()
     {
-        EventManager.OnLightsOffByGhost -= OnLightsOffByGhostEvent;
+        EventManager.Instance.OnLightsOffByGhost -= OnLightsOffByGhostEvent;
     }
 
     private void Start()
@@ -81,7 +81,7 @@ public class LightSwitch : Interactable
         Debug.Log("Light Switch Toggled");
         ToggleLights();
         SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
-        UIManager.instance.ShowInteractInstructions(false);
+        UIManager.Instance.ShowInteractInstructions(false);
     }
     private void OnLightsOffByGhostEvent()
     {

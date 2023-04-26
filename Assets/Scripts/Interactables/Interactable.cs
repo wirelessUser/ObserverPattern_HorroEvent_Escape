@@ -1,12 +1,10 @@
 
 using UnityEngine;
 
-public class Interactable : MonoBehaviour
+public abstract class Interactable : MonoBehaviour
 {
-    [SerializeField] protected int keysRequiredToTrigger;
-
     public virtual void Interact()
     {
-        UIManager.instance.ShowInteractInstructions(false);
+        UIManager.Instance.ShowInteractInstructions(false);
     }
 }

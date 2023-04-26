@@ -5,13 +5,12 @@ using System;
 /// <summary>
 /// Responsible for handling Sanity of our Player
 /// </summary>
-public class
-    PlayerSanity : MonoBehaviour
+public class PlayerSanity : MonoBehaviour // mono?
 {
     [SerializeField] private float sanityLevel = 100.0f;
     [SerializeField] private float sanityDropRate = 0.2f;
     [SerializeField] private float sanityDropAmountPerEvent = 10f;
-    [SerializeField] private UIManager UIManager;
+    [SerializeField] private UIManager UIManager;  //??
     private float maxSanity;
     private bool isPlayerInDark = false;
     private bool isAlive = true;
@@ -23,8 +22,8 @@ public class
 
     private void OnEnable()
     {
-        EventManager.OnLightsOffByGhost += OnLightsOffByGhost;
-        EventManager.OnLightsSwitchToggled += OnLightsToggled;
+        EventManager.Instance.OnLightsOffByGhost += OnLightsOffByGhost;
+        EventManager.Instance.OnLightsSwitchToggled += OnLightsToggled;
         EventManager.OnRatRush += OnSupernaturalEvent;
         EventManager.OnSkullDrop += OnSupernaturalEvent;
         EventManager.OnPotionDrink += OnDrankPotion;
@@ -32,8 +31,8 @@ public class
 
     private void OnDisable()
     {
-        EventManager.OnLightsOffByGhost -= OnLightsOffByGhost;
-        EventManager.OnLightsSwitchToggled -= OnLightsToggled;
+        EventManager.Instance.OnLightsOffByGhost -= OnLightsOffByGhost;
+        EventManager.Instance.OnLightsSwitchToggled -= OnLightsToggled;
         EventManager.OnRatRush -= OnSupernaturalEvent;
         EventManager.OnSkullDrop -= OnSupernaturalEvent;
         EventManager.OnPotionDrink -= OnDrankPotion;
@@ -65,7 +64,9 @@ public class
     {
         sanityLevel += amountToIncrease;
         if (sanityLevel > 100)
+        {
             sanityLevel = 100;
+        }
         UIManager.UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 

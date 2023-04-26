@@ -6,7 +6,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class UIManager : MonoBehaviour
+public class UIManager : GenericMonoSingleton<UIManager>
 {
     [Header("Blackout Screen")]
     [SerializeField]
@@ -45,26 +45,11 @@ public class UIManager : MonoBehaviour
     [SerializeField] Button quitButton2;
 
 
-    public static UIManager instance;
-
-    private void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-        }
-        else
-        {
-            Destroy(this.gameObject);
-            Debug.LogError("UI Manager instance already exists");
-        }
-    }
-
     private void OnEnable()
     {
         EventManager.OnKeyPickedUp += OnKeyEquipped;
-        EventManager.OnLightsOffByGhost += ShowLightOffInstructions;
-        EventManager.OnLightsOffByGhost += SetRedVignette;
+        EventManager.Instance.OnLightsOffByGhost += ShowLightOffInstructions;
+        EventManager.Instance.OnLightsOffByGhost += SetRedVignette;
         EventManager.OnRatRush += SetRedVignette;
         EventManager.OnSkullDrop += SetRedVignette;
         EventManager.OnPlayerEscaped += OnPlayerEscaped;
@@ -73,22 +58,20 @@ public class UIManager : MonoBehaviour
 
         tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
-        tryAgainButton2.onClick.AddListener(OnTryAgainButtonClicked);
+        tryAgainButton2.onClick.AddListener(OnTryAgainButtonClicked);//namingh
         quitButton2.onClick.AddListener(OnQuitButtonClicked);
     }
 
     private void OnDisable()
     {
         EventManager.OnKeyPickedUp -= OnKeyEquipped;
-        EventManager.OnLightsOffByGhost -= ShowLightOffInstructions;
-        EventManager.OnLightsOffByGhost -= SetRedVignette;
+        EventManager.Instance.OnLightsOffByGhost -= ShowLightOffInstructions;
+        EventManager.Instance.OnLightsOffByGhost -= SetRedVignette;
         EventManager.OnRatRush -= SetRedVignette;
         EventManager.OnSkullDrop -= SetRedVignette;
         EventManager.OnPlayerEscaped -= OnPlayerEscaped;
         EventManager.OnPlayerDeath -= SetRedVignette;
         EventManager.OnPlayerDeath -= OnPlayerDeath;
-        // OnPlayerNearInteractable -= ShowInteractInstructions;
-        // OnPlayerNotNearInteractable -= StopShowingInstructions;
     }
 
     private void Start()
@@ -101,7 +84,7 @@ public class UIManager : MonoBehaviour
             if (instructionCoroutine != null)
                 StopCoroutine(instructionCoroutine);
 
-            instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.PlayerSpawned));
+            instructionCoroutine = StartCoroutine(SetInstructions(Instruction.InstructionType.PlayerSpawned));
         }));
     }
 
@@ -112,7 +95,7 @@ public class UIManager : MonoBehaviour
         callback?.Invoke();
     }
 
-    private IEnumerator SetInstructions(InstructionType type, bool oneShot = true)
+    private IEnumerator SetInstructions(Instruction.InstructionType type, bool oneShot = true)
     {
         string instructionToSet = "";
         foreach (Instruction instruction in instructions)
@@ -149,7 +132,7 @@ public class UIManager : MonoBehaviour
         if (instructionCoroutine != null)
             StopCoroutine(instructionCoroutine);
 
-        instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.LightsOff));
+        instructionCoroutine = StartCoroutine(SetInstructions(Instruction.InstructionType.LightsOff));
     }
 
     public void ShowInteractInstructions(bool shouldShow)
@@ -159,7 +142,7 @@ public class UIManager : MonoBehaviour
             if (instructionCoroutine != null)
                 StopCoroutine(instructionCoroutine);
 
-            instructionCoroutine = StartCoroutine(SetInstructions(InstructionType.Interact, false));
+            instructionCoroutine = StartCoroutine(SetInstructions(Instruction.InstructionType.Interact, false));
 
         }
         else
@@ -181,7 +164,7 @@ public class UIManager : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        StartCoroutine(ToggleGameOverPanel());
+        StartCoroutine(ToggleGameOverPanel()); //incorrect
     }
 
     private IEnumerator ToggleGameOverPanel()
@@ -190,24 +173,19 @@ public class UIManager : MonoBehaviour
         gameOverPanel.SetActive(true);
     }
 
-    private void OnQuitButtonClicked()
-    {
-        Application.Quit();
-    }
+    private void OnQuitButtonClicked() => Application.Quit();
 
     private void OnTryAgainButtonClicked()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
-    private void OnPlayerEscaped()
-    {
-        gameWonPanel.SetActive(true);
-    }
+    private void OnPlayerEscaped() => gameWonPanel.SetActive(true);
 
 }
 
-[Serializable]
+//refactor
+/*[Serializable]
 public class Instruction
 {
     public InstructionType instructionType;
@@ -222,4 +200,4 @@ public enum InstructionType
     LightsOff,
     Interact,
     OpenDoor
-}
+}*/
