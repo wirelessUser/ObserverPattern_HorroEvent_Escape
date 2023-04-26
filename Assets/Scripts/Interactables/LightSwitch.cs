@@ -8,15 +8,20 @@ public class LightSwitch : Interactable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
     private SwitchState currentState;
+    private GameEvent lightSwitchEvent = new GameEvent();
 
     private void OnEnable()
     {
         EventManager.Instance.OnLightsOffByGhost += OnLightsOffByGhostEvent;
+        // InteractableEvent += OnLightsToggeled;
+        lightSwitchEvent.addListener(OnLightsToggeled);
     }
 
     private void OnDisable()
     {
         EventManager.Instance.OnLightsOffByGhost -= OnLightsOffByGhostEvent;
+        //  InteractableEvent -= OnLightsToggeled;
+        lightSwitchEvent.removeListener(OnLightsToggeled);
     }
 
     private void Start()
@@ -49,7 +54,8 @@ public class LightSwitch : Interactable
                 break;
         }
 
-        EventManager.Instance.InvokeOnLightsSwitchToggled(lights);
+        //EventManager.Instance.InvokeOnLightsSwitchToggled(lights);
+        //InvokeInteractableEvent(lights);
 
         foreach (Light lightSource in lightsources)
         {
@@ -68,7 +74,12 @@ public class LightSwitch : Interactable
             currentState = SwitchState.Off;
         }
 
-        EventManager.Instance.InvokeOnLightsSwitchToggled(lights);
+        //  EventManager.Instance.InvokeOnLightsSwitchToggled(lights);
+        // InvokeInteractableEvent();
+
+
+        lightSwitchEvent.InvokeEvent();
+
         foreach (Light lightSource in lightsources)
         {
             lightSource.enabled = lights;
@@ -78,14 +89,20 @@ public class LightSwitch : Interactable
     public override void Interact()
     {
         base.Interact();
+        // InvokeInteractableEvent();
+        lightSwitchEvent.InvokeEvent();
+
         Debug.Log("Light Switch Toggled");
-        ToggleLights();
-        SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
-        UIManager.Instance.ShowInteractInstructions(false);
+
     }
     private void OnLightsOffByGhostEvent()
     {
         SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
         setLights(false);
+    }
+    private void OnLightsToggeled()
+    {
+        ToggleLights();
+        SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
     }
 }

@@ -35,6 +35,7 @@ public class PlayerController : GenericMonoSingleton<PlayerController>//why mono
     private void OnEnable()
     {
         EventManager.OnKeyPickedUp += OnKeyPickedUp;
+
         EventManager.OnPlayerEscaped += DisableControls;
     }
 

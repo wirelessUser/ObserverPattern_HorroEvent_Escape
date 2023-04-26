@@ -15,6 +15,9 @@ public class PlayerSanity : MonoBehaviour // mono?
     private bool isPlayerInDark = false;
     private bool isAlive = true;
 
+    private GameEvent lightSwitchEvent = new GameEvent();
+
+
     private void Start()
     {
         maxSanity = sanityLevel;
@@ -22,8 +25,10 @@ public class PlayerSanity : MonoBehaviour // mono?
 
     private void OnEnable()
     {
+
         EventManager.Instance.OnLightsOffByGhost += OnLightsOffByGhost;
-        EventManager.Instance.OnLightsSwitchToggled += OnLightsToggled;
+        // EventManager.Instance.OnLightsSwitchToggled += OnLightsToggled;
+        lightSwitchEvent.addListener(OnLightsToggled);
         EventManager.OnRatRush += OnSupernaturalEvent;
         EventManager.OnSkullDrop += OnSupernaturalEvent;
         EventManager.OnPotionDrink += OnDrankPotion;
@@ -32,7 +37,8 @@ public class PlayerSanity : MonoBehaviour // mono?
     private void OnDisable()
     {
         EventManager.Instance.OnLightsOffByGhost -= OnLightsOffByGhost;
-        EventManager.Instance.OnLightsSwitchToggled -= OnLightsToggled;
+        //  EventManager.Instance.OnLightsSwitchToggled -= OnLightsToggled;
+        lightSwitchEvent.removeListener(OnLightsToggled);
         EventManager.OnRatRush -= OnSupernaturalEvent;
         EventManager.OnSkullDrop -= OnSupernaturalEvent;
         EventManager.OnPotionDrink -= OnDrankPotion;
@@ -84,9 +90,9 @@ public class PlayerSanity : MonoBehaviour // mono?
         isPlayerInDark = true;
     }
 
-    private void OnLightsToggled(bool lightsState)
+    private void OnLightsToggled()
     {
-        isPlayerInDark = !lightsState;
+        isPlayerInDark = !isPlayerInDark;
     }
 
     private void OnSupernaturalEvent()
