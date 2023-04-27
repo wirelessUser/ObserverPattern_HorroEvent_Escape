@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-// TODO -> Make PlayerController Non-Mono and Make PlayerView Sepaare , Only for Player We will use Controller and View
+// TODO -> Make PlayerController Non-Mono and Make PlayerView Seperate , Only for Player We will use Controller and View
 // Business Logic Inside PlayerController and Unity Stuff Inside PlayerView 
 
 [RequireComponent(typeof(Rigidbody))]
