@@ -4,12 +4,13 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-/// <summary>
-/// Responsible for Player and Camera Movement based on User Input.
-/// </summary>
+// TODO -> Make PlayerController Non-Mono and Make PlayerView Sepaare , Only for Player We will use Controller and View
+// Business Logic Inside PlayerController and Unity Stuff Inside PlayerView 
+
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : GenericMonoSingleton<PlayerController>//why mono
 {
+    // Todo -> Make PlayerScriptable Object and move this things
     [Header("Adjustments:")]
     public bool showCursor;
     public float jumpForce = 5f;
@@ -25,6 +26,7 @@ public class PlayerController : GenericMonoSingleton<PlayerController>//why mono
     private Camera playerCamera;
     private const float rotationLimit = 0.5f;
 
+    // Todo -> Make PlayerScriptable Object and move Keys Counter
     public int KeysEquipped { get; private set; }
 
     private float Velocity { get => Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed; }
@@ -32,22 +34,24 @@ public class PlayerController : GenericMonoSingleton<PlayerController>//why mono
     private float VerticalAxis { get => Input.GetAxis("Vertical"); }
     private bool IsGrounded { get => Physics.Raycast(transform.position, -transform.up, raycastLength); }
 
+
     private void OnEnable()
     {
-        EventManager.OnKeyPickedUp += OnKeyPickedUp;
-
+        EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyPickedUp);
         EventManager.OnPlayerEscaped += DisableControls;
     }
 
     private void OnDisable()
     {
-        EventManager.OnKeyPickedUp -= OnKeyPickedUp;
+
+        EventService.Instance.KeyPickedUpEvent.RemoveListener(OnKeyPickedUp);
         EventManager.OnPlayerEscaped -= DisableControls;
     }
 
     void Start()
     {
-        playerRigidbody = GetComponent<Rigidbody>(); // awake
+        playerRigidbody = GetComponent<Rigidbody>(); // Todo -> Follow consitant Declarations , if we are doing everything in Awake,
+                                                     // it should be in Awake Everywhere
         playerCamera = gameObject.GetComponentInChildren<Camera>();
         KeysEquipped = 0;
     }
@@ -56,18 +60,19 @@ public class PlayerController : GenericMonoSingleton<PlayerController>//why mono
     {
         Cursor.visible = showCursor;
 
-        Movement();
+        Move();
     }
 
 
-    private void Movement()
+    private void Move()
     {
-        //movement should happen on player not on rigidbody
-        // readable code
+        //movement should happen on player GameObject not on rigidbody
+
+        //Todo ->Make it readable code
         playerRigidbody.MoveRotation(playerRigidbody.rotation * Quaternion.Euler(new Vector3(0, Input.GetAxis("Mouse X") * sensitivity, 0)));
         playerRigidbody.MovePosition(transform.position + Time.fixedDeltaTime * Velocity * (transform.forward * VerticalAxis + transform.right * HorizontalAxis));
 
-        //Camera rotation.
+        //Camera rotation. ->Todo This should be in CameraController
         float velocity = sensitivity * -Input.GetAxis("Mouse Y");
         playerCamera.transform.Rotate(velocity, 0f, 0f);
 
@@ -86,12 +91,13 @@ public class PlayerController : GenericMonoSingleton<PlayerController>//why mono
 
     private void OnKeyPickedUp(int keys)
     {
-        KeysEquipped = keys;//check
+        Debug.Log("PlayerController - OnKeyEquipped");
+        KeysEquipped = keys;
     }
 
     private void DisableControls()
     {
-        enabled = false; //fix - PlayerController.Disable()
+        enabled = false; //Todo -> PlayerController.Disable()
     }
 
 }

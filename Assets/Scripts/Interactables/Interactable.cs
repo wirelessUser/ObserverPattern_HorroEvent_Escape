@@ -2,25 +2,13 @@
 using System;
 using UnityEngine;
 
+//TODO -> As there is only one line in Interact, Inheritance is Overkill, we have created I_Interactable interface
+// Delete This Mono , Each Interactable will be seperate Mono, and They will implement I_Interactable 
+
 public abstract class Interactable : MonoBehaviour
 {
-    protected event Action InteractableEvent;
-
     public virtual void Interact()
     {
         UIManager.Instance.ShowInteractInstructions(false);
     }
-
-    /*   public void InvokeInteractableEvent()
-       {
-
-           InteractableEvent?.Invoke();
-       }
-
-       public void addListener(Action listener)
-       {
-           InteractableEvent += listener;
-       }*/
-
-
 }

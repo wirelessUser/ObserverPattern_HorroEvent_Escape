@@ -30,6 +30,7 @@ public class CameraController : MonoBehaviour
 
     public void Shake()
     {
+        //Todo -> Improve Coroutine -> Take Ref, NUll check , StopCoroutine
         StartCoroutine(ShakeCoroutine(defaultShakeDuration, defaultShakeMagnitude));
     }
 

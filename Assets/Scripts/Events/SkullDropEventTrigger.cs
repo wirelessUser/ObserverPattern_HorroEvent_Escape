@@ -3,6 +3,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Todo -> Normal Mono -> Call it SkullDrop
+// All the RatRush Logic written in SkullDrop should be moved here
 public class SkullDropEventTrigger : CoreEventTrigger
 {
     private void OnTriggerEnter(Collider other)

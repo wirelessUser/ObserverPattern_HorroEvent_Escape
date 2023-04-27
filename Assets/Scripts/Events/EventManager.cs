@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//TODO -> Delete This Mono , and Fix All Dependent Event Errors into EventService
 public class EventManager : GenericMonoSingleton<EventManager>
 {
     //Core Game Events

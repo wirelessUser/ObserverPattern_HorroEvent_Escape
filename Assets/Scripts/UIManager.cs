@@ -6,6 +6,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
+
+//TODO - UIManager -> All Naming Should Be Service -> Not Managers , We need to Reduce LOC of UIService to Less than 100
+// Todo -> We will not use generic singleton, as scope is very less, we directly take the serialized refference in the respected script
+
+// Todo->This UI manager will become GameUI which will only contain UI of Sanity and Keys Holder i.e. Root UI objects
 public class UIManager : GenericMonoSingleton<UIManager>
 {
     [Header("Blackout Screen")]
@@ -15,6 +20,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
     private float blackoutFadeDuration;
     private Coroutine blackoutCoroutine;
 
+    // Todo -> Move Instructions stuff into seperate InsturctionsView Mono
     [Header("Instruction Popup")]
     [SerializeField]
     private GameObject instructionPopup;
@@ -34,6 +40,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
     [Header("Keys UI")]
     [SerializeField] TextMeshProUGUI keysFoundText;
 
+    // TODO -> Single UI Panel , Only Text will get updated on event callback 
     [Header("Game Over Panel")]
     [SerializeField] GameObject gameOverPanel;
     [SerializeField] Button tryAgainButton;
@@ -47,7 +54,9 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
     private void OnEnable()
     {
-        EventManager.OnKeyPickedUp += OnKeyEquipped;
+        // TODO -> Make Every Event in EventService , Remove EventManager
+        EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyEquipped);
+
         EventManager.Instance.OnLightsOffByGhost += ShowLightOffInstructions;
         EventManager.Instance.OnLightsOffByGhost += SetRedVignette;
         EventManager.OnRatRush += SetRedVignette;
@@ -58,13 +67,15 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
         tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
-        tryAgainButton2.onClick.AddListener(OnTryAgainButtonClicked);//namingh
-        quitButton2.onClick.AddListener(OnQuitButtonClicked);
+        tryAgainButton2.onClick.AddListener(OnTryAgainButtonClicked); //Todo -> These should not be two buttons if funcationality is same
+        quitButton2.onClick.AddListener(OnQuitButtonClicked);          // There will be single one GameEnd Panel
     }
 
     private void OnDisable()
     {
-        EventManager.OnKeyPickedUp -= OnKeyEquipped;
+
+        EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyEquipped);
+
         EventManager.Instance.OnLightsOffByGhost -= ShowLightOffInstructions;
         EventManager.Instance.OnLightsOffByGhost -= SetRedVignette;
         EventManager.OnRatRush -= SetRedVignette;
@@ -95,6 +106,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
         callback?.Invoke();
     }
 
+    // All the instructions code should move to IntructionsView and there should be Scriptable Object
     private IEnumerator SetInstructions(Instruction.InstructionType type, bool oneShot = true)
     {
         string instructionToSet = "";
@@ -124,6 +136,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
     private void OnKeyEquipped(int keys)
     {
+        Debug.Log("UI Manager - OnKeyEquipped");
         keysFoundText.SetText($"Keys Found: {keys}/3");
     }
 
@@ -164,7 +177,8 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
     private void OnPlayerDeath()
     {
-        StartCoroutine(ToggleGameOverPanel()); //incorrect
+        StartCoroutine(ToggleGameOverPanel()); //Todo -> Incorrect Way to Call Courotuine, there should be a null check 
+                                               // and reference to the courotuine
     }
 
     private IEnumerator ToggleGameOverPanel()
@@ -175,10 +189,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
     private void OnQuitButtonClicked() => Application.Quit();
 
-    private void OnTryAgainButtonClicked()
-    {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-    }
+    private void OnTryAgainButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     private void OnPlayerEscaped() => gameWonPanel.SetActive(true);
 

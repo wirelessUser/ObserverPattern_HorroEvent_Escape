@@ -2,21 +2,16 @@ using UnityEngine;
 using System.Collections;
 using System;
 
-/// <summary>
-/// Responsible for handling Sanity of our Player
-/// </summary>
-public class PlayerSanity : MonoBehaviour // mono?
+
+public class PlayerSanity : MonoBehaviour
 {
     [SerializeField] private float sanityLevel = 100.0f;
     [SerializeField] private float sanityDropRate = 0.2f;
     [SerializeField] private float sanityDropAmountPerEvent = 10f;
-    [SerializeField] private UIManager UIManager;  //??
+    [SerializeField] private UIManager UIManager;
     private float maxSanity;
-    private bool isPlayerInDark = false;
+    private bool isPlayerInDark = true;
     private bool isAlive = true;
-
-    private GameEvent lightSwitchEvent = new GameEvent();
-
 
     private void Start()
     {
@@ -25,10 +20,10 @@ public class PlayerSanity : MonoBehaviour // mono?
 
     private void OnEnable()
     {
+        // TODO -> Make Every Event in EventService , Remove EventManager
 
+        EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
         EventManager.Instance.OnLightsOffByGhost += OnLightsOffByGhost;
-        // EventManager.Instance.OnLightsSwitchToggled += OnLightsToggled;
-        lightSwitchEvent.addListener(OnLightsToggled);
         EventManager.OnRatRush += OnSupernaturalEvent;
         EventManager.OnSkullDrop += OnSupernaturalEvent;
         EventManager.OnPotionDrink += OnDrankPotion;
@@ -36,9 +31,9 @@ public class PlayerSanity : MonoBehaviour // mono?
 
     private void OnDisable()
     {
+        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
+
         EventManager.Instance.OnLightsOffByGhost -= OnLightsOffByGhost;
-        //  EventManager.Instance.OnLightsSwitchToggled -= OnLightsToggled;
-        lightSwitchEvent.removeListener(OnLightsToggled);
         EventManager.OnRatRush -= OnSupernaturalEvent;
         EventManager.OnSkullDrop -= OnSupernaturalEvent;
         EventManager.OnPotionDrink -= OnDrankPotion;
@@ -92,6 +87,7 @@ public class PlayerSanity : MonoBehaviour // mono?
 
     private void OnLightsToggled()
     {
+        Debug.Log("PlayerSanity - OnLightsToggled");
         isPlayerInDark = !isPlayerInDark;
     }
 

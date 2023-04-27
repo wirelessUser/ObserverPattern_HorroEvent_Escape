@@ -1,8 +1,7 @@
 using UnityEngine;
 
-/// <summary>
-/// This is a Generic Singleton Class which can be inherited to make that child class a Singleton.
-/// </summary>
+// Todo -> Remove - We dont need Mono Singleton for this project, we will take serialized refs wherever needed
+
 public class GenericMonoSingleton<T> : MonoBehaviour where T : GenericMonoSingleton<T>
 {
     private static T instance;

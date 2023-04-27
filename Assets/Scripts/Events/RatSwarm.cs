@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// TODO -> Move this entire logic in RatRushEventTrigger.cs
+// TODO ->Remove this script-> Move this entire logic in RatRushEvent.cs
 public class RatSwarm : MonoBehaviour
 {
     [SerializeField] private Transform Rats;

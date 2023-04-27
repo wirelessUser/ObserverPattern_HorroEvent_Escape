@@ -4,24 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-public class LightSwitch : Interactable
+// Todo -> Take Reference of this Interactable , and make each interactable implemnt the I_Interactable
+public class LightSwitch : MonoBehaviour, I_Interactable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
     private SwitchState currentState;
-    private GameEvent lightSwitchEvent = new GameEvent();
-
     private void OnEnable()
     {
+        EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggeled);
         EventManager.Instance.OnLightsOffByGhost += OnLightsOffByGhostEvent;
-        // InteractableEvent += OnLightsToggeled;
-        lightSwitchEvent.addListener(OnLightsToggeled);
     }
 
     private void OnDisable()
     {
+        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggeled);
         EventManager.Instance.OnLightsOffByGhost -= OnLightsOffByGhostEvent;
-        //  InteractableEvent -= OnLightsToggeled;
-        lightSwitchEvent.removeListener(OnLightsToggeled);
     }
 
     private void Start()
@@ -53,10 +50,6 @@ public class LightSwitch : Interactable
             case SwitchState.Unresponsive:
                 break;
         }
-
-        //EventManager.Instance.InvokeOnLightsSwitchToggled(lights);
-        //InvokeInteractableEvent(lights);
-
         foreach (Light lightSource in lightsources)
         {
             lightSource.enabled = lights;
@@ -73,12 +66,7 @@ public class LightSwitch : Interactable
         {
             currentState = SwitchState.Off;
         }
-
-        //  EventManager.Instance.InvokeOnLightsSwitchToggled(lights);
-        // InvokeInteractableEvent();
-
-
-        lightSwitchEvent.InvokeEvent();
+        EventService.Instance.LightSwitchToggleEvent.InvokeEvent();
 
         foreach (Light lightSource in lightsources)
         {
@@ -86,14 +74,10 @@ public class LightSwitch : Interactable
         }
     }
 
-    public override void Interact()
+    public void Interact()
     {
-        base.Interact();
-        // InvokeInteractableEvent();
-        lightSwitchEvent.InvokeEvent();
-
-        Debug.Log("Light Switch Toggled");
-
+        UIManager.Instance.ShowInteractInstructions(false);
+        EventService.Instance.LightSwitchToggleEvent.InvokeEvent();
     }
     private void OnLightsOffByGhostEvent()
     {

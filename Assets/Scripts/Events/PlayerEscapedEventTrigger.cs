@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Todo -> Normal Mono -> Call it PlayerEscapedEvent
 public class PlayerEscapedEventTrigger : CoreEventTrigger
 {
     private void OnTriggerEnter(Collider other)

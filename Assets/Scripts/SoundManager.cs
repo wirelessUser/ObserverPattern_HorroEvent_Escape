@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Todo -> Make it non Singleton , take serilized reference wherhere needed , reduce refs 
 public class SoundManager : GenericMonoSingleton<SoundManager>
 {
-    public AudioSource audioEffects;
+    public AudioSource audioEffects; // Todo -> private serilizables
     public AudioSource backgroundMusic;
     public Sounds[] audioList;
 
@@ -20,7 +21,8 @@ public class SoundManager : GenericMonoSingleton<SoundManager>
         PlayBackgroundMusic(SoundType.BackgroundMusic, true);
     }
 
-    // Plays the given SoundType as Sound Effects.
+    // Todo -> All the refs of  PlaySoundEffects() method are taking loopsound false as parameter
+    // we have already declared loopSound = false by default, remove those parameters
     public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
     {
         AudioClip clip = GetSoundClip(soundType);
@@ -35,7 +37,7 @@ public class SoundManager : GenericMonoSingleton<SoundManager>
         }
     }
 
-    // Plays the given SoundType as Background Music.
+
     public void PlayBackgroundMusic(SoundType soundType, bool loopSound = false)
     {
         AudioClip clip = GetSoundClip(soundType);
@@ -50,7 +52,7 @@ public class SoundManager : GenericMonoSingleton<SoundManager>
         }
     }
 
-    // Fetches the Sound Clip for the given SoundType.
+
     private AudioClip GetSoundClip(SoundType soundType)
     {
         Sounds st = Array.Find(audioList, item => item.soundType == soundType);
@@ -61,7 +63,7 @@ public class SoundManager : GenericMonoSingleton<SoundManager>
         return null;
     }
 
-    // Sets the audio clip to null.
+    // Todo -> Unreferenced Methods
     public void StopSoundEffect()
     {
         audioEffects.Stop();
@@ -73,7 +75,6 @@ public class SoundManager : GenericMonoSingleton<SoundManager>
         backgroundMusic.Stop();
         backgroundMusic.clip = null;
     }
-
 }
 
 
