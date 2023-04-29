@@ -4,7 +4,6 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
-// Todo -> Take Reference of this Interactable , and make each interactable implemnt the I_Interactable
 public class LightSwitch : MonoBehaviour, I_Interactable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
@@ -56,7 +55,7 @@ public class LightSwitch : MonoBehaviour, I_Interactable
         }
     }
 
-    private void setLights(bool lights)
+    private void SetLights(bool lights)
     {
         if (lights)
         {
@@ -82,7 +81,7 @@ public class LightSwitch : MonoBehaviour, I_Interactable
     private void OnLightsOffByGhostEvent()
     {
         SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
-        setLights(false);
+        SetLights(false);
     }
     private void OnLightsToggeled()
     {

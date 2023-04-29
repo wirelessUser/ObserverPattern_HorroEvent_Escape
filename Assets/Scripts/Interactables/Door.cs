@@ -2,8 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Todo -> Take Reference of LightSwitch.cs Interactable , and make each interactable implemnt the I_Interactable
-public class Door : Interactable
+public class Door : MonoBehaviour, I_Interactable
 {
     [SerializeField] private float swingAngle;
     [SerializeField] private int keysRequiredToOpen;
@@ -14,9 +13,9 @@ public class Door : Interactable
     {
         currentState = DoorState.Locked;
     }
-    public override void Interact()
+    public void Interact()
     {
-        base.Interact();
+        UIManager.Instance.ShowInteractInstructions(false);
         DoorInteraction();
     }
     private void DoorInteraction()
@@ -43,8 +42,6 @@ public class Door : Interactable
                 break;
         }
     }
-
-
 
     public enum DoorState
     {
