@@ -29,7 +29,7 @@ public class PlayerEventTrigger : MonoBehaviour //view
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<I_Interactable>() != null && Isinteracted)
+        if (other.GetComponent<I_Interactable>() != null && isInteracted)
         {
             isInteracted = false;
             Debug.Log("Player Entered Interacted");
