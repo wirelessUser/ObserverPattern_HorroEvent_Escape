@@ -56,14 +56,13 @@ public class UIManager : GenericMonoSingleton<UIManager>
     {
         // TODO -> Make Every Event in EventService , Remove EventManager
         EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyEquipped);
-
-        EventManager.Instance.OnLightsOffByGhost += ShowLightOffInstructions;
-        EventManager.Instance.OnLightsOffByGhost += SetRedVignette;
-        EventManager.OnRatRush += SetRedVignette;
-        EventManager.OnSkullDrop += SetRedVignette;
-        EventManager.OnPlayerEscaped += OnPlayerEscaped;
-        EventManager.OnPlayerDeath += SetRedVignette;
-        EventManager.OnPlayerDeath += OnPlayerDeath;
+        EventService.Instance.LightsOffByGhostEvent.AddListener(ShowLightOffInstructions);
+        EventService.Instance.LightsOffByGhostEvent.AddListener(SetRedVignette);
+        EventService.Instance.PlayerEscapedEvent.AddListener(OnPlayerEscaped);
+        EventService.Instance.PlayerDeathEvent.AddListener(SetRedVignette);
+        EventService.Instance.PlayerDeathEvent.AddListener(OnPlayerDeath);
+        EventService.Instance.RatRushEvent.AddListener(SetRedVignette);
+        EventService.Instance.SkullDropEvent.AddListener(SetRedVignette);
 
         tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
@@ -76,13 +75,13 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
         EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyEquipped);
 
-        EventManager.Instance.OnLightsOffByGhost -= ShowLightOffInstructions;
-        EventManager.Instance.OnLightsOffByGhost -= SetRedVignette;
-        EventManager.OnRatRush -= SetRedVignette;
-        EventManager.OnSkullDrop -= SetRedVignette;
-        EventManager.OnPlayerEscaped -= OnPlayerEscaped;
-        EventManager.OnPlayerDeath -= SetRedVignette;
-        EventManager.OnPlayerDeath -= OnPlayerDeath;
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(ShowLightOffInstructions);
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(SetRedVignette);
+        EventService.Instance.PlayerEscapedEvent.RemoveListener(OnPlayerEscaped);
+        EventService.Instance.PlayerDeathEvent.RemoveListener(SetRedVignette);
+        EventService.Instance.PlayerDeathEvent.RemoveListener(OnPlayerDeath);
+        EventService.Instance.RatRushEvent.RemoveListener(SetRedVignette);
+        EventService.Instance.SkullDropEvent.RemoveListener(SetRedVignette);
     }
 
     private void Start()

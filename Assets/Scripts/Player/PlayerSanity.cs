@@ -1,7 +1,4 @@
 using UnityEngine;
-using System.Collections;
-using System;
-
 
 public class PlayerSanity : MonoBehaviour
 {
@@ -23,20 +20,19 @@ public class PlayerSanity : MonoBehaviour
         // TODO -> Make Every Event in EventService , Remove EventManager
 
         EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
-        EventManager.Instance.OnLightsOffByGhost += OnLightsOffByGhost;
-        EventManager.OnRatRush += OnSupernaturalEvent;
-        EventManager.OnSkullDrop += OnSupernaturalEvent;
-        EventManager.OnPotionDrink += OnDrankPotion;
+        EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
+        EventService.Instance.PotionDrinkEvent.AddListener(OnDrankPotion);
+        EventService.Instance.RatRushEvent.AddListener(OnSupernaturalEvent);
+        EventService.Instance.SkullDropEvent.AddListener(OnSupernaturalEvent);
     }
 
     private void OnDisable()
     {
         EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
-
-        EventManager.Instance.OnLightsOffByGhost -= OnLightsOffByGhost;
-        EventManager.OnRatRush -= OnSupernaturalEvent;
-        EventManager.OnSkullDrop -= OnSupernaturalEvent;
-        EventManager.OnPotionDrink -= OnDrankPotion;
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(OnLightsOffByGhost);
+        EventService.Instance.PotionDrinkEvent.RemoveListener(OnDrankPotion);
+        EventService.Instance.RatRushEvent.RemoveListener(OnSupernaturalEvent);
+        EventService.Instance.SkullDropEvent.RemoveListener(OnSupernaturalEvent);
     }
 
     void Update()
@@ -71,12 +67,11 @@ public class PlayerSanity : MonoBehaviour
         UIManager.UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 
-
     void GameOver()
     {
         Debug.Log("Player Died");
         isAlive = false;
-        EventManager.Instance.InvokeOnPlayerDeath();
+        EventService.Instance.PlayerDeathEvent.InvokeEvent();
         SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare1, false);
     }
 

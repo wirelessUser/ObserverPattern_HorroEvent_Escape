@@ -5,15 +5,17 @@ using UnityEngine;
 
 // Todo -> Normal Mono -> Call it RatRushEvent
 // All the RatRush Logic written in RatRush should be moved here
-public class RatRushEventTrigger : CoreEventTrigger
+public class RatRushEvent : MonoBehaviour
 {
+    [SerializeField] private SoundType soundToPlay;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null)
         {
-            EventManager.Instance.InvokeOnRatRush();
-            SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare2, false);
-            triggerCollider.enabled = false;
+            EventService.Instance.RatRushEvent.InvokeEvent();
+            SoundManager.Instance.PlaySoundEffects(soundToPlay, false);
+            GetComponent<Collider>().enabled = false;
         }
     }
 }

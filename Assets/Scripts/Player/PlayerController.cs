@@ -38,14 +38,14 @@ public class PlayerController : GenericMonoSingleton<PlayerController>//why mono
     private void OnEnable()
     {
         EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyPickedUp);
-        EventManager.OnPlayerEscaped += DisableControls;
+        EventService.Instance.PlayerEscapedEvent.AddListener(DisableControls);
     }
 
     private void OnDisable()
     {
 
         EventService.Instance.KeyPickedUpEvent.RemoveListener(OnKeyPickedUp);
-        EventManager.OnPlayerEscaped -= DisableControls;
+        EventService.Instance.PlayerEscapedEvent.RemoveListener(DisableControls);
     }
 
     void Start()

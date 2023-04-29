@@ -14,18 +14,18 @@ public class CameraController : MonoBehaviour
 
     private void OnEnable()
     {
-        EventManager.Instance.OnLightsOffByGhost += Shake;
-        EventManager.OnRatRush += Shake;
-        EventManager.OnSkullDrop += Shake;
-        EventManager.OnPlayerDeath += Shake;
+        EventService.Instance.LightsOffByGhostEvent.AddListener(Shake);
+        EventService.Instance.PlayerDeathEvent.AddListener(Shake);
+        EventService.Instance.RatRushEvent.AddListener(Shake);
+        EventService.Instance.SkullDropEvent.AddListener(Shake);
     }
 
     private void OnDisable()
     {
-        EventManager.Instance.OnLightsOffByGhost -= Shake;
-        EventManager.OnRatRush -= Shake;
-        EventManager.OnSkullDrop -= Shake;
-        EventManager.OnPlayerDeath -= Shake;
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(Shake);
+        EventService.Instance.PlayerDeathEvent.RemoveListener(Shake);
+        EventService.Instance.RatRushEvent.RemoveListener(Shake);
+        EventService.Instance.SkullDropEvent.RemoveListener(Shake);
     }
 
     public void Shake()

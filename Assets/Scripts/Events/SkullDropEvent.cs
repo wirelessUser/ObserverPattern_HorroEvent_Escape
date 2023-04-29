@@ -5,15 +5,18 @@ using UnityEngine;
 
 // Todo -> Normal Mono -> Call it SkullDrop
 // All the RatRush Logic written in SkullDrop should be moved here
-public class SkullDropEventTrigger : CoreEventTrigger
+public class SkullDropEvent : MonoBehaviour
 {
+    [SerializeField] private int keysRequiredToTrigger;
+    [SerializeField] private SoundType soundToPlay;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<PlayerController>() != null && PlayerController.Instance.KeysEquipped >= keysRequiredToTrigger)
         {
-            EventManager.Instance.InvokeOnSkullDrop();
-            SoundManager.Instance.PlaySoundEffects(SoundType.JumpScare1, false);
-            triggerCollider.enabled = false;
+            EventService.Instance.SkullDropEvent.InvokeEvent();
+            SoundManager.Instance.PlaySoundEffects(soundToPlay, false);
+            GetComponent<Collider>().enabled = false;
         }
     }
 }

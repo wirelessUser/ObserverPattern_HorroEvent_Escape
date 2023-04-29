@@ -1,8 +1,5 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Experimental.GlobalIllumination;
 
 public class LightSwitch : MonoBehaviour, I_Interactable
 {
@@ -10,14 +7,14 @@ public class LightSwitch : MonoBehaviour, I_Interactable
     private SwitchState currentState;
     private void OnEnable()
     {
-        EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggeled);
-        EventManager.Instance.OnLightsOffByGhost += OnLightsOffByGhostEvent;
+        EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
+        EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhostEvent);
     }
 
     private void OnDisable()
     {
-        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggeled);
-        EventManager.Instance.OnLightsOffByGhost -= OnLightsOffByGhostEvent;
+        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(OnLightsOffByGhostEvent);
     }
 
     private void Start()
@@ -83,7 +80,7 @@ public class LightSwitch : MonoBehaviour, I_Interactable
         SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
         SetLights(false);
     }
-    private void OnLightsToggeled()
+    private void OnLightsToggled()
     {
         ToggleLights();
         SoundManager.Instance.PlaySoundEffects(SoundType.SwitchSound, false);
