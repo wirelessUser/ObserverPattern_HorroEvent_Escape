@@ -54,7 +54,6 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
     private void OnEnable()
     {
-        // TODO -> Make Every Event in EventService , Remove EventManager
         EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyEquipped);
         EventService.Instance.LightsOffByGhostEvent.AddListener(ShowLightOffInstructions);
         EventService.Instance.LightsOffByGhostEvent.AddListener(SetRedVignette);

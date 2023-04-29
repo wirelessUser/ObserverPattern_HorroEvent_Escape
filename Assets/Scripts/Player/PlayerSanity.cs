@@ -16,9 +16,7 @@ public class PlayerSanity : MonoBehaviour
     }
 
     private void OnEnable()
-    {
-        // TODO -> Make Every Event in EventService , Remove EventManager
-
+    { 
         EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
         EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
         EventService.Instance.PotionDrinkEvent.AddListener(OnDrankPotion);
