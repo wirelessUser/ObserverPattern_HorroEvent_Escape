@@ -64,7 +64,6 @@ public class LightSwitch : MonoBehaviour, I_Interactable
         {
             currentState = SwitchState.Off;
         }
-        EventService.Instance.LightSwitchToggleEvent.InvokeEvent();
 
         foreach (Light lightSource in lightsources)
         {
