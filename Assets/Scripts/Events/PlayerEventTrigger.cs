@@ -5,7 +5,7 @@ using UnityEngine;
 // TODO -> This Entire Script is not needed , Move this into PlayerView
 public class PlayerEventTrigger : MonoBehaviour //view
 {
-    private bool Isinteracted; //naming
+    private bool isInteracted;
 
     private void Update()
     {
