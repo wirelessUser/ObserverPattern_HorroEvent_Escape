@@ -11,11 +11,11 @@ public class PlayerEventTrigger : MonoBehaviour //view
     {
         if (Input.GetKeyDown(KeyCode.E))
         {
-            Isinteracted = true;
+            isInteracted = true;
         }
         if (Input.GetKeyUp(KeyCode.E))
         {
-            Isinteracted = false;
+            isInteracted = false;
         }
     }
 
@@ -31,7 +31,7 @@ public class PlayerEventTrigger : MonoBehaviour //view
     {
         if (other.GetComponent<I_Interactable>() != null && Isinteracted)
         {
-            Isinteracted = false;
+            isInteracted = false;
             Debug.Log("Player Entered Interacted");
             other.GetComponent<I_Interactable>().Interact();
         }
