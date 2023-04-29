@@ -2,11 +2,12 @@ using UnityEngine;
 
 public class RatRushEvent : MonoBehaviour
 {
-    [SerializeField] private SoundType soundToPlay;
     [SerializeField] private Transform Rats;
     [SerializeField] private Transform target;
-    private float speed = 7.5f;
+    [SerializeField] private SoundService soundService;
+    [SerializeField] private SoundType soundToPlay;
 
+    private float speed = 7.5f;
     private bool rushActive = false;
     private bool reachedTarget = false;
 
@@ -16,7 +17,7 @@ public class RatRushEvent : MonoBehaviour
         {
             EventService.Instance.RatRushEvent.InvokeEvent();
             OnRatRush();
-            SoundManager.Instance.PlaySoundEffects(soundToPlay, false);
+            soundService.PlaySoundEffects(soundToPlay);
             GetComponent<Collider>().enabled = false;
         }
     }

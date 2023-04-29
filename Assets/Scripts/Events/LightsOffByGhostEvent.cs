@@ -3,6 +3,7 @@ using UnityEngine;
 public class LightsOffByGhostEvent : MonoBehaviour
 {
     [SerializeField] private int keysRequiredToTrigger;
+    [SerializeField] private SoundService soundService;
     [SerializeField] private SoundType soundToPlay;
 
     private void OnTriggerEnter(Collider other)
@@ -10,7 +11,7 @@ public class LightsOffByGhostEvent : MonoBehaviour
         if (other.GetComponent<PlayerController>() != null && PlayerController.Instance.KeysEquipped == keysRequiredToTrigger)
         {
             EventService.Instance.LightsOffByGhostEvent.InvokeEvent();
-            SoundManager.Instance.PlaySoundEffects(soundToPlay, false);
+            soundService.PlaySoundEffects(soundToPlay);
             GetComponent<Collider>().enabled = false;
         }
     }

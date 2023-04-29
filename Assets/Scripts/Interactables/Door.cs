@@ -6,6 +6,7 @@ public class Door : MonoBehaviour, I_Interactable
 {
     [SerializeField] private float swingAngle;
     [SerializeField] private int keysRequiredToOpen;
+    [SerializeField] private SoundService soundService;
     private DoorState currentState;
 
 
@@ -27,18 +28,18 @@ public class Door : MonoBehaviour, I_Interactable
                 {
                     transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
                     currentState = DoorState.Open;
-                    SoundManager.Instance.PlaySoundEffects(SoundType.DoorOpen, false);
+                    soundService.PlaySoundEffects(SoundType.DoorOpen);
                 }
                 break;
             case DoorState.Close:
                 transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
                 currentState = DoorState.Open;
-                SoundManager.Instance.PlaySoundEffects(SoundType.DoorOpen, false);
+                soundService.PlaySoundEffects(SoundType.DoorOpen);
                 break;
             case DoorState.Open:
                 transform.Rotate(0f, transform.rotation.y - swingAngle, 0f);
                 currentState = DoorState.Close;
-                SoundManager.Instance.PlaySoundEffects(SoundType.DoorSlam, false);
+                soundService.PlaySoundEffects(SoundType.DoorSlam);
                 break;
         }
     }

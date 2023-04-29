@@ -3,26 +3,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Todo -> Make it non Singleton , take serilized reference wherhere needed , reduce refs 
-public class SoundManager : GenericMonoSingleton<SoundManager>
+public class SoundService : MonoBehaviour
 {
-    public AudioSource audioEffects; // Todo -> private serilizables
-    public AudioSource backgroundMusic;
-    public Sounds[] audioList;
-
-
-    protected override void Awake()
-    {
-        base.Awake();
-    }
+    [SerializeField] private AudioSource audioEffects; 
+    [SerializeField] private AudioSource backgroundMusic;
+    [SerializeField] private Sounds[] audioList;
 
     private void Start()
     {
         PlayBackgroundMusic(SoundType.BackgroundMusic, true);
     }
 
-    // Todo -> All the refs of  PlaySoundEffects() method are taking loopsound false as parameter
-    // we have already declared loopSound = false by default, remove those parameters
     public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
     {
         AudioClip clip = GetSoundClip(soundType);
@@ -61,19 +52,6 @@ public class SoundManager : GenericMonoSingleton<SoundManager>
             return st.audio;
         }
         return null;
-    }
-
-    // Todo -> Unreferenced Methods
-    public void StopSoundEffect()
-    {
-        audioEffects.Stop();
-        audioEffects.clip = null;
-    }
-
-    public void StopBackgroundMusic()
-    {
-        backgroundMusic.Stop();
-        backgroundMusic.clip = null;
     }
 }
 

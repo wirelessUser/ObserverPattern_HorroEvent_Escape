@@ -1,5 +1,3 @@
-using System;
-using System.Diagnostics;
 public class EventService
 {
     private static EventService instance;
@@ -15,7 +13,6 @@ public class EventService
         }
     }
     
-    // Todo List All Events Here
     public GameEventController LightSwitchToggleEvent { get; private set; }
 
     public GameEventController<int> KeyPickedUpEvent { get; private set; }
@@ -34,13 +31,13 @@ public class EventService
 
     public EventService()
     {
-        this.LightSwitchToggleEvent = new GameEventController();
-        this.KeyPickedUpEvent = new GameEventController<int>();
-        this.PotionDrinkEvent = new GameEventController();
-        this.LightsOffByGhostEvent = new GameEventController();
-        this.RatRushEvent = new GameEventController();
-        this.SkullDropEvent = new GameEventController();
-        this.PlayerEscapedEvent = new GameEventController();
-        this.PlayerDeathEvent = new GameEventController();
+        LightSwitchToggleEvent = new GameEventController();
+        KeyPickedUpEvent = new GameEventController<int>();
+        PotionDrinkEvent = new GameEventController();
+        LightsOffByGhostEvent = new GameEventController();
+        RatRushEvent = new GameEventController();
+        SkullDropEvent = new GameEventController();
+        PlayerEscapedEvent = new GameEventController();
+        PlayerDeathEvent = new GameEventController();
     }
 }

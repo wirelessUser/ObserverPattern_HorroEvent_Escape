@@ -3,8 +3,9 @@ using UnityEngine;
 public class SkullDropEvent : MonoBehaviour
 {
     [SerializeField] private int keysRequiredToTrigger;
-    [SerializeField] private SoundType soundToPlay;
     [SerializeField] private Transform Skulls;
+    [SerializeField] private SoundService soundService;
+    [SerializeField] private SoundType soundToPlay;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -12,7 +13,7 @@ public class SkullDropEvent : MonoBehaviour
         {
             EventService.Instance.SkullDropEvent.InvokeEvent();
             OnSkullDrop();
-            SoundManager.Instance.PlaySoundEffects(soundToPlay, false);
+            soundService.PlaySoundEffects(soundToPlay);
             GetComponent<Collider>().enabled = false;
         }
     }
