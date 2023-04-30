@@ -5,7 +5,6 @@ public class PlayerSanity : MonoBehaviour
     [SerializeField] private float sanityLevel = 100.0f;
     [SerializeField] private float sanityDropRate = 0.2f;
     [SerializeField] private float sanityDropAmountPerEvent = 10f;
-    [SerializeField] private UIManager UIManager;
     [SerializeField] private SoundService soundService;
     private float maxSanity;
     private bool isPlayerInDark = true;
@@ -17,7 +16,7 @@ public class PlayerSanity : MonoBehaviour
     }
 
     private void OnEnable()
-    { 
+    {
         EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
         EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
         EventService.Instance.PotionDrinkEvent.AddListener(OnDrankPotion);
@@ -53,7 +52,7 @@ public class PlayerSanity : MonoBehaviour
             sanityLevel = 0;
             GameOver();
         }
-        UIManager.UpdateInsanity(1f - sanityLevel / maxSanity);
+        GameService.Instance.GetGameUI().UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 
     public void IncreaseSanity(float amountToIncrease)
@@ -63,7 +62,7 @@ public class PlayerSanity : MonoBehaviour
         {
             sanityLevel = 100;
         }
-        UIManager.UpdateInsanity(1f - sanityLevel / maxSanity);
+        GameService.Instance.GetGameUI().UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 
     void GameOver()

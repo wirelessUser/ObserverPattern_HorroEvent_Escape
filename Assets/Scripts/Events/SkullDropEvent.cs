@@ -9,7 +9,7 @@ public class SkullDropEvent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerView>() != null && ServiceLocator.Instance.GetPlayerController().GetKeys() >= keysRequiredToTrigger)
+        if (other.GetComponent<PlayerView>() != null && GameService.Instance.GetPlayerController().GetKeys() >= keysRequiredToTrigger)
         {
             EventService.Instance.SkullDropEvent.InvokeEvent();
             OnSkullDrop();

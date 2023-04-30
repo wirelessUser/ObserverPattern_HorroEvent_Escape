@@ -1,13 +1,18 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ServiceLocator : GenericMonoSingleton<ServiceLocator>
+public class GameService : GenericMonoSingleton<GameService>
 {
     private PlayerController playerController;
 
-    [Header("Player References")]
+    [Header("Views")]
     [SerializeField] private PlayerView playerView;
+    [SerializeField] private GameUIView gameUIView;
+    [SerializeField] private InstructionView instructionView;
+
+    [Header("Scriptable Objects")]
     [SerializeField] private PlayerScriptableObject playerScriptableObject;
 
 
@@ -19,6 +24,15 @@ public class ServiceLocator : GenericMonoSingleton<ServiceLocator>
     public PlayerController GetPlayerController()
     {
         return playerController;
+    }
+
+    public GameUIView GetGameUI()
+    {
+        return gameUIView;
+    }
+    public InstructionView GetInstructionView()
+    {
+        return instructionView;
     }
 
 }

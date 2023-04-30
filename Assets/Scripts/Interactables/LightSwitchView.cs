@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightSwitch : MonoBehaviour, I_Interactable
+public class LightSwitchView : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
     [SerializeField] private SoundService soundService;
@@ -74,7 +74,7 @@ public class LightSwitch : MonoBehaviour, I_Interactable
 
     public void Interact()
     {
-        UIManager.Instance.ShowInteractInstructions(false);
+        GameService.Instance.GetInstructionView().HideInstruction();
         EventService.Instance.LightSwitchToggleEvent.InvokeEvent();
     }
     private void OnLightsOffByGhostEvent()

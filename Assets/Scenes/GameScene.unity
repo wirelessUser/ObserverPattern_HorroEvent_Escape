@@ -346,7 +346,7 @@ RectTransform:
   m_Children:
   - {fileID: 1550849810}
   m_Father: {fileID: 2132082663}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -387,7 +387,7 @@ RectTransform:
   - {fileID: 333025224}
   - {fileID: 819863677}
   m_Father: {fileID: 2132082663}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -465,7 +465,7 @@ RectTransform:
   - {fileID: 1425997404}
   - {fileID: 722220106}
   m_Father: {fileID: 2132082663}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -544,7 +544,7 @@ RectTransform:
   - {fileID: 1465535885}
   - {fileID: 1965949469}
   m_Father: {fileID: 2132082663}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -724,82 +724,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 599153318}
   m_CullTransparentMesh: 1
---- !u!1 &605625935
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 605625938}
-  - component: {fileID: 605625937}
-  - component: {fileID: 605625936}
-  m_Layer: 5
-  m_Name: View - Blackout
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!114 &605625936
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605625935}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fe87c0e1cc204ed48ad3b37840f39efc, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Material: {fileID: 0}
-  m_Color: {r: 0, g: 0, b: 0, a: 1}
-  m_RaycastTarget: 0
-  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
-  m_Maskable: 1
-  m_OnCullStateChanged:
-    m_PersistentCalls:
-      m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
-  m_PreserveAspect: 0
-  m_FillCenter: 1
-  m_FillMethod: 4
-  m_FillAmount: 1
-  m_FillClockwise: 1
-  m_FillOrigin: 0
-  m_UseSpriteMesh: 0
-  m_PixelsPerUnitMultiplier: 1
---- !u!222 &605625937
-CanvasRenderer:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605625935}
-  m_CullTransparentMesh: 1
---- !u!224 &605625938
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 605625935}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 2132082663}
-  m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
-  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &722220105
 GameObject:
   m_ObjectHideFlags: 0
@@ -1516,7 +1440,7 @@ RectTransform:
   m_Children:
   - {fileID: 1403741644}
   m_Father: {fileID: 2132082663}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -1792,6 +1716,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerView: {fileID: 5620200794608469897}
+  gameUIView: {fileID: 2132082659}
+  instructionView: {fileID: 2003008590}
   playerScriptableObject: {fileID: 11400000, guid: 58cdb556c02f88e469a60492985c538c, type: 2}
 --- !u!1 &1425997403
 GameObject:
@@ -2468,6 +2394,55 @@ RectTransform:
   m_AnchoredPosition: {x: 360, y: 360}
   m_SizeDelta: {x: 320, y: 100}
   m_Pivot: {x: 0.5, y: 0}
+--- !u!1 &2003008588
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2003008589}
+  - component: {fileID: 2003008590}
+  m_Layer: 0
+  m_Name: InstructionView
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2003008589
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003008588}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2003008590
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2003008588}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 17cf06aa8f8e03f4db11712a5cc7b2bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerSpawnedInstruction: {fileID: 11400000, guid: 817f4db30166bfd45ac31f0c8901fdb4, type: 2}
+  interactionInstruction: {fileID: 11400000, guid: a67079eb10ed37c4881b56d00e1fd77b, type: 2}
+  lightOffByGhostInstruction: {fileID: 11400000, guid: 976eff6108d80554e8c16108f7dee769, type: 2}
+  instructionPopup: {fileID: 1187675562}
+  instructionsText: {fileID: 844183023}
 --- !u!1 &2132082658
 GameObject:
   m_ObjectHideFlags: 0
@@ -2500,22 +2475,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a0c66bf78d82c646a0daaf9ba705624, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  blackOutScreen: {fileID: 605625936}
-  blackoutFadeDuration: 2
-  instructionPopup: {fileID: 1187675562}
-  instructionsText: {fileID: 844183023}
-  instructions:
-  - instructionType: 0
-    instruction: Find all the Keys to Open doors and get out. Press E to Interact
-      with objects, pick up Items and Open Doors.
-    displayed: 0
-  - instructionType: 1
-    instruction: Standing in darkness will increase your Insanity faster. Use switches
-      to turn on Lights and survive.
-    displayed: 0
-  - instructionType: 2
-    instruction: Press E to Interact
-    displayed: 0
+  instructionsSO:
+  - {fileID: 11400000, guid: a67079eb10ed37c4881b56d00e1fd77b, type: 2}
+  - {fileID: 11400000, guid: 976eff6108d80554e8c16108f7dee769, type: 2}
+  - {fileID: 11400000, guid: 817f4db30166bfd45ac31f0c8901fdb4, type: 2}
   instructionDisplayDuration: 6
   rootViewPanel: {fileID: 574964454}
   insanityImage: {fileID: 1506977975}
@@ -2600,7 +2563,6 @@ RectTransform:
   m_LocalScale: {x: 0, y: 0, z: 0}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 605625938}
   - {fileID: 354270207}
   - {fileID: 575135718}
   - {fileID: 1187675563}
@@ -3642,7 +3604,6 @@ MonoBehaviour:
   sanityLevel: 100
   sanityDropRate: 0.2
   sanityDropAmountPerEvent: 10
-  UIManager: {fileID: 2132082659}
   soundService: {fileID: 203687011}
 --- !u!23 &1710902062511867471
 MeshRenderer:
@@ -5793,7 +5754,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5620200794608469900}
-  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalRotation: {x: 0, y: 0.6656865, z: -0, w: -0.74623156}
   m_LocalPosition: {x: -0.749, y: -0.41, z: 0.075}
   m_LocalScale: {x: 0.5, y: 0.75, z: 0.5}
   m_ConstrainProportionsScale: 0
@@ -5801,7 +5762,7 @@ Transform:
   - {fileID: 5620200793656990160}
   m_Father: {fileID: 0}
   m_RootOrder: 3
-  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 276.53, z: 0}
 --- !u!54 &5620200794608469896
 Rigidbody:
   m_ObjectHideFlags: 0

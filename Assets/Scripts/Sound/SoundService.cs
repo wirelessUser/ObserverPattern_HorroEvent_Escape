@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class SoundService : MonoBehaviour
 {
-    [SerializeField] private AudioSource audioEffects; 
+    [SerializeField] private AudioSource audioEffects;
     [SerializeField] private AudioSource backgroundMusic;
     [SerializeField] private Sounds[] audioList;
 
@@ -53,27 +53,4 @@ public class SoundService : MonoBehaviour
         }
         return null;
     }
-}
-
-
-public enum SoundType
-{
-    BackgroundMusic,
-    SwitchSound,
-    DoorOpen,
-    DoorSlam,
-    SpookyGiggle,
-    JumpScare1,
-    JumpScare2,
-    JumpScare3,
-    KeyPickUp,
-    DrinkPotion
-}
-
-
-[Serializable]
-public class Sounds
-{
-    public SoundType soundType;
-    public AudioClip audio;
 }

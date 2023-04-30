@@ -12,7 +12,7 @@ public class EventService
             return instance;
         }
     }
-    
+
     public GameEventController LightSwitchToggleEvent { get; private set; }
 
     public GameEventController<int> KeyPickedUpEvent { get; private set; }

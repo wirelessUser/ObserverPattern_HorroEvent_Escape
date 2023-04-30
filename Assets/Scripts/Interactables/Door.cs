@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Door : MonoBehaviour, I_Interactable
+public class Door : MonoBehaviour, IInteractable
 {
     [SerializeField] private float swingAngle;
     [SerializeField] private int keysRequiredToOpen;
@@ -16,15 +16,16 @@ public class Door : MonoBehaviour, I_Interactable
     }
     public void Interact()
     {
-        UIManager.Instance.ShowInteractInstructions(false);
+        GameService.Instance.GetInstructionView().HideInstruction();
         DoorInteraction();
     }
+
     private void DoorInteraction()
     {
         switch (currentState)
         {
             case DoorState.Locked:
-                if (ServiceLocator.Instance.GetPlayerController().GetKeys() >= keysRequiredToOpen)
+                if (GameService.Instance.GetPlayerController().GetKeys() >= keysRequiredToOpen)
                 {
                     transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
                     currentState = DoorState.Open;

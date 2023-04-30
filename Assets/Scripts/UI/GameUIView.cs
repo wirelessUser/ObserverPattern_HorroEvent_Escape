@@ -6,28 +6,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-
-//TODO - UIManager -> All Naming Should Be Service -> Not Managers , We need to Reduce LOC of UIService to Less than 100
-// Todo -> We will not use generic singleton, as scope is very less, we directly take the serialized refference in the respected script
-
-// Todo->This UI manager will become GameUI which will only contain UI of Sanity and Keys Holder i.e. Root UI objects
-public class UIManager : GenericMonoSingleton<UIManager>
+public class GameUIView : MonoBehaviour
 {
-    [Header("Blackout Screen")]
-    [SerializeField]
-    private Image blackOutScreen;
-    [SerializeField]
-    private float blackoutFadeDuration;
-    private Coroutine blackoutCoroutine;
-
-    // Todo -> Move Instructions stuff into seperate InsturctionsView Mono
-    [Header("Instruction Popup")]
-    [SerializeField]
-    private GameObject instructionPopup;
-    [SerializeField]
-    private TextMeshProUGUI instructionsText;
-    [SerializeField]
-    private List<Instruction> instructions;
+    public List<InstructionSciprtableObject> instructionsSO;
     [SerializeField]
     private float instructionDisplayDuration;
     private Coroutine instructionCoroutine;
@@ -71,9 +52,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
     private void OnDisable()
     {
-
         EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyEquipped);
-
         EventService.Instance.LightsOffByGhostEvent.RemoveListener(ShowLightOffInstructions);
         EventService.Instance.LightsOffByGhostEvent.RemoveListener(SetRedVignette);
         EventService.Instance.PlayerEscapedEvent.RemoveListener(OnPlayerEscaped);
@@ -83,49 +62,6 @@ public class UIManager : GenericMonoSingleton<UIManager>
         EventService.Instance.SkullDropEvent.RemoveListener(SetRedVignette);
     }
 
-    private void Start()
-    {
-        if (blackoutCoroutine != null)
-            StopCoroutine(blackoutCoroutine);
-
-        blackoutCoroutine = StartCoroutine(ToggleBlackoutScreen(false, () =>
-        {
-            if (instructionCoroutine != null)
-                StopCoroutine(instructionCoroutine);
-
-            instructionCoroutine = StartCoroutine(SetInstructions(Instruction.InstructionType.PlayerSpawned));
-        }));
-    }
-
-    private IEnumerator ToggleBlackoutScreen(bool setActive, Action callback = null)
-    {
-        blackOutScreen.CrossFadeAlpha(setActive ? 1f : 0f, blackoutFadeDuration, true);
-        yield return new WaitForSeconds(blackoutFadeDuration);
-        callback?.Invoke();
-    }
-
-    // All the instructions code should move to IntructionsView and there should be Scriptable Object
-    private IEnumerator SetInstructions(Instruction.InstructionType type, bool oneShot = true)
-    {
-        string instructionToSet = "";
-        foreach (Instruction instruction in instructions)
-        {
-            if (instruction.instructionType == type && !instruction.displayed)
-            {
-                instructionToSet = instruction.instruction;
-                instruction.displayed = oneShot;
-                break;
-            }
-        }
-
-        instructionPopup.SetActive(true);
-        instructionsText.SetText(instructionToSet);
-
-        yield return new WaitForSeconds(instructionDisplayDuration);
-
-        instructionsText.SetText(string.Empty);
-        instructionPopup.SetActive(false);
-    }
 
     public void UpdateInsanity(float playerSanity)
     {
@@ -134,7 +70,6 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
     private void OnKeyEquipped(int keys)
     {
-        Debug.Log("UI Manager - OnKeyEquipped");
         keysFoundText.SetText($"Keys Found: {keys}/3");
     }
 
@@ -143,27 +78,7 @@ public class UIManager : GenericMonoSingleton<UIManager>
         if (instructionCoroutine != null)
             StopCoroutine(instructionCoroutine);
 
-        instructionCoroutine = StartCoroutine(SetInstructions(Instruction.InstructionType.LightsOff));
-    }
-
-    public void ShowInteractInstructions(bool shouldShow)
-    {
-        if (shouldShow)
-        {
-            if (instructionCoroutine != null)
-                StopCoroutine(instructionCoroutine);
-
-            instructionCoroutine = StartCoroutine(SetInstructions(Instruction.InstructionType.Interact, false));
-
-        }
-        else
-        {
-            if (instructionCoroutine != null)
-                StopCoroutine(instructionCoroutine);
-
-            instructionsText.SetText(string.Empty);
-            instructionPopup.SetActive(false);
-        }
+        GameService.Instance.GetInstructionView().ShowInstruction((InstructionType.LightsOff));
     }
 
     private void SetRedVignette()
@@ -193,20 +108,3 @@ public class UIManager : GenericMonoSingleton<UIManager>
 
 }
 
-//refactor
-/*[Serializable]
-public class Instruction
-{
-    public InstructionType instructionType;
-    public string instruction;
-    public bool displayed;
-}
-
-[Serializable]
-public enum InstructionType
-{
-    PlayerSpawned,
-    LightsOff,
-    Interact,
-    OpenDoor
-}*/

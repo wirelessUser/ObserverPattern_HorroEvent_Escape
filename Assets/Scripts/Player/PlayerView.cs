@@ -7,7 +7,6 @@ using UnityEngine;
 public class PlayerView : MonoBehaviour
 {
     private Rigidbody playerRigidbody;
-    private Camera playerCamera;
     private PlayerController playerController;
 
     private void OnEnable()
@@ -18,7 +17,6 @@ public class PlayerView : MonoBehaviour
 
     private void OnDisable()
     {
-
         EventService.Instance.KeyPickedUpEvent.RemoveListener(OnKeyPickedUp);
         EventService.Instance.PlayerEscapedEvent.RemoveListener(DisableControls);
     }
@@ -26,8 +24,8 @@ public class PlayerView : MonoBehaviour
     private void Start()
     {
         playerRigidbody = GetComponent<Rigidbody>();
-        playerCamera = gameObject.GetComponentInChildren<Camera>();
     }
+
     private void Update()
     {
         playerController.Move(playerRigidbody, transform);
@@ -35,10 +33,10 @@ public class PlayerView : MonoBehaviour
         playerController.Interact();
     }
 
-
     #region Event CallBacks
     private void OnKeyPickedUp(int keys)
     {
+        Debug.Log("On Key Picked Up");
         playerController.SetKeys(keys);
     }
 
@@ -49,30 +47,30 @@ public class PlayerView : MonoBehaviour
 
     #endregion Event CallBacks
 
-
     #region Collision CallBacks
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<I_Interactable>() != null)
+        if (other.GetComponent<IInteractable>() != null)
         {
-            UIManager.Instance.ShowInteractInstructions(true);
+            GameService.Instance.GetInstructionView().ShowInstruction(InstructionType.Interact);
         }
     }
 
     private void OnTriggerStay(Collider other)
     {
-        if (other.GetComponent<I_Interactable>() != null && playerController.isInteracted)
+        IInteractable interactable;
+        if (other.TryGetComponent(out interactable) && playerController.isInteracted)
         {
             playerController.isInteracted = false;
-            other.GetComponent<I_Interactable>().Interact();
+            interactable.Interact();
         }
     }
 
     private void OnTriggerExit(Collider other)
     {
-        if (other.GetComponent<I_Interactable>() != null)
+        if (other.GetComponent<IInteractable>() != null)
         {
-            UIManager.Instance.ShowInteractInstructions(false);
+            GameService.Instance.GetInstructionView().HideInstruction();
         }
     }
 
