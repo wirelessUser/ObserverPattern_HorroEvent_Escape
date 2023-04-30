@@ -24,7 +24,7 @@ public class Door : MonoBehaviour, I_Interactable
         switch (currentState)
         {
             case DoorState.Locked:
-                if (PlayerController.Instance.KeysEquipped >= keysRequiredToOpen)
+                if (ServiceLocator.Instance.GetPlayerController().GetKeys() >= keysRequiredToOpen)
                 {
                     transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
                     currentState = DoorState.Open;

@@ -33,6 +33,7 @@ public class LightSwitch : MonoBehaviour, I_Interactable
 
     private void ToggleLights()
     {
+        Debug.Log("LightSwitch ToggleLights()");
         bool lights = false;
 
         switch (currentState)

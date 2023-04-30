@@ -13,7 +13,7 @@ public class RatRushEvent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerController>() != null)
+        if (other.GetComponent<PlayerView>() != null)
         {
             EventService.Instance.RatRushEvent.InvokeEvent();
             OnRatRush();

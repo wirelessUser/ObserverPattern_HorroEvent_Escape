@@ -1,103 +1,71 @@
-﻿using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-// TODO -> Make PlayerController Non-Mono and Make PlayerView Seperate , Only for Player We will use Controller and View
-// Business Logic Inside PlayerController and Unity Stuff Inside PlayerView 
-
-[RequireComponent(typeof(Rigidbody))]
-public class PlayerController : GenericMonoSingleton<PlayerController>//why mono
+public class PlayerController
 {
-    // Todo -> Make PlayerScriptable Object and move this things
-    [Header("Adjustments:")]
-    public bool showCursor;
-    public float jumpForce = 5f;
-    public float raycastLength;
+    public bool isInteracted;
 
-    [Header("Player Movement Speeds:")]
-    [Range(0.01f, 10.0f)] public float sensitivity = 5f;
-    [Range(0.01f, 32.0f)] public float walkSpeed = 0.50f, sprintSpeed = 0.85f;// inspector TODO
-
-
-
-    private Rigidbody playerRigidbody;
-    private Camera playerCamera;
-    private const float rotationLimit = 0.5f;
-
-    // Todo -> Make PlayerScriptable Object and move Keys Counter
-    public int KeysEquipped { get; private set; }
-
-    private float Velocity { get => Input.GetKey(KeyCode.LeftShift) ? sprintSpeed : walkSpeed; }
-    private float HorizontalAxis { get => Input.GetAxis("Horizontal"); }
-    private float VerticalAxis { get => Input.GetAxis("Vertical"); }
-    private bool IsGrounded { get => Physics.Raycast(transform.position, -transform.up, raycastLength); }
-
-
-    private void OnEnable()
+    private PlayerView playerView;
+    private PlayerScriptableObject playerScriptableObject;
+    private float Velocity;
+    private float HorizontalAxis;
+    private float VerticalAxis;
+    public PlayerController(PlayerView _playerView, PlayerScriptableObject playerSO)
     {
-        EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyPickedUp);
-        EventService.Instance.PlayerEscapedEvent.AddListener(DisableControls);
+        playerView = _playerView;
+        playerView.SetController(this);
+        playerScriptableObject = playerSO;
+        playerScriptableObject.KeysEquipped = 0;
     }
 
-    private void OnDisable()
+    public void Interact()
     {
-
-        EventService.Instance.KeyPickedUpEvent.RemoveListener(OnKeyPickedUp);
-        EventService.Instance.PlayerEscapedEvent.RemoveListener(DisableControls);
-    }
-
-    void Start()
-    {
-        playerRigidbody = GetComponent<Rigidbody>(); // Todo -> Follow consitant Declarations , if we are doing everything in Awake,
-                                                     // it should be in Awake Everywhere
-        playerCamera = gameObject.GetComponentInChildren<Camera>();
-        KeysEquipped = 0;
-    }
-
-    private void Update()
-    {
-        Cursor.visible = showCursor;
-
-        Move();
-    }
-
-
-    private void Move()
-    {
-        //movement should happen on player GameObject not on rigidbody
-
-        //Todo ->Make it readable code
-        playerRigidbody.MoveRotation(playerRigidbody.rotation * Quaternion.Euler(new Vector3(0, Input.GetAxis("Mouse X") * sensitivity, 0)));
-        playerRigidbody.MovePosition(transform.position + Time.fixedDeltaTime * Velocity * (transform.forward * VerticalAxis + transform.right * HorizontalAxis));
-
-        //Camera rotation. ->Todo This should be in CameraController
-        float velocity = sensitivity * -Input.GetAxis("Mouse Y");
-        playerCamera.transform.Rotate(velocity, 0f, 0f);
-
-        float rotationX = playerCamera.transform.localRotation.x;
-        if (rotationX > rotationLimit || rotationX < -rotationLimit)
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            playerCamera.transform.Rotate(-velocity, 0, 0);
+            isInteracted = true;
         }
+        if (Input.GetKeyUp(KeyCode.E))
+        {
+            isInteracted = false;
+        }
+    }
 
-        //Jump:
+    public void Jump(Rigidbody playerRigidbody, Transform transform)
+    {
+        bool IsGrounded = Physics.Raycast(transform.position, -transform.up, playerScriptableObject.raycastLength);
+
         if (Input.GetKeyDown(KeyCode.Space) && IsGrounded)
         {
-            playerRigidbody.AddForce(Vector3.up * jumpForce, ForceMode.Impulse);
+            playerRigidbody.AddForce(Vector3.up * playerScriptableObject.jumpForce, ForceMode.Impulse);
         }
     }
 
-    private void OnKeyPickedUp(int keys)
+    public void Move(Rigidbody playerRigidbody, Transform transform)
     {
-        Debug.Log("PlayerController - OnKeyEquipped");
-        KeysEquipped = keys;
+        TakingInputs();
+
+        Quaternion rotation = playerRigidbody.rotation * Quaternion.Euler(new Vector3(0, Input.GetAxis("Mouse X") * playerScriptableObject.sensitivity, 0));
+        Vector3 position = transform.position + Time.fixedDeltaTime * Velocity * (transform.forward * VerticalAxis + transform.right * HorizontalAxis);
+
+        playerRigidbody.MoveRotation(rotation);
+        playerRigidbody.MovePosition(position);
     }
 
-    private void DisableControls()
+    public void SetKeys(int keys)
     {
-        enabled = false; //Todo -> PlayerController.Disable()
+        playerScriptableObject.KeysEquipped = keys;
     }
 
+    public int GetKeys()
+    {
+        return playerScriptableObject.KeysEquipped;
+    }
+
+    private void TakingInputs()
+    {
+        HorizontalAxis = Input.GetAxis("Horizontal");
+        VerticalAxis = Input.GetAxis("Vertical");
+        Velocity = Input.GetKey(KeyCode.LeftShift) ? playerScriptableObject.sprintSpeed : playerScriptableObject.walkSpeed;
+    }
 }

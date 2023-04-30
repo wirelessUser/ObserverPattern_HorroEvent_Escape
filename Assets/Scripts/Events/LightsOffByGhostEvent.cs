@@ -8,7 +8,7 @@ public class LightsOffByGhostEvent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerController>() != null && PlayerController.Instance.KeysEquipped == keysRequiredToTrigger)
+        if (other.GetComponent<PlayerView>() != null && ServiceLocator.Instance.GetPlayerController().GetKeys() == keysRequiredToTrigger)
         {
             EventService.Instance.LightsOffByGhostEvent.InvokeEvent();
             soundService.PlaySoundEffects(soundToPlay);

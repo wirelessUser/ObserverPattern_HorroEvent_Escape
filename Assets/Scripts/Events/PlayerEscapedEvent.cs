@@ -7,7 +7,7 @@ public class PlayerEscapedEvent : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.GetComponent<PlayerController>() != null)
+        if (other.GetComponent<PlayerView>() != null)
         {
             soundService.PlaySoundEffects(soundToPlay);
             EventService.Instance.PlayerEscapedEvent.InvokeEvent();

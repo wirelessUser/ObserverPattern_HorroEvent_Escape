@@ -1747,6 +1747,52 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1403741643}
   m_CullTransparentMesh: 1
+--- !u!1 &1408709166
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1408709167}
+  - component: {fileID: 1408709168}
+  m_Layer: 0
+  m_Name: ServiceLocator
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1408709167
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408709166}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1408709168
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1408709166}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e88dc958b5d4d844c831b5bb80a6b3bd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerView: {fileID: 5620200794608469897}
+  playerScriptableObject: {fileID: 11400000, guid: 58cdb556c02f88e469a60492985c538c, type: 2}
 --- !u!1 &1425997403
 GameObject:
   m_ObjectHideFlags: 0
@@ -5784,12 +5830,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a0a4a1cee0aac84a82fa42d27834243, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  showCursor: 0
-  jumpForce: 3
-  raycastLength: 1.05
-  sensitivity: 1
-  walkSpeed: 2
-  sprintSpeed: 4
 --- !u!33 &5620200794608469898
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -5814,7 +5854,6 @@ GameObject:
   - component: {fileID: 1627861561336459542}
   - component: {fileID: 8225950124344110251}
   - component: {fileID: 8225950124344110253}
-  - component: {fileID: 8225950124344110254}
   m_Layer: 3
   m_Name: Player
   m_TagString: Untagged
@@ -8206,18 +8245,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &8225950124344110254
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5620200794608469900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a298134599cb95468eee0b0b4d10765, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!33 &8277430206251825788
 MeshFilter:
   m_ObjectHideFlags: 0
