@@ -23,6 +23,7 @@ public class RatRushEvent : MonoBehaviour
 
     void Update()
     {
+        //Todo - Morning
         if (rushActive)
         {
             if (!reachedTarget)
