@@ -4,7 +4,6 @@ using UnityEngine;
 public class LightSwitchView : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
-    [SerializeField] private SoundService soundService;
 
     private SwitchState currentState;
     private void OnEnable()
@@ -79,12 +78,12 @@ public class LightSwitchView : MonoBehaviour, IInteractable
     }
     private void OnLightsOffByGhostEvent()
     {
-        soundService.PlaySoundEffects(SoundType.SwitchSound);
+        GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.SwitchSound);
         SetLights(false);
     }
     private void OnLightsToggled()
     {
         ToggleLights();
-        soundService.PlaySoundEffects(SoundType.SwitchSound);
+        GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.SwitchSound);
     }
 }

@@ -9,6 +9,7 @@ public class GameService : GenericMonoSingleton<GameService>
 
     [Header("Views")]
     [SerializeField] private PlayerView playerView;
+    [SerializeField] private SoundView soundView;
     [SerializeField] private GameUIView gameUIView;
     [SerializeField] private InstructionView instructionView;
 
@@ -35,4 +36,8 @@ public class GameService : GenericMonoSingleton<GameService>
         return instructionView;
     }
 
+    public SoundView GetSoundView()
+    {
+        return soundView;
+    }
 }

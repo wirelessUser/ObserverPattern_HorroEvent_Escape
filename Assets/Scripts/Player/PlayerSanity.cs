@@ -5,7 +5,6 @@ public class PlayerSanity : MonoBehaviour
     [SerializeField] private float sanityLevel = 100.0f;
     [SerializeField] private float sanityDropRate = 0.2f;
     [SerializeField] private float sanityDropAmountPerEvent = 10f;
-    [SerializeField] private SoundService soundService;
     private float maxSanity;
     private bool isPlayerInDark = true;
     private bool isAlive = true;
@@ -70,7 +69,7 @@ public class PlayerSanity : MonoBehaviour
         Debug.Log("Player Died");
         isAlive = false;
         EventService.Instance.PlayerDeathEvent.InvokeEvent();
-        soundService.PlaySoundEffects(SoundType.JumpScare1);
+        GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.JumpScare1);
     }
 
     private void OnLightsOffByGhost()

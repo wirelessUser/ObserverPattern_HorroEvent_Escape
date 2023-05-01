@@ -4,7 +4,6 @@ public class RatRushEvent : MonoBehaviour
 {
     [SerializeField] private Transform Rats;
     [SerializeField] private Transform target;
-    [SerializeField] private SoundService soundService;
     [SerializeField] private SoundType soundToPlay;
 
     private float speed = 7.5f;
@@ -17,7 +16,7 @@ public class RatRushEvent : MonoBehaviour
         {
             EventService.Instance.RatRushEvent.InvokeEvent();
             OnRatRush();
-            soundService.PlaySoundEffects(soundToPlay);
+            GameService.Instance.GetSoundView().PlaySoundEffects(soundToPlay);
             GetComponent<Collider>().enabled = false;
         }
     }

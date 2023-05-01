@@ -9,8 +9,7 @@ using UnityEngine.SceneManagement;
 public class GameUIView : MonoBehaviour
 {
     public List<InstructionSciprtableObject> instructionsSO;
-    [SerializeField]
-    private float instructionDisplayDuration;
+    [SerializeField] private float instructionDisplayDuration;
     private Coroutine instructionCoroutine;
 
     [Header("Player Sanity")]
@@ -90,13 +89,6 @@ public class GameUIView : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        StartCoroutine(ToggleGameOverPanel()); //Todo -> Incorrect Way to Call Courotuine, there should be a null check 
-                                               // and reference to the courotuine
-    }
-
-    private IEnumerator ToggleGameOverPanel()
-    {
-        yield return new WaitForSeconds(2f);
         gameOverPanel.SetActive(true);
     }
 
