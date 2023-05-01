@@ -78,15 +78,15 @@ public class PlayerSanity : MonoBehaviour
 
     private void OnLightsOffByGhost()
     {
-        playerController.        PlayerState = PlayerState.InDark;
+        playerController.PlayerState = PlayerState.InDark;
     }
 
     private void OnLightsToggled()
     {
         if (playerController.PlayerState == PlayerState.InDark)
-            playerController.            PlayerState = PlayerState.None;
+            playerController.PlayerState = PlayerState.None;
         else
-            playerController.            PlayerState = PlayerState.InDark;
+            playerController.PlayerState = PlayerState.InDark;
     }
 
     private void OnSupernaturalEvent()

@@ -26,13 +26,7 @@ public class PlayerController
 
     public void Interact()
     {
-        // simplify
-        // plus something doesn't make logical sense in this logic
-        IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : false;
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            IsInteracted = false;
-        }
+        IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
     }
 
     public void Jump(Rigidbody playerRigidbody, Transform transform)
