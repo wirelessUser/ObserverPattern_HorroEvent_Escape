@@ -1,7 +1,7 @@
 using System.Collections;
 using UnityEngine;
 
-public class CameraController : MonoBehaviour
+public class CameraView : MonoBehaviour
 {
     private Vector3 originalPosition;
     [SerializeField] private float defaultShakeDuration;

@@ -8,10 +8,6 @@ using UnityEngine.SceneManagement;
 
 public class GameUIView : MonoBehaviour
 {
-    public List<InstructionSciprtableObject> instructionsSO;
-    [SerializeField] private float instructionDisplayDuration;
-    private Coroutine instructionCoroutine;
-
     [Header("Player Sanity")]
     [SerializeField] GameObject rootViewPanel;
     [SerializeField] Image insanityImage;
@@ -30,7 +26,6 @@ public class GameUIView : MonoBehaviour
     private void OnEnable()
     {
         EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyEquipped);
-        EventService.Instance.LightsOffByGhostEvent.AddListener(ShowLightOffInstructions);
         EventService.Instance.LightsOffByGhostEvent.AddListener(SetRedVignette);
         EventService.Instance.PlayerEscapedEvent.AddListener(OnPlayerEscaped);
         EventService.Instance.PlayerDeathEvent.AddListener(SetRedVignette);
@@ -45,7 +40,6 @@ public class GameUIView : MonoBehaviour
     private void OnDisable()
     {
         EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyEquipped);
-        EventService.Instance.LightsOffByGhostEvent.RemoveListener(ShowLightOffInstructions);
         EventService.Instance.LightsOffByGhostEvent.RemoveListener(SetRedVignette);
         EventService.Instance.PlayerEscapedEvent.RemoveListener(OnPlayerEscaped);
         EventService.Instance.PlayerDeathEvent.RemoveListener(SetRedVignette);
@@ -65,13 +59,6 @@ public class GameUIView : MonoBehaviour
         keysFoundText.SetText($"Keys Found: {keys}/3");
     }
 
-    private void ShowLightOffInstructions()
-    {
-        if (instructionCoroutine != null)
-            StopCoroutine(instructionCoroutine);
-
-        GameService.Instance.GetInstructionView().ShowInstruction((InstructionType.LightsOff));
-    }
 
     private void SetRedVignette()
     {

@@ -10,19 +10,27 @@ public class InstructionView : MonoBehaviour
     [SerializeField] InstructionSciprtableObject interactionInstruction;
     [SerializeField] InstructionSciprtableObject lightOffByGhostInstruction;
 
-
     [Header("Instruction Popup")]
     [SerializeField]
     private GameObject instructionPopup;
     [SerializeField]
     private TextMeshProUGUI instructionsText;
 
-
     private Coroutine instructionCoroutine;
 
-    void Start()
+    private void Start()
     {
         ShowInstruction(playerSpawnedInstruction);
+    }
+
+    private void OnEnable()
+    {
+        EventService.Instance.LightsOffByGhostEvent.AddListener(ShowLightOffInstructions);
+    }
+
+    private void OnDisable()
+    {
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(ShowLightOffInstructions);
     }
 
     public void ShowInstruction(InstructionSciprtableObject instruction)
@@ -81,5 +89,10 @@ public class InstructionView : MonoBehaviour
             StopCoroutine(coroutine);
             coroutine = null;
         }
+    }
+
+    private void ShowLightOffInstructions()
+    {
+        ShowInstruction((InstructionType.LightsOff));
     }
 }

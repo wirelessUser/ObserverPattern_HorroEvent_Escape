@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Key : MonoBehaviour, IInteractable
+public class KeyView : MonoBehaviour, IInteractable
 {
     public void Interact()
     {

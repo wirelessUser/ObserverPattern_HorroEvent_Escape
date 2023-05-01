@@ -1371,7 +1371,7 @@ GameObject:
   - component: {fileID: 1408709167}
   - component: {fileID: 1408709168}
   m_Layer: 0
-  m_Name: ServiceLocator
+  m_Name: Game Service
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

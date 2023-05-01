@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class Potion : MonoBehaviour, IInteractable
+public class PotionView : MonoBehaviour, IInteractable
 {
     public void Interact()
     {
