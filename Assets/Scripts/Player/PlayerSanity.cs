@@ -6,12 +6,13 @@ public class PlayerSanity : MonoBehaviour
     [SerializeField] private float sanityDropRate = 0.2f;
     [SerializeField] private float sanityDropAmountPerEvent = 10f;
     private float maxSanity;
-    private bool isPlayerInDark = true;
-    private bool isAlive = true;
+    private PlayerController playerController;
+
 
     private void Start()
     {
         maxSanity = sanityLevel;
+        playerController = GameService.Instance.GetPlayerController();
     }
 
     private void OnEnable()
@@ -34,14 +35,16 @@ public class PlayerSanity : MonoBehaviour
 
     void Update()
     {
-        if (!isAlive)
+        if (playerController.GetPlayerState() == PlayerState.Dead)
             return;
 
-        if (isPlayerInDark)
+        if (playerController.GetPlayerState() == PlayerState.InDark)
             DecreaseSanity(sanityDropRate * Time.deltaTime * 10);
         else
             DecreaseSanity(sanityDropRate * Time.deltaTime);
     }
+
+
 
     public void DecreaseSanity(float amountToDecrease)
     {
@@ -67,20 +70,22 @@ public class PlayerSanity : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Player Died");
-        isAlive = false;
+        playerController.SetPlayerState(PlayerState.Dead);
         EventService.Instance.PlayerDeathEvent.InvokeEvent();
         GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.JumpScare1);
     }
 
     private void OnLightsOffByGhost()
     {
-        isPlayerInDark = true;
+        playerController.SetPlayerState(PlayerState.InDark);
     }
 
     private void OnLightsToggled()
     {
-        Debug.Log("PlayerSanity - OnLightsToggled");
-        isPlayerInDark = !isPlayerInDark;
+        if (playerController.GetPlayerState() == PlayerState.InDark)
+            playerController.SetPlayerState(PlayerState.None);
+        else
+            playerController.SetPlayerState(PlayerState.InDark);
     }
 
     private void OnSupernaturalEvent()

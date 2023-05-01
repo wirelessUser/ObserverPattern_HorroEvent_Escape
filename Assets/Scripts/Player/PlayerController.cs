@@ -11,12 +11,14 @@ public class PlayerController
     private float Velocity;
     private float HorizontalAxis;
     private float VerticalAxis;
+    private PlayerState playerState;
     public PlayerController(PlayerView _playerView, PlayerScriptableObject playerSO)
     {
         playerView = _playerView;
         playerView.SetController(this);
         playerScriptableObject = playerSO;
         playerScriptableObject.KeysEquipped = 0;
+        playerState = PlayerState.InDark;
     }
 
     public void Interact()
@@ -62,6 +64,14 @@ public class PlayerController
         return playerScriptableObject.KeysEquipped;
     }
 
+    public PlayerState GetPlayerState()
+    {
+        return playerState;
+    }
+    public void SetPlayerState(PlayerState state)
+    {
+        playerState = state;
+    }
     private void TakingInputs()
     {
         HorizontalAxis = Input.GetAxis("Horizontal");
