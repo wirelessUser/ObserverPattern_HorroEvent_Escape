@@ -35,10 +35,10 @@ public class CameraView : MonoBehaviour
     private void Update()
     {
         Cursor.visible = false;
-        CameraRotation();
+        cameraMovement();
     }
 
-    private void CameraRotation()
+    private void cameraMovement()
     {
         float velocity = sensitivity * -Input.GetAxis("Mouse Y");
         transform.Rotate(velocity, 0f, 0f);
@@ -65,9 +65,7 @@ public class CameraView : MonoBehaviour
         {
             float x = Random.Range(-shakeMagnitude, shakeMagnitude);
             float y = Random.Range(-shakeMagnitude, shakeMagnitude);
-
             transform.localPosition = new Vector3(originalPosition.x + x, originalPosition.y, originalPosition.z);
-
             elapsedTime += Time.deltaTime;
 
             yield return null;
