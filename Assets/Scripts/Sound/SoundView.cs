@@ -29,7 +29,7 @@ public class SoundView : MonoBehaviour
     }
 
 
-    public void PlayBackgroundMusic(SoundType soundType, bool loopSound = false)
+    private void PlayBackgroundMusic(SoundType soundType, bool loopSound = false)
     {
         AudioClip clip = GetSoundClip(soundType);
         if (clip != null)
