@@ -52,6 +52,7 @@ public class PlayerController
         GetInput();
 
         // why are we getting mouse x here and horizontal/vertical in a function call?
+        // Todo - Ask to Mayank?
         Quaternion rotation = playerRigidbody.rotation * Quaternion.Euler(new Vector3(0, Input.GetAxis("Mouse X") * playerScriptableObject.sensitivity, 0));
         Vector3 position = transform.position + Time.fixedDeltaTime * velocity * (transform.forward * verticalAxis + transform.right * horizontalAxis);
 
