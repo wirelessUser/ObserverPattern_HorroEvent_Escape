@@ -20,16 +20,11 @@ public class GameUIView : MonoBehaviour
     [Header("Keys UI")]
     [SerializeField] TextMeshProUGUI keysFoundText;
 
-    // TODO -> Single UI Panel , Only Text will get updated on event callback 
-    [Header("Game Over Panel")]
-    [SerializeField] GameObject gameOverPanel;
+    [Header("Game End Panel")]
+    [SerializeField] GameObject gameEndPanel;
+    [SerializeField] TextMeshProUGUI gameEndText;
     [SerializeField] Button tryAgainButton;
     [SerializeField] Button quitButton;
-
-    [Header("Game Won Panel")]
-    [SerializeField] GameObject gameWonPanel;
-    [SerializeField] Button tryAgainButton2;
-    [SerializeField] Button quitButton2;
 
 
     private void OnEnable()
@@ -45,8 +40,6 @@ public class GameUIView : MonoBehaviour
 
         tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
-        tryAgainButton2.onClick.AddListener(OnTryAgainButtonClicked); //Todo -> These should not be two buttons if funcationality is same
-        quitButton2.onClick.AddListener(OnQuitButtonClicked);          // There will be single one GameEnd Panel
     }
 
     private void OnDisable()
@@ -89,14 +82,19 @@ public class GameUIView : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        gameOverPanel.SetActive(true);
+        gameEndPanel.SetActive(true);
+        gameEndText.SetText("Game Over");
+    }
+
+    private void OnPlayerEscaped()
+    {
+        gameEndPanel.SetActive(true);
+        gameEndText.SetText("You Escaped");
     }
 
     private void OnQuitButtonClicked() => Application.Quit();
 
     private void OnTryAgainButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
-    private void OnPlayerEscaped() => gameWonPanel.SetActive(true);
 
 }
 

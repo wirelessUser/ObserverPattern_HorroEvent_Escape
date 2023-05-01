@@ -9,6 +9,7 @@ public class CameraController : MonoBehaviour
 
     private float sensitivity = 1f;
     private const float rotationLimit = 0.5f;
+    private Coroutine shakeCorroutine;
 
     private void Start()
     {
@@ -46,8 +47,9 @@ public class CameraController : MonoBehaviour
 
     public void Shake()
     {
-        //Todo -> Improve Coroutine -> Take Ref, NUll check , StopCoroutine
-        StartCoroutine(ShakeCoroutine(defaultShakeDuration, defaultShakeMagnitude));
+        if (shakeCorroutine != null)
+            StopCoroutine(shakeCorroutine);
+        shakeCorroutine = StartCoroutine(ShakeCoroutine(defaultShakeDuration, defaultShakeMagnitude));
     }
 
     private IEnumerator ShakeCoroutine(float shakeDuration, float shakeMagnitude)
