@@ -37,7 +37,7 @@ public class PlayerView : MonoBehaviour
     private void OnKeyPickedUp(int keys)
     {
         Debug.Log("On Key Picked Up");
-        playerController.SetKeys(keys);
+        playerController.        KeysEquipped = keys;
     }
 
     private void DisableControls()
@@ -59,9 +59,9 @@ public class PlayerView : MonoBehaviour
     private void OnTriggerStay(Collider other)
     {
         IInteractable interactable;
-        if (other.TryGetComponent(out interactable) && playerController.isInteracted)
+        if (other.TryGetComponent(out interactable) && playerController.IsInteracted)
         {
-            playerController.isInteracted = false;
+            playerController.IsInteracted = false;
             interactable.Interact();
         }
     }

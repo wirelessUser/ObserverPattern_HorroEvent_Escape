@@ -4,32 +4,34 @@ using UnityEngine;
 
 public class PlayerController
 {
-    public bool isInteracted;
+    public bool IsInteracted;
 
     private PlayerView playerView;
     private PlayerScriptableObject playerScriptableObject;
-    private float Velocity;
-    private float HorizontalAxis;
-    private float VerticalAxis;
+    private float velocity;
+    private float horizontalAxis;
+    private float verticalAxis;
     private PlayerState playerState;
-    public PlayerController(PlayerView _playerView, PlayerScriptableObject playerSO)
+
+    public PlayerController(PlayerView playerView, PlayerScriptableObject playerScriptableObject)
     {
-        playerView = _playerView;
-        playerView.SetController(this);
-        playerScriptableObject = playerSO;
-        playerScriptableObject.KeysEquipped = 0;
-        playerState = PlayerState.InDark;
+        this.playerView = playerView;
+        this.playerView.SetController(this);
+
+        this.playerScriptableObject = playerScriptableObject;
+        this.playerScriptableObject.KeysEquipped = 0;
+
+        this.playerState = PlayerState.InDark;
     }
 
     public void Interact()
     {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            isInteracted = true;
-        }
+        // simplify
+        // plus something doesn't make logical sense in this logic
+        IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : false;
         if (Input.GetKeyUp(KeyCode.E))
         {
-            isInteracted = false;
+            IsInteracted = false;
         }
     }
 
@@ -45,37 +47,24 @@ public class PlayerController
 
     public void Move(Rigidbody playerRigidbody, Transform transform)
     {
-        TakingInputs();
+        GetInput();
 
+        // why are we getting mouse x here and horizontal/vertical in a function call?
         Quaternion rotation = playerRigidbody.rotation * Quaternion.Euler(new Vector3(0, Input.GetAxis("Mouse X") * playerScriptableObject.sensitivity, 0));
-        Vector3 position = transform.position + Time.fixedDeltaTime * Velocity * (transform.forward * VerticalAxis + transform.right * HorizontalAxis);
+        Vector3 position = transform.position + Time.fixedDeltaTime * velocity * (transform.forward * verticalAxis + transform.right * horizontalAxis);
 
         playerRigidbody.MoveRotation(rotation);
         playerRigidbody.MovePosition(position);
     }
 
-    public void SetKeys(int keys)
-    {
-        playerScriptableObject.KeysEquipped = keys;
-    }
+    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
 
-    public int GetKeys()
-    {
-        return playerScriptableObject.KeysEquipped;
-    }
+    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
 
-    public PlayerState GetPlayerState()
+    private void GetInput()
     {
-        return playerState;
-    }
-    public void SetPlayerState(PlayerState state)
-    {
-        playerState = state;
-    }
-    private void TakingInputs()
-    {
-        HorizontalAxis = Input.GetAxis("Horizontal");
-        VerticalAxis = Input.GetAxis("Vertical");
-        Velocity = Input.GetKey(KeyCode.LeftShift) ? playerScriptableObject.sprintSpeed : playerScriptableObject.walkSpeed;
+        horizontalAxis = Input.GetAxis("Horizontal");
+        verticalAxis = Input.GetAxis("Vertical");
+        velocity = Input.GetKey(KeyCode.LeftShift) ? playerScriptableObject.sprintSpeed : playerScriptableObject.walkSpeed;
     }
 }

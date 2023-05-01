@@ -8,7 +8,6 @@ public class PlayerSanity : MonoBehaviour
     private float maxSanity;
     private PlayerController playerController;
 
-
     private void Start()
     {
         maxSanity = sanityLevel;
@@ -35,19 +34,20 @@ public class PlayerSanity : MonoBehaviour
 
     void Update()
     {
-        if (playerController.GetPlayerState() == PlayerState.Dead)
+        if (playerController.PlayerState == PlayerState.Dead)
             return;
 
-        if (playerController.GetPlayerState() == PlayerState.InDark)
-            DecreaseSanity(sanityDropRate * Time.deltaTime * 10);
-        else
-            DecreaseSanity(sanityDropRate * Time.deltaTime);
+        float sanityDrop = sanityDropRate * Time.deltaTime;
+        if (playerController.PlayerState == PlayerState.InDark) {
+            sanityDrop *= 10f; 
+        }
+            
+        DecreaseSanity(sanityDrop);
     }
-
-
 
     public void DecreaseSanity(float amountToDecrease)
     {
+        // use mathf.floor function 
         sanityLevel -= amountToDecrease;
         if (sanityLevel <= 0)
         {
@@ -59,8 +59,9 @@ public class PlayerSanity : MonoBehaviour
 
     public void IncreaseSanity(float amountToIncrease)
     {
+        // use mathf.ceil function 
         sanityLevel += amountToIncrease;
-        if (sanityLevel > 100)
+        if (sanityLevel > 100) 
         {
             sanityLevel = 100;
         }
@@ -70,22 +71,22 @@ public class PlayerSanity : MonoBehaviour
     void GameOver()
     {
         Debug.Log("Player Died");
-        playerController.SetPlayerState(PlayerState.Dead);
+        playerController.PlayerState = PlayerState.Dead; // playerstate is state - outside classes should not be changing state from outside!
         EventService.Instance.PlayerDeathEvent.InvokeEvent();
         GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.JumpScare1);
     }
 
     private void OnLightsOffByGhost()
     {
-        playerController.SetPlayerState(PlayerState.InDark);
+        playerController.        PlayerState = PlayerState.InDark;
     }
 
     private void OnLightsToggled()
     {
-        if (playerController.GetPlayerState() == PlayerState.InDark)
-            playerController.SetPlayerState(PlayerState.None);
+        if (playerController.PlayerState == PlayerState.InDark)
+            playerController.            PlayerState = PlayerState.None;
         else
-            playerController.SetPlayerState(PlayerState.InDark);
+            playerController.            PlayerState = PlayerState.InDark;
     }
 
     private void OnSupernaturalEvent()
