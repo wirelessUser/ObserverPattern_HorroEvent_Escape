@@ -57,7 +57,7 @@ public class PlayerSanity : MonoBehaviour
         GameService.Instance.GetGameUI().UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 
-    public void IncreaseSanity(float amountToIncrease)
+    private void IncreaseSanity(float amountToIncrease)
     {
         sanityLevel += amountToIncrease;
         if (sanityLevel > 100)
@@ -93,8 +93,8 @@ public class PlayerSanity : MonoBehaviour
         DecreaseSanity(sanityDropAmountPerEvent);
     }
 
-    private void OnDrankPotion()
+    private void OnDrankPotion(int potionEffect)
     {
-        IncreaseSanity(20);
+        IncreaseSanity(potionEffect);
     }
 }

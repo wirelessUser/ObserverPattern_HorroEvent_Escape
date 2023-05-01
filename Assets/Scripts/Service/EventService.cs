@@ -17,7 +17,7 @@ public class EventService
 
     public GameEventController<int> KeyPickedUpEvent { get; private set; }
 
-    public GameEventController PotionDrinkEvent { get; private set; }
+    public GameEventController<int> PotionDrinkEvent { get; private set; }
 
     public GameEventController LightsOffByGhostEvent { get; private set; }
 
@@ -33,7 +33,7 @@ public class EventService
     {
         LightSwitchToggleEvent = new GameEventController();
         KeyPickedUpEvent = new GameEventController<int>();
-        PotionDrinkEvent = new GameEventController();
+        PotionDrinkEvent = new GameEventController<int>();
         LightsOffByGhostEvent = new GameEventController();
         RatRushEvent = new GameEventController();
         SkullDropEvent = new GameEventController();
