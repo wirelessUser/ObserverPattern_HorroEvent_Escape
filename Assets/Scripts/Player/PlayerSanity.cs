@@ -47,21 +47,19 @@ public class PlayerSanity : MonoBehaviour
 
     public void DecreaseSanity(float amountToDecrease)
     {
-        // use mathf.floor function 
-        sanityLevel -= amountToDecrease;
+        Mathf.Floor(sanityLevel -= amountToDecrease);
         if (sanityLevel <= 0)
         {
             sanityLevel = 0;
-            GameOver();
+            GameService.Instance.GameOver();
         }
         GameService.Instance.GetGameUI().UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 
     private void IncreaseSanity(float amountToIncrease)
     {
-        // use mathf.ceil function 
-        sanityLevel += amountToIncrease;
-        if (sanityLevel > 100) 
+        Mathf.Floor(sanityLevel += amountToIncrease);
+        if (sanityLevel > 100)
         {
             sanityLevel = 100;
         }
