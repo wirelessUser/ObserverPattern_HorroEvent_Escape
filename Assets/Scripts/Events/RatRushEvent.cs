@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class RatRushEvent : MonoBehaviour
 {
-    [SerializeField] private Transform Rats;
+    [SerializeField] private Transform rats;
     [SerializeField] private Transform target;
     [SerializeField] private SoundType soundToPlay;
 
@@ -15,7 +15,7 @@ public class RatRushEvent : MonoBehaviour
         if (other.GetComponent<PlayerView>() != null)
         {
             EventService.Instance.RatRushEvent.InvokeEvent();
-            OnRatRush();
+            onRatRush();
             GameService.Instance.GetSoundView().PlaySoundEffects(soundToPlay);
             GetComponent<Collider>().enabled = false;
         }
@@ -27,9 +27,9 @@ public class RatRushEvent : MonoBehaviour
         {
             if (!reachedTarget)
             {
-                Rats.position = Vector3.MoveTowards(Rats.position, target.position, speed * Time.deltaTime);
+                rats.position = Vector3.MoveTowards(rats.position, target.position, speed * Time.deltaTime);
 
-                if (Rats.position == target.position)
+                if (rats.position == target.position)
                 {
                     reachedTarget = true;
                 }
@@ -37,15 +37,15 @@ public class RatRushEvent : MonoBehaviour
             else
             {
                 rushActive = false;
-                Rats.gameObject.SetActive(false);
+                rats.gameObject.SetActive(false);
             }
         }
     }
 
-    private void OnRatRush()
+    private void onRatRush()
     {
         Debug.Log("OnRatRush Event Occurred.");
-        Rats.gameObject.SetActive(true);
+        rats.gameObject.SetActive(true);
         rushActive = true;
     }
 }
