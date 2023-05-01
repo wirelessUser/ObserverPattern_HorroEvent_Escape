@@ -33,16 +33,22 @@ public class PlayerSanity : MonoBehaviour
         if (playerController.PlayerState == PlayerState.Dead)
             return;
 
+        float sanityDrop = updateSanity();
+
+        decreaseSanity(sanityDrop);
+    }
+
+    private float updateSanity()
+    {
         float sanityDrop = sanityDropRate * Time.deltaTime;
         if (playerController.PlayerState == PlayerState.InDark)
         {
             sanityDrop *= 10f;
         }
-
-        DecreaseSanity(sanityDrop);
+        return sanityDrop;
     }
 
-    public void DecreaseSanity(float amountToDecrease)
+    private void decreaseSanity(float amountToDecrease)
     {
         Mathf.Floor(sanityLevel -= amountToDecrease);
         if (sanityLevel <= 0)
@@ -64,7 +70,7 @@ public class PlayerSanity : MonoBehaviour
     }
     private void OnSupernaturalEvent()
     {
-        DecreaseSanity(sanityDropAmountPerEvent);
+        decreaseSanity(sanityDropAmountPerEvent);
     }
 
     private void OnDrankPotion(int potionEffect)
