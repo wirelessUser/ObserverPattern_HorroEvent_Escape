@@ -16,8 +16,6 @@ public class PlayerSanity : MonoBehaviour
 
     private void OnEnable()
     {
-        EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
-        EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
         EventService.Instance.PotionDrinkEvent.AddListener(OnDrankPotion);
         EventService.Instance.RatRushEvent.AddListener(OnSupernaturalEvent);
         EventService.Instance.SkullDropEvent.AddListener(OnSupernaturalEvent);
@@ -25,8 +23,6 @@ public class PlayerSanity : MonoBehaviour
 
     private void OnDisable()
     {
-        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
-        EventService.Instance.LightsOffByGhostEvent.RemoveListener(OnLightsOffByGhost);
         EventService.Instance.PotionDrinkEvent.RemoveListener(OnDrankPotion);
         EventService.Instance.RatRushEvent.RemoveListener(OnSupernaturalEvent);
         EventService.Instance.SkullDropEvent.RemoveListener(OnSupernaturalEvent);
@@ -38,10 +34,11 @@ public class PlayerSanity : MonoBehaviour
             return;
 
         float sanityDrop = sanityDropRate * Time.deltaTime;
-        if (playerController.PlayerState == PlayerState.InDark) {
-            sanityDrop *= 10f; 
+        if (playerController.PlayerState == PlayerState.InDark)
+        {
+            sanityDrop *= 10f;
         }
-            
+
         DecreaseSanity(sanityDrop);
     }
 
@@ -65,28 +62,6 @@ public class PlayerSanity : MonoBehaviour
         }
         GameService.Instance.GetGameUI().UpdateInsanity(1f - sanityLevel / maxSanity);
     }
-
-    void GameOver()
-    {
-        Debug.Log("Player Died");
-        playerController.PlayerState = PlayerState.Dead; // playerstate is state - outside classes should not be changing state from outside!
-        EventService.Instance.PlayerDeathEvent.InvokeEvent();
-        GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.JumpScare1);
-    }
-
-    private void OnLightsOffByGhost()
-    {
-        playerController.PlayerState = PlayerState.InDark;
-    }
-
-    private void OnLightsToggled()
-    {
-        if (playerController.PlayerState == PlayerState.InDark)
-            playerController.PlayerState = PlayerState.None;
-        else
-            playerController.PlayerState = PlayerState.InDark;
-    }
-
     private void OnSupernaturalEvent()
     {
         DecreaseSanity(sanityDropAmountPerEvent);

@@ -40,4 +40,10 @@ public class GameService : GenericMonoSingleton<GameService>
     {
         return soundView;
     }
+    public void GameOver()
+    {
+        Debug.Log("Player Died");
+        playerController.KillPlayer(); // playerstate is state - outside classes should not be changing state from outside!
+        soundView.PlaySoundEffects(SoundType.JumpScare1);
+    }
 }
