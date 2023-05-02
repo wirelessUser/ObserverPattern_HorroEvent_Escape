@@ -21,17 +21,12 @@ public class PlayerController
         this.playerScriptableObject = playerScriptableObject;
         this.playerScriptableObject.KeysEquipped = 0;
 
-        this.playerState = PlayerState.InDark;
+        playerState = PlayerState.InDark;
         EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
         EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
     }
-
-    ~PlayerController()
-    {
-        EventService.Instance.LightsOffByGhostEvent.RemoveListener(OnLightsOffByGhost);
-        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
-    }
-
+    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
+    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
 
     public void Jump(Rigidbody playerRigidbody, Transform transform)
@@ -63,8 +58,6 @@ public class PlayerController
         EventService.Instance.PlayerDeathEvent.InvokeEvent();
     }
 
-    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
-    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
     private void OnLightsOffByGhost() => PlayerState = PlayerState.InDark;
 
     private void GetInput()
@@ -81,5 +74,9 @@ public class PlayerController
         else
             PlayerState = PlayerState.InDark;
     }
-
+    ~PlayerController()
+    {
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(OnLightsOffByGhost);
+        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
+    }
 }
