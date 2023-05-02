@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccbf5482ebd9f42458f7dc5387319218, type: 3}
   m_Name: Interact_InstructionsSO
   m_EditorClassIdentifier: 
-  instructionType: 2
-  instruction: Press E to Interact
-  displayDuration: 5
-  waitToTriggerDuration: 0
+  InstructionType: 2
+  Instruction: Press 'E' to interact!
+  DisplayDuration: 5
+  WaitToTriggerDuration: 0

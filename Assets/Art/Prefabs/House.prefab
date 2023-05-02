@@ -3751,7 +3751,6 @@ MonoBehaviour:
   - {fileID: 8339259564172966821}
   - {fileID: 7220168615826739779}
   - {fileID: 2810982331033986029}
-  soundService: {fileID: 0}
 --- !u!1 &2192717817496870479
 GameObject:
   m_ObjectHideFlags: 0
@@ -4877,7 +4876,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingAngle: 90
   keysRequiredToOpen: 3
-  soundService: {fileID: 0}
 --- !u!1 &3018921860517247213
 GameObject:
   m_ObjectHideFlags: 0
@@ -6285,7 +6283,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982302ef60cb0ed469db6ad515621899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundService: {fileID: 0}
 --- !u!1 &3685587907904880169
 GameObject:
   m_ObjectHideFlags: 0
@@ -6499,7 +6496,6 @@ MonoBehaviour:
   - {fileID: 8410985324553428649}
   - {fileID: 8410985325005616051}
   - {fileID: 4112238268306415252}
-  soundService: {fileID: 0}
 --- !u!1 &3837781230560376573
 GameObject:
   m_ObjectHideFlags: 0
@@ -6695,7 +6691,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982302ef60cb0ed469db6ad515621899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundService: {fileID: 0}
 --- !u!1 &3910653287236549700
 GameObject:
   m_ObjectHideFlags: 0
@@ -12752,7 +12747,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bb1030b30bb78a24282ed6b17523aa48, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundService: {fileID: 0}
 --- !u!1 &6752019256838307363
 GameObject:
   m_ObjectHideFlags: 0
@@ -15492,7 +15486,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac8787843487b364ab9d933c1a9bb5bd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundService: {fileID: 0}
   soundToPlay: 7
 --- !u!1 &6954516049258147324
 GameObject:
@@ -17563,7 +17556,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingAngle: 90
   keysRequiredToOpen: 1
-  soundService: {fileID: 0}
 --- !u!1 &8001046769440293784
 GameObject:
   m_ObjectHideFlags: 0
@@ -18160,7 +18152,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keysRequiredToTrigger: 2
-  soundService: {fileID: 0}
   soundToPlay: 4
 --- !u!1 &8410985323165227466
 GameObject:
@@ -18934,7 +18925,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keysRequiredToTrigger: 1
-  soundService: {fileID: 0}
   soundToPlay: 4
 --- !u!1 &8410985323819509366
 GameObject:
@@ -19186,7 +19176,6 @@ MonoBehaviour:
   - {fileID: 4788734688629476882}
   - {fileID: 6043709224641305141}
   - {fileID: 8741519329708946749}
-  soundService: {fileID: 0}
 --- !u!1 &8410985324104198225
 GameObject:
   m_ObjectHideFlags: 0
@@ -19458,7 +19447,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 982302ef60cb0ed469db6ad515621899, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  soundService: {fileID: 0}
 --- !u!1 &8410985324553428651
 GameObject:
   m_ObjectHideFlags: 0
@@ -19652,9 +19640,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 087b504c723c94d4eb3fd9b901e16181, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Rats: {fileID: 8410985323165227465}
+  rats: {fileID: 8410985323165227465}
   target: {fileID: 8410985323819509365}
-  soundService: {fileID: 0}
   soundToPlay: 6
 --- !u!1 &8410985324739595033
 GameObject:
@@ -19797,8 +19784,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   keysRequiredToTrigger: 3
-  Skulls: {fileID: 1952139097231216520}
-  soundService: {fileID: 0}
+  skulls: {fileID: 1952139097231216520}
   soundToPlay: 5
 --- !u!65 &1345863026257280730
 BoxCollider:
@@ -21294,7 +21280,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   swingAngle: 90
   keysRequiredToOpen: 2
-  soundService: {fileID: 0}
 --- !u!1 &8790722847315483041
 GameObject:
   m_ObjectHideFlags: 0

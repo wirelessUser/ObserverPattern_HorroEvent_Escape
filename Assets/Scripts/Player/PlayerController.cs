@@ -11,6 +11,7 @@ public class PlayerController
     private float velocity;
     private float horizontalAxis;
     private float verticalAxis;
+    private float mouseX;
     private PlayerState playerState;
 
     public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
@@ -46,10 +47,9 @@ public class PlayerController
     {
         GetInput();
 
-        // why are we getting mouse x here and horizontal/vertical in a function call?
-        // Todo - Ask to Mayank?
-        Quaternion rotation = playerRigidbody.rotation * Quaternion.Euler(new Vector3(0, Input.GetAxis("Mouse X") * playerScriptableObject.sensitivity, 0));
-        Vector3 position = transform.position + Time.fixedDeltaTime * velocity * (transform.forward * verticalAxis + transform.right * horizontalAxis);
+        Quaternion rotation;
+        Vector3 position;
+        calculatePositionRotation(playerRigidbody, transform, out rotation, out position);
 
         playerRigidbody.MoveRotation(rotation);
         playerRigidbody.MovePosition(position);
@@ -67,8 +67,18 @@ public class PlayerController
     {
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
+        mouseX = Input.GetAxis("Mouse X");
         velocity = Input.GetKey(KeyCode.LeftShift) ? playerScriptableObject.sprintSpeed : playerScriptableObject.walkSpeed;
     }
+    private void calculatePositionRotation(Rigidbody playerRigidbody, Transform transform, out Quaternion rotation, out Vector3 position)
+    {
+        Vector3 lookRotation = new Vector3(0, mouseX * playerScriptableObject.sensitivity, 0);
+        Vector3 movement = (transform.forward * verticalAxis + transform.right * horizontalAxis);
+
+        rotation = playerRigidbody.rotation * Quaternion.Euler(lookRotation);
+        position = (transform.position) + (velocity * movement) * Time.fixedDeltaTime;
+    }
+
 
     private void OnLightsToggled()
     {

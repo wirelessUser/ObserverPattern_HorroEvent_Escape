@@ -77,6 +77,7 @@ public class InstructionView : MonoBehaviour
 
     private void showInstruction(InstructionSciprtableObject instruction)
     {
+        Debug.Log("showInstruction");
         stopCoroutine(instructionCoroutine);
         instructionCoroutine = StartCoroutine(setInstructions(instruction));
     }
