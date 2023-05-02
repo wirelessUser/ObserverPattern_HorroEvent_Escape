@@ -13,6 +13,10 @@ public class PlayerController
     private float verticalAxis;
     private PlayerState playerState;
 
+    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
+    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
+
+
     public PlayerController(PlayerView playerView, PlayerScriptableObject playerScriptableObject)
     {
         this.playerView = playerView;
@@ -25,8 +29,7 @@ public class PlayerController
         EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
         EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
     }
-    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
-    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
+
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
 
     public void Jump(Rigidbody playerRigidbody, Transform transform)
