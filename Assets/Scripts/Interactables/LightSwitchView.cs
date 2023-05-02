@@ -52,15 +52,10 @@ public partial class LightSwitchView : MonoBehaviour, IInteractable
 
     private void SetLights(bool lights)
     {
-        //Todo Morning
         if (lights)
-        {
             currentState = SwitchState.On;
-        }
         else
-        {
             currentState = SwitchState.Off;
-        }
 
         foreach (Light lightSource in lightsources)
         {
