@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController
@@ -27,8 +25,8 @@ public class PlayerController
         this.playerScriptableObject.KeysEquipped = 0;
 
         playerState = PlayerState.InDark;
-        EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
-        EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
+        EventService.Instance.LightsOffByGhostEvent.AddListener(onLightsOffByGhost);
+        EventService.Instance.LightSwitchToggleEvent.AddListener(onLightsToggled);
     }
 
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
@@ -45,7 +43,7 @@ public class PlayerController
 
     public void Move(Rigidbody playerRigidbody, Transform transform)
     {
-        GetInput();
+        getInput();
 
         Quaternion rotation;
         Vector3 position;
@@ -61,9 +59,9 @@ public class PlayerController
         EventService.Instance.PlayerDeathEvent.InvokeEvent();
     }
 
-    private void OnLightsOffByGhost() => PlayerState = PlayerState.InDark;
+    private void onLightsOffByGhost() => PlayerState = PlayerState.InDark;
 
-    private void GetInput()
+    private void getInput()
     {
         horizontalAxis = Input.GetAxis("Horizontal");
         verticalAxis = Input.GetAxis("Vertical");
@@ -80,7 +78,7 @@ public class PlayerController
     }
 
 
-    private void OnLightsToggled()
+    private void onLightsToggled()
     {
         if (PlayerState == PlayerState.InDark)
             PlayerState = PlayerState.None;
@@ -89,7 +87,7 @@ public class PlayerController
     }
     ~PlayerController()
     {
-        EventService.Instance.LightsOffByGhostEvent.RemoveListener(OnLightsOffByGhost);
-        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(onLightsOffByGhost);
+        EventService.Instance.LightSwitchToggleEvent.RemoveListener(onLightsToggled);
     }
 }
