@@ -58,8 +58,6 @@ public class PlayerController
         PlayerState = PlayerState.Dead;
     }
 
-    private void OnLightsOffByGhost() => PlayerState = PlayerState.InDark;
-
     private void GetInput()
     {
         horizontalAxis = Input.GetAxis("Horizontal");
