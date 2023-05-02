@@ -45,7 +45,6 @@ public class RatRushEvent : MonoBehaviour
 
     private void onRatRush()
     {
-        Debug.Log("OnRatRush Event Occurred.");
         rats.gameObject.SetActive(true);
         rushActive = true;
     }
