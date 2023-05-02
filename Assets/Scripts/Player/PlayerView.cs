@@ -21,10 +21,9 @@ public class PlayerView : MonoBehaviour
         EventService.Instance.PlayerEscapedEvent.RemoveListener(DisableControls);
     }
 
-    private void Start()
-    {
-        playerRigidbody = GetComponent<Rigidbody>();
-    }
+    private void Start() => playerRigidbody = GetComponent<Rigidbody>();
+    private void OnKeyPickedUp(int keys) => playerController.KeysEquipped = keys;
+    private void DisableControls() => this.enabled = false;
 
     private void Update()
     {
@@ -32,22 +31,6 @@ public class PlayerView : MonoBehaviour
         playerController.Jump(playerRigidbody, transform);
         playerController.Interact();
     }
-
-    #region Event CallBacks
-    private void OnKeyPickedUp(int keys)
-    {
-        Debug.Log("On Key Picked Up");
-        playerController.SetKeys(keys);
-    }
-
-    private void DisableControls()
-    {
-        this.enabled = false;
-    }
-
-    #endregion Event CallBacks
-
-    #region Collision CallBacks
     private void OnTriggerEnter(Collider other)
     {
         if (other.GetComponent<IInteractable>() != null)
@@ -55,17 +38,15 @@ public class PlayerView : MonoBehaviour
             GameService.Instance.GetInstructionView().ShowInstruction(InstructionType.Interact);
         }
     }
-
     private void OnTriggerStay(Collider other)
     {
         IInteractable interactable;
-        if (other.TryGetComponent(out interactable) && playerController.isInteracted)
+        if (other.TryGetComponent(out interactable) && playerController.IsInteracted)
         {
-            playerController.isInteracted = false;
+            playerController.IsInteracted = false;
             interactable.Interact();
         }
     }
-
     private void OnTriggerExit(Collider other)
     {
         if (other.GetComponent<IInteractable>() != null)
@@ -73,11 +54,6 @@ public class PlayerView : MonoBehaviour
             GameService.Instance.GetInstructionView().HideInstruction();
         }
     }
+    public void SetController(PlayerController _playerController) => playerController = _playerController;
 
-    #endregion Collision CallBacks
-
-    public void SetController(PlayerController _playerController)
-    {
-        playerController = _playerController;
-    }
 }

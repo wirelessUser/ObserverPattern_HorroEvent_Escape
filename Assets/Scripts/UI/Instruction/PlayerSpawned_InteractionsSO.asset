@@ -12,9 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccbf5482ebd9f42458f7dc5387319218, type: 3}
   m_Name: PlayerSpawned_InteractionsSO
   m_EditorClassIdentifier: 
-  instructionType: 0
-  instruction: Find all the Keys to Open doors and get out. Press E to Interact with
-    objects, pick up Items and Open Doors.
-  displayDuration: 5
-  waitToTriggerDuration: 2
-  displayed: 0
+  InstructionType: 0
+  Instruction: Find Keys, unlock the doors and get the hell out of this room!
+  DisplayDuration: 5
+  WaitToTriggerDuration: 3

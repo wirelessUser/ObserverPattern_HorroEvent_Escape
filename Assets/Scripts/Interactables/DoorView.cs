@@ -2,12 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DoorView : MonoBehaviour, IInteractable
+public partial class DoorView : MonoBehaviour, IInteractable
 {
     [SerializeField] private float swingAngle;
     [SerializeField] private int keysRequiredToOpen;
     private DoorState currentState;
-
 
     private void Start()
     {
@@ -24,30 +23,31 @@ public class DoorView : MonoBehaviour, IInteractable
         switch (currentState)
         {
             case DoorState.Locked:
-                if (GameService.Instance.GetPlayerController().GetKeys() >= keysRequiredToOpen)
-                {
-                    transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
-                    currentState = DoorState.Open;
-                    GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.DoorOpen);
-                }
+                openDoor();
                 break;
             case DoorState.Close:
-                transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
-                currentState = DoorState.Open;
-                GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.DoorOpen);
+                openDoor();
                 break;
             case DoorState.Open:
-                transform.Rotate(0f, transform.rotation.y - swingAngle, 0f);
-                currentState = DoorState.Close;
-                GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.DoorSlam);
+                closeDoor();
                 break;
         }
     }
 
-    public enum DoorState
+    private void closeDoor()
     {
-        Open,
-        Close,
-        Locked
+        transform.Rotate(0f, transform.rotation.y - swingAngle, 0f);
+        currentState = DoorState.Close;
+        GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.DoorSlam);
+    }
+
+    private void openDoor()
+    {
+        if (GameService.Instance.GetPlayerController().KeysEquipped >= keysRequiredToOpen)
+        {
+            transform.Rotate(0f, transform.rotation.y + swingAngle, 0f);
+            currentState = DoorState.Open;
+            GameService.Instance.GetSoundView().PlaySoundEffects(SoundType.DoorOpen);
+        }
     }
 }

@@ -1,11 +1,11 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class LightSwitchView : MonoBehaviour, IInteractable
+public partial class LightSwitchView : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
-
     private SwitchState currentState;
+
     private void OnEnable()
     {
         EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
@@ -22,17 +22,13 @@ public class LightSwitchView : MonoBehaviour, IInteractable
     {
         currentState = SwitchState.Off;
     }
-
-    public enum SwitchState
+    public void Interact()
     {
-        On,
-        Off,
-        Unresponsive
+        GameService.Instance.GetInstructionView().HideInstruction();
+        EventService.Instance.LightSwitchToggleEvent.InvokeEvent();
     }
-
     private void ToggleLights()
     {
-        Debug.Log("LightSwitch ToggleLights()");
         bool lights = false;
 
         switch (currentState)
@@ -57,24 +53,14 @@ public class LightSwitchView : MonoBehaviour, IInteractable
     private void SetLights(bool lights)
     {
         if (lights)
-        {
             currentState = SwitchState.On;
-        }
         else
-        {
             currentState = SwitchState.Off;
-        }
 
         foreach (Light lightSource in lightsources)
         {
             lightSource.enabled = lights;
         }
-    }
-
-    public void Interact()
-    {
-        GameService.Instance.GetInstructionView().HideInstruction();
-        EventService.Instance.LightSwitchToggleEvent.InvokeEvent();
     }
     private void OnLightsOffByGhostEvent()
     {

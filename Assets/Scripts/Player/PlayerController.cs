@@ -4,34 +4,34 @@ using UnityEngine;
 
 public class PlayerController
 {
-    public bool isInteracted;
+    public bool IsInteracted;
 
     private PlayerView playerView;
     private PlayerScriptableObject playerScriptableObject;
-    private float Velocity;
-    private float HorizontalAxis;
-    private float VerticalAxis;
+    private float velocity;
+    private float horizontalAxis;
+    private float verticalAxis;
+    private float mouseX;
     private PlayerState playerState;
-    public PlayerController(PlayerView _playerView, PlayerScriptableObject playerSO)
+
+    public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
+    public PlayerState PlayerState { get => playerState; private set => playerState = value; }
+
+
+    public PlayerController(PlayerView playerView, PlayerScriptableObject playerScriptableObject)
     {
-        playerView = _playerView;
-        playerView.SetController(this);
-        playerScriptableObject = playerSO;
-        playerScriptableObject.KeysEquipped = 0;
+        this.playerView = playerView;
+        this.playerView.SetController(this);
+
+        this.playerScriptableObject = playerScriptableObject;
+        this.playerScriptableObject.KeysEquipped = 0;
+
         playerState = PlayerState.InDark;
+        EventService.Instance.LightsOffByGhostEvent.AddListener(OnLightsOffByGhost);
+        EventService.Instance.LightSwitchToggleEvent.AddListener(OnLightsToggled);
     }
 
-    public void Interact()
-    {
-        if (Input.GetKeyDown(KeyCode.E))
-        {
-            isInteracted = true;
-        }
-        if (Input.GetKeyUp(KeyCode.E))
-        {
-            isInteracted = false;
-        }
-    }
+    public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
 
     public void Jump(Rigidbody playerRigidbody, Transform transform)
     {
@@ -45,37 +45,51 @@ public class PlayerController
 
     public void Move(Rigidbody playerRigidbody, Transform transform)
     {
-        TakingInputs();
+        GetInput();
 
-        Quaternion rotation = playerRigidbody.rotation * Quaternion.Euler(new Vector3(0, Input.GetAxis("Mouse X") * playerScriptableObject.sensitivity, 0));
-        Vector3 position = transform.position + Time.fixedDeltaTime * Velocity * (transform.forward * VerticalAxis + transform.right * HorizontalAxis);
+        Quaternion rotation;
+        Vector3 position;
+        calculatePositionRotation(playerRigidbody, transform, out rotation, out position);
 
         playerRigidbody.MoveRotation(rotation);
         playerRigidbody.MovePosition(position);
     }
 
-    public void SetKeys(int keys)
+    public void KillPlayer()
     {
-        playerScriptableObject.KeysEquipped = keys;
+        PlayerState = PlayerState.Dead;
+        EventService.Instance.PlayerDeathEvent.InvokeEvent();
     }
 
-    public int GetKeys()
+    private void OnLightsOffByGhost() => PlayerState = PlayerState.InDark;
+
+    private void GetInput()
     {
-        return playerScriptableObject.KeysEquipped;
+        horizontalAxis = Input.GetAxis("Horizontal");
+        verticalAxis = Input.GetAxis("Vertical");
+        mouseX = Input.GetAxis("Mouse X");
+        velocity = Input.GetKey(KeyCode.LeftShift) ? playerScriptableObject.sprintSpeed : playerScriptableObject.walkSpeed;
+    }
+    private void calculatePositionRotation(Rigidbody playerRigidbody, Transform transform, out Quaternion rotation, out Vector3 position)
+    {
+        Vector3 lookRotation = new Vector3(0, mouseX * playerScriptableObject.sensitivity, 0);
+        Vector3 movement = (transform.forward * verticalAxis + transform.right * horizontalAxis);
+
+        rotation = playerRigidbody.rotation * Quaternion.Euler(lookRotation);
+        position = (transform.position) + (velocity * movement) * Time.fixedDeltaTime;
     }
 
-    public PlayerState GetPlayerState()
+
+    private void OnLightsToggled()
     {
-        return playerState;
+        if (PlayerState == PlayerState.InDark)
+            PlayerState = PlayerState.None;
+        else
+            PlayerState = PlayerState.InDark;
     }
-    public void SetPlayerState(PlayerState state)
+    ~PlayerController()
     {
-        playerState = state;
-    }
-    private void TakingInputs()
-    {
-        HorizontalAxis = Input.GetAxis("Horizontal");
-        VerticalAxis = Input.GetAxis("Vertical");
-        Velocity = Input.GetKey(KeyCode.LeftShift) ? playerScriptableObject.sprintSpeed : playerScriptableObject.walkSpeed;
+        EventService.Instance.LightsOffByGhostEvent.RemoveListener(OnLightsOffByGhost);
+        EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
     }
 }

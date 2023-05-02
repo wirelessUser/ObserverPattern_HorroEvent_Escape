@@ -9,14 +9,11 @@ public class SoundView : MonoBehaviour
     [SerializeField] private AudioSource backgroundMusic;
     [SerializeField] private Sounds[] audioList;
 
-    private void Start()
-    {
-        PlayBackgroundMusic(SoundType.BackgroundMusic, true);
-    }
+    private void Start() => playbackgroundMusic(SoundType.BackgroundMusic, true);
 
     public void PlaySoundEffects(SoundType soundType, bool loopSound = false)
     {
-        AudioClip clip = GetSoundClip(soundType);
+        AudioClip clip = getSoundClip(soundType);
         if (clip != null)
         {
             audioEffects.loop = loopSound;
@@ -28,10 +25,9 @@ public class SoundView : MonoBehaviour
         }
     }
 
-
-    public void PlayBackgroundMusic(SoundType soundType, bool loopSound = false)
+    private void playbackgroundMusic(SoundType soundType, bool loopSound = false)
     {
-        AudioClip clip = GetSoundClip(soundType);
+        AudioClip clip = getSoundClip(soundType);
         if (clip != null)
         {
             backgroundMusic.loop = loopSound;
@@ -44,7 +40,7 @@ public class SoundView : MonoBehaviour
     }
 
 
-    private AudioClip GetSoundClip(SoundType soundType)
+    private AudioClip getSoundClip(SoundType soundType)
     {
         Sounds st = Array.Find(audioList, item => item.soundType == soundType);
         if (st != null)

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ccbf5482ebd9f42458f7dc5387319218, type: 3}
   m_Name: LightsOff_InstructionsSO
   m_EditorClassIdentifier: 
-  instructionType: 1
-  instruction: Standing in darkness will increase your Insanity faster. Use switches
-    to turn on Lights and survive.
-  displayDuration: 3
-  waitToTriggerDuration: 0
+  InstructionType: 1
+  Instruction: Staying in Dark will increase your sanity faster, turn on the lights
+  DisplayDuration: 5
+  WaitToTriggerDuration: 0
