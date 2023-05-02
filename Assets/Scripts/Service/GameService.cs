@@ -21,22 +21,11 @@ public class GameService : GenericMonoSingleton<GameService>
     //Todo - Ask Mayank -> Converting all these into properties as {get;private set;} is good or 
     // we can keep it same for now?
 
-    public PlayerController GetPlayerController()
-    {
-        return playerController;
-    }
-    public GameUIView GetGameUI()
-    {
-        return gameUIView;
-    }
-    public InstructionView GetInstructionView()
-    {
-        return instructionView;
-    }
-    public SoundView GetSoundView()
-    {
-        return soundView;
-    }
+    public PlayerController GetPlayerController() => playerController;
+    public GameUIView GetGameUI() => gameUIView;
+    public InstructionView GetInstructionView() => instructionView;
+    public SoundView GetSoundView() => soundView;
+
     public void GameOver()
     {
         playerController.KillPlayer();
