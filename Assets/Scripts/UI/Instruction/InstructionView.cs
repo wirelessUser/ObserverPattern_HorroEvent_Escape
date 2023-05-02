@@ -68,12 +68,6 @@ public class InstructionView : MonoBehaviour
             coroutine = null;
         }
     }
-
-    private void showLightOffInstructions()
-    {
-        ShowInstruction((InstructionType.LightsOff));
-    }
-
     private void showInstruction(InstructionSciprtableObject instruction)
     {
         stopCoroutine(instructionCoroutine);

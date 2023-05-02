@@ -73,14 +73,4 @@ public class PlayerController
         rotation = playerRigidbody.rotation * Quaternion.Euler(lookRotation);
         position = (transform.position) + (velocity * movement) * Time.fixedDeltaTime;
     }
-
-
-    private void OnLightsToggled()
-    {
-        if (PlayerState == PlayerState.InDark)
-            PlayerState = PlayerState.None;
-        else
-            PlayerState = PlayerState.InDark;
-    }
-
 }

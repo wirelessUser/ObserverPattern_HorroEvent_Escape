@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerView : MonoBehaviour
@@ -10,8 +7,6 @@ public class PlayerView : MonoBehaviour
     private PlayerController playerController;
 
     private void Start() => playerRigidbody = GetComponent<Rigidbody>();
-    private void OnKeyPickedUp(int keys) => playerController.KeysEquipped = keys;
-    private void DisableControls() => this.enabled = false;
 
     private void Update()
     {
