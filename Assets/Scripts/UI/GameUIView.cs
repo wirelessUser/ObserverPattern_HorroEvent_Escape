@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -21,7 +18,6 @@ public class GameUIView : MonoBehaviour
     [SerializeField] TextMeshProUGUI gameEndText;
     [SerializeField] Button tryAgainButton;
     [SerializeField] Button quitButton;
-
 
     private void OnEnable()
     {
@@ -48,17 +44,10 @@ public class GameUIView : MonoBehaviour
         EventService.Instance.SkullDropEvent.RemoveListener(SetRedVignette);
     }
 
-
-    public void UpdateInsanity(float playerSanity)
-    {
-        insanityImage.rectTransform.localScale = new Vector3(1, playerSanity, 1);
-    }
-
-    private void OnKeyEquipped(int keys)
-    {
-        keysFoundText.SetText($"Keys Found: {keys}/3");
-    }
-
+    public void UpdateInsanity(float playerSanity) => insanityImage.rectTransform.localScale = new Vector3(1, playerSanity, 1);
+    private void OnKeyEquipped(int keys) => keysFoundText.SetText($"Keys Found: {keys}/3");
+    private void OnQuitButtonClicked() => Application.Quit();
+    private void OnTryAgainButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 
     private void SetRedVignette()
     {
@@ -69,19 +58,14 @@ public class GameUIView : MonoBehaviour
 
     private void OnPlayerDeath()
     {
-        gameEndPanel.SetActive(true);
         gameEndText.SetText("Game Over");
+        gameEndPanel.SetActive(true);
     }
 
     private void OnPlayerEscaped()
     {
-        gameEndPanel.SetActive(true);
         gameEndText.SetText("You Escaped");
+        gameEndPanel.SetActive(true);
     }
-
-    private void OnQuitButtonClicked() => Application.Quit();
-
-    private void OnTryAgainButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
-
 }
 
