@@ -4,7 +4,7 @@ public class PlayerSanity : MonoBehaviour
 {
     [SerializeField] private float sanityLevel = 100.0f;
     [SerializeField] private float sanityDropRate = 0.2f;
-    [SerializeField] private float sanityDropAmountPerEvent = 10f;
+
     private float maxSanity;
     private PlayerController playerController;
 
