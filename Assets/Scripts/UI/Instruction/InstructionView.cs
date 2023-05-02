@@ -62,10 +62,10 @@ public class InstructionView : MonoBehaviour
 
     private IEnumerator SetInstructions(InstructionSciprtableObject instruction)
     {
-        yield return new WaitForSeconds(instruction.waitToTriggerDuration);
+        yield return new WaitForSeconds(instruction.WaitToTriggerDuration);
         ShowInstructionPopup(instruction);
 
-        yield return new WaitForSeconds(instruction.displayDuration);
+        yield return new WaitForSeconds(instruction.DisplayDuration);
         HideInstructionPopup();
     }
 
@@ -78,7 +78,7 @@ public class InstructionView : MonoBehaviour
 
     private void ShowInstructionPopup(InstructionSciprtableObject instruction)
     {
-        instructionsText.SetText(instruction.instruction);
+        instructionsText.SetText(instruction.Instruction);
         instructionPopup.SetActive(true);
     }
 
