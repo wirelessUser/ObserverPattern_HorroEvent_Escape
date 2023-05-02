@@ -6,77 +6,56 @@ using UnityEngine.UI;
 
 public class InstructionView : MonoBehaviour
 {
-    [SerializeField] InstructionSciprtableObject playerSpawnedInstruction;
-    [SerializeField] InstructionSciprtableObject interactionInstruction;
-    [SerializeField] InstructionSciprtableObject lightOffByGhostInstruction;
+    [SerializeField] private InstructionSciprtableObject playerSpawnedInstruction;
+    [SerializeField] private InstructionSciprtableObject interactionInstruction;
+    [SerializeField] private InstructionSciprtableObject lightOffByGhostInstruction;
 
     [Header("Instruction Popup")]
-    [SerializeField]
-    private GameObject instructionPopup;
-    [SerializeField]
-    private TextMeshProUGUI instructionsText;
+    [SerializeField] private GameObject instructionPopup;
+    [SerializeField] private TextMeshProUGUI instructionsText;
 
     private Coroutine instructionCoroutine;
 
-    private void Start()
-    {
-        ShowInstruction(playerSpawnedInstruction);
-    }
+    private void Start() => showInstruction(playerSpawnedInstruction);
+    private void OnEnable() => EventService.Instance.LightsOffByGhostEvent.AddListener(showLightOffInstructions);
+    private void OnDisable() => EventService.Instance.LightsOffByGhostEvent.RemoveListener(showLightOffInstructions);
 
-    private void OnEnable()
-    {
-        EventService.Instance.LightsOffByGhostEvent.AddListener(ShowLightOffInstructions);
-    }
-
-    private void OnDisable()
-    {
-        EventService.Instance.LightsOffByGhostEvent.RemoveListener(ShowLightOffInstructions);
-    }
-
-    public void ShowInstruction(InstructionSciprtableObject instruction)
-    {
-        stopCoroutine(instructionCoroutine);
-        instructionCoroutine = StartCoroutine(SetInstructions(instruction));
-    }
     public void ShowInstruction(InstructionType type)
     {
         stopCoroutine(instructionCoroutine);
         switch (type)
         {
             case InstructionType.PlayerSpawned:
-                instructionCoroutine = StartCoroutine(SetInstructions(playerSpawnedInstruction));
+                instructionCoroutine = StartCoroutine(setInstructions(playerSpawnedInstruction));
                 break;
             case InstructionType.Interact:
-                instructionCoroutine = StartCoroutine(SetInstructions(interactionInstruction));
+                instructionCoroutine = StartCoroutine(setInstructions(interactionInstruction));
                 break;
             case InstructionType.LightsOff:
-                instructionCoroutine = StartCoroutine(SetInstructions(lightOffByGhostInstruction));
+                instructionCoroutine = StartCoroutine(setInstructions(lightOffByGhostInstruction));
                 break;
         }
     }
 
-    public void HideInstruction()
-    {
-        HideInstructionPopup();
-    }
+    public void HideInstruction() => hideInstructionPopup();
 
-    private IEnumerator SetInstructions(InstructionSciprtableObject instruction)
+    private IEnumerator setInstructions(InstructionSciprtableObject instruction)
     {
         yield return new WaitForSeconds(instruction.WaitToTriggerDuration);
-        ShowInstructionPopup(instruction);
+        showInstructionPopup(instruction);
 
         yield return new WaitForSeconds(instruction.DisplayDuration);
-        HideInstructionPopup();
+        hideInstructionPopup();
     }
 
-    private void HideInstructionPopup()
+    private void hideInstructionPopup()
     {
         instructionsText.SetText(string.Empty);
         instructionPopup.SetActive(false);
         stopCoroutine(instructionCoroutine);
     }
 
-    private void ShowInstructionPopup(InstructionSciprtableObject instruction)
+    private void showInstructionPopup(InstructionSciprtableObject instruction)
     {
         instructionsText.SetText(instruction.Instruction);
         instructionPopup.SetActive(true);
@@ -91,8 +70,14 @@ public class InstructionView : MonoBehaviour
         }
     }
 
-    private void ShowLightOffInstructions()
+    private void showLightOffInstructions()
     {
         ShowInstruction((InstructionType.LightsOff));
+    }
+
+    private void showInstruction(InstructionSciprtableObject instruction)
+    {
+        stopCoroutine(instructionCoroutine);
+        instructionCoroutine = StartCoroutine(setInstructions(instruction));
     }
 }
