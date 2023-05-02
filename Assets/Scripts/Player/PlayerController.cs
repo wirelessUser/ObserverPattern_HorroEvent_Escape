@@ -32,10 +32,7 @@ public class PlayerController
         EventService.Instance.LightSwitchToggleEvent.RemoveListener(OnLightsToggled);
     }
 
-    public void Interact()
-    {
-        IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
-    }
+    public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
 
     public void Jump(Rigidbody playerRigidbody, Transform transform)
     {
@@ -67,8 +64,8 @@ public class PlayerController
     }
 
     public int KeysEquipped { get => playerScriptableObject.KeysEquipped; set => playerScriptableObject.KeysEquipped = value; }
-
     public PlayerState PlayerState { get => playerState; private set => playerState = value; }
+    private void OnLightsOffByGhost() => PlayerState = PlayerState.InDark;
 
     private void GetInput()
     {
@@ -77,10 +74,6 @@ public class PlayerController
         velocity = Input.GetKey(KeyCode.LeftShift) ? playerScriptableObject.sprintSpeed : playerScriptableObject.walkSpeed;
     }
 
-    private void OnLightsOffByGhost()
-    {
-        PlayerState = PlayerState.InDark;
-    }
     private void OnLightsToggled()
     {
         if (PlayerState == PlayerState.InDark)
