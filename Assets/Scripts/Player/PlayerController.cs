@@ -25,10 +25,14 @@ public class PlayerController
 
         this.playerScriptableObject = playerScriptableObject;
         this.playerScriptableObject.KeysEquipped = 0;
-
+        LightSwitchView.lightToggled += onLightSwitch;
         playerState = PlayerState.InDark;
     }
 
+    ~PlayerController()
+    {
+        LightSwitchView.lightToggled -= onLightSwitch;
+    }
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
 
     public void Jump(Rigidbody playerRigidbody, Transform transform)
@@ -72,5 +76,10 @@ public class PlayerController
 
         rotation = playerRigidbody.rotation * Quaternion.Euler(lookRotation);
         position = (transform.position) + (velocity * movement) * Time.fixedDeltaTime;
+    }
+
+    private void onLightSwitch()
+    {
+
     }
 }
