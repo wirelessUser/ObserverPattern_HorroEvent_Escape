@@ -80,6 +80,9 @@ public class PlayerController
 
     private void onLightSwitch()
     {
-
+        if (PlayerState == PlayerState.InDark)
+            PlayerState = PlayerState.None;
+        else
+            PlayerState = PlayerState.InDark;
     }
 }
