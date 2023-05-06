@@ -20,7 +20,6 @@ public class LightSwitchView : MonoBehaviour, IInteractable
         lightToggled?.Invoke();
         //Todo - Implement Interaction
     }
-    public LightSwitchDelegate LightSwitchDelegate1 => lightToggled;
 
     private void toggleLights()
     {
