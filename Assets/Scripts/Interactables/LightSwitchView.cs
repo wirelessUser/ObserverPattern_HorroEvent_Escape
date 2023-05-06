@@ -1,7 +1,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public partial class LightSwitchView : MonoBehaviour, IInteractable
+public class LightSwitchView : MonoBehaviour, IInteractable
 {
     [SerializeField] private List<Light> lightsources = new List<Light>();
     private SwitchState currentState;
