@@ -3751,6 +3751,7 @@ MonoBehaviour:
   - {fileID: 8339259564172966821}
   - {fileID: 7220168615826739779}
   - {fileID: 2810982331033986029}
+  soundType: 1
 --- !u!1 &2192717817496870479
 GameObject:
   m_ObjectHideFlags: 0
@@ -6497,6 +6498,7 @@ MonoBehaviour:
   - {fileID: 8410985324553428649}
   - {fileID: 8410985325005616051}
   - {fileID: 4112238268306415252}
+  soundType: 1
 --- !u!1 &3837781230560376573
 GameObject:
   m_ObjectHideFlags: 0
@@ -19179,6 +19181,7 @@ MonoBehaviour:
   - {fileID: 4788734688629476882}
   - {fileID: 6043709224641305141}
   - {fileID: 8741519329708946749}
+  soundType: 1
 --- !u!1 &8410985324104198225
 GameObject:
   m_ObjectHideFlags: 0
