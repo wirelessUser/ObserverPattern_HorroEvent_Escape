@@ -23,23 +23,22 @@ public class RatRushEvent : MonoBehaviour
 
     void Update()
     {
-        //Todo - Morning
         if (rushActive)
         {
-            if (!reachedTarget)
-            {
-                rats.position = Vector3.MoveTowards(rats.position, target.position, speed * Time.deltaTime);
+            ratMovement();
+        }
+    }
 
-                if (rats.position == target.position)
-                {
-                    reachedTarget = true;
-                }
-            }
-            else
-            {
-                rushActive = false;
-                rats.gameObject.SetActive(false);
-            }
+    private void ratMovement()
+    {
+        if (rats.position != target.position)
+        {
+            rats.position = Vector3.MoveTowards(rats.position, target.position, speed * Time.deltaTime);
+        }
+        else
+        {
+            rushActive = false;
+            rats.gameObject.SetActive(false);
         }
     }
 
