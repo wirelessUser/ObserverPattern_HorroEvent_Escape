@@ -5,7 +5,6 @@ public class SkullDropEvent : MonoBehaviour
     [SerializeField] private int keysRequiredToTrigger;
     [SerializeField] private Transform skulls;
     [SerializeField] private SoundType soundToPlay;
-    [SerializeField] private float sanityIncreaseAmount = 10f;
 
     private void OnTriggerEnter(Collider other)
     {
