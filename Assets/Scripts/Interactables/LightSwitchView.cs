@@ -9,13 +9,13 @@ public class LightSwitchView : MonoBehaviour, IInteractable
 
     private void OnEnable()
     {
-        EventService.Instance.LightSwitchToggleEvent.AddListener(onLightsToggled);
+        EventService.Instance.OnLightSwitchToggled.AddListener(onLightsToggled);
         EventService.Instance.LightsOffByGhostEvent.AddListener(onLightsOffByGhostEvent);
     }
 
     private void OnDisable()
     {
-        EventService.Instance.LightSwitchToggleEvent.RemoveListener(onLightsToggled);
+        EventService.Instance.OnLightSwitchToggled.RemoveListener(onLightsToggled);
         EventService.Instance.LightsOffByGhostEvent.RemoveListener(onLightsOffByGhostEvent);
     }
 
@@ -26,7 +26,7 @@ public class LightSwitchView : MonoBehaviour, IInteractable
     public void Interact()
     {
         GameService.Instance.GetInstructionView().HideInstruction();
-        EventService.Instance.LightSwitchToggleEvent.InvokeEvent();
+        EventService.Instance.OnLightSwitchToggled.InvokeEvent();
     }
     private void toggleLights()
     {

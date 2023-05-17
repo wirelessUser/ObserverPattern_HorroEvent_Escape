@@ -22,15 +22,15 @@ public class PlayerController
         playerState = PlayerState.InDark;
 
         EventService.Instance.LightsOffByGhostEvent.AddListener(onLightsOffByGhost);
-        EventService.Instance.LightSwitchToggleEvent.AddListener(onLightsToggled);
-        EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyPickedUp);
+        EventService.Instance.OnLightSwitchToggled.AddListener(onLightsToggled);
+        EventService.Instance.OnKeyPickedUp.AddListener(OnKeyPickedUp);
         EventService.Instance.PlayerEscapedEvent.AddListener(DisableControls);
     }
     ~PlayerController()
     {
         EventService.Instance.LightsOffByGhostEvent.RemoveListener(onLightsOffByGhost);
-        EventService.Instance.LightSwitchToggleEvent.RemoveListener(onLightsToggled);
-        EventService.Instance.KeyPickedUpEvent.RemoveListener(OnKeyPickedUp);
+        EventService.Instance.OnLightSwitchToggled.RemoveListener(onLightsToggled);
+        EventService.Instance.OnKeyPickedUp.RemoveListener(OnKeyPickedUp);
         EventService.Instance.PlayerEscapedEvent.RemoveListener(DisableControls);
     }
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);

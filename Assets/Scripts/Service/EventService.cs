@@ -13,8 +13,8 @@ public class EventService
         }
     }
 
-    public GameEventController LightSwitchToggleEvent { get; private set; }
-    public GameEventController<int> KeyPickedUpEvent { get; private set; }
+    public GameEventController OnLightSwitchToggled { get; private set; }
+    public GameEventController<int> OnKeyPickedUp { get; private set; }
     public GameEventController LightsOffByGhostEvent { get; private set; }
 
     public GameEventController PlayerEscapedEvent { get; private set; }
@@ -22,8 +22,8 @@ public class EventService
 
     public EventService()
     {
-        LightSwitchToggleEvent = new GameEventController();
-        KeyPickedUpEvent = new GameEventController<int>();
+        OnLightSwitchToggled = new GameEventController();
+        OnKeyPickedUp = new GameEventController<int>();
         LightsOffByGhostEvent = new GameEventController();
 
         PlayerEscapedEvent = new GameEventController();
