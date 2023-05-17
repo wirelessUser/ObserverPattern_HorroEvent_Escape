@@ -1,6 +1,6 @@
 using System;
 
-public class GameEventController<T>
+public class EventController<T>
 {
     public event Action<T> baseEvent;
     public void InvokeEvent(T type) => baseEvent?.Invoke(type);
@@ -8,7 +8,7 @@ public class GameEventController<T>
     public void RemoveListener(Action<T> listener) => baseEvent -= listener;
 }
 
-public class GameEventController
+public class EventController
 {
     public event Action baseEvent;
     public void InvokeEvent() => baseEvent?.Invoke();

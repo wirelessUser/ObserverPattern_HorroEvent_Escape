@@ -13,31 +13,31 @@ public class EventService
         }
     }
 
-    public GameEventController LightSwitchToggleEvent { get; private set; }
+    public EventController OnLightSwitchToggleEvent { get; private set; }
 
-    public GameEventController<int> KeyPickedUpEvent { get; private set; }
+    public EventController<int> OnKeyPickedUpEvent { get; private set; }
 
-    public GameEventController<int> PotionDrinkEvent { get; private set; }
+    public EventController<int> OnPotionDrinkEvent { get; private set; }
 
-    public GameEventController LightsOffByGhostEvent { get; private set; }
+    public EventController OnLightsOffByGhostEvent { get; private set; }
 
-    public GameEventController RatRushEvent { get; private set; }
+    public EventController OnRatRushEvent { get; private set; }
 
-    public GameEventController SkullDropEvent { get; private set; }
+    public EventController OnSkullDropEvent { get; private set; }
 
-    public GameEventController PlayerEscapedEvent { get; private set; }
+    public EventController OnPlayerEscapedEvent { get; private set; }
 
-    public GameEventController PlayerDeathEvent { get; private set; }
+    public EventController OnPlayerDeathEvent { get; private set; }
 
     public EventService()
     {
-        LightSwitchToggleEvent = new GameEventController();
-        KeyPickedUpEvent = new GameEventController<int>();
-        PotionDrinkEvent = new GameEventController<int>();
-        LightsOffByGhostEvent = new GameEventController();
-        RatRushEvent = new GameEventController();
-        SkullDropEvent = new GameEventController();
-        PlayerEscapedEvent = new GameEventController();
-        PlayerDeathEvent = new GameEventController();
+        OnLightSwitchToggleEvent = new EventController();
+        OnKeyPickedUpEvent = new EventController<int>();
+        OnPotionDrinkEvent = new EventController<int>();
+        OnLightsOffByGhostEvent = new EventController();
+        OnRatRushEvent = new EventController();
+        OnSkullDropEvent = new EventController();
+        OnPlayerEscapedEvent = new EventController();
+        OnPlayerDeathEvent = new EventController();
     }
 }

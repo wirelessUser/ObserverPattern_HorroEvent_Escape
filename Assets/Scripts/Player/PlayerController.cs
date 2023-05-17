@@ -21,17 +21,17 @@ public class PlayerController
         this.playerScriptableObject.KeysEquipped = 0;
         playerState = PlayerState.InDark;
 
-        EventService.Instance.LightsOffByGhostEvent.AddListener(onLightsOffByGhost);
-        EventService.Instance.LightSwitchToggleEvent.AddListener(onLightsToggled);
-        EventService.Instance.KeyPickedUpEvent.AddListener(OnKeyPickedUp);
-        EventService.Instance.PlayerEscapedEvent.AddListener(DisableControls);
+        EventService.Instance.OnLightsOffByGhostEvent.AddListener(onLightsOffByGhost);
+        EventService.Instance.OnLightSwitchToggleEvent.AddListener(onLightsToggled);
+        EventService.Instance.OnKeyPickedUpEvent.AddListener(OnKeyPickedUp);
+        EventService.Instance.OnPlayerEscapedEvent.AddListener(DisableControls);
     }
     ~PlayerController()
     {
-        EventService.Instance.LightsOffByGhostEvent.RemoveListener(onLightsOffByGhost);
-        EventService.Instance.LightSwitchToggleEvent.RemoveListener(onLightsToggled);
-        EventService.Instance.KeyPickedUpEvent.RemoveListener(OnKeyPickedUp);
-        EventService.Instance.PlayerEscapedEvent.RemoveListener(DisableControls);
+        EventService.Instance.OnLightsOffByGhostEvent.RemoveListener(onLightsOffByGhost);
+        EventService.Instance.OnLightSwitchToggleEvent.RemoveListener(onLightsToggled);
+        EventService.Instance.OnKeyPickedUpEvent.RemoveListener(OnKeyPickedUp);
+        EventService.Instance.OnPlayerEscapedEvent.RemoveListener(DisableControls);
     }
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
 
@@ -60,7 +60,7 @@ public class PlayerController
     public void KillPlayer()
     {
         PlayerState = PlayerState.Dead;
-        EventService.Instance.PlayerDeathEvent.InvokeEvent();
+        EventService.Instance.OnPlayerDeathEvent.InvokeEvent();
     }
 
     private void onLightsOffByGhost() => PlayerState = PlayerState.InDark;

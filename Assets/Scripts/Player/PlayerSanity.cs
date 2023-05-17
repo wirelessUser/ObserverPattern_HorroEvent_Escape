@@ -16,16 +16,16 @@ public class PlayerSanity : MonoBehaviour
 
     private void OnEnable()
     {
-        EventService.Instance.PotionDrinkEvent.AddListener(OnDrankPotion);
-        EventService.Instance.RatRushEvent.AddListener(OnSupernaturalEvent);
-        EventService.Instance.SkullDropEvent.AddListener(OnSupernaturalEvent);
+        EventService.Instance.OnPotionDrinkEvent.AddListener(onDrankPotion);
+        EventService.Instance.OnRatRushEvent.AddListener(onSupernaturalEvent);
+        EventService.Instance.OnSkullDropEvent.AddListener(onSupernaturalEvent);
     }
 
     private void OnDisable()
     {
-        EventService.Instance.PotionDrinkEvent.RemoveListener(OnDrankPotion);
-        EventService.Instance.RatRushEvent.RemoveListener(OnSupernaturalEvent);
-        EventService.Instance.SkullDropEvent.RemoveListener(OnSupernaturalEvent);
+        EventService.Instance.OnPotionDrinkEvent.RemoveListener(onDrankPotion);
+        EventService.Instance.OnRatRushEvent.RemoveListener(onSupernaturalEvent);
+        EventService.Instance.OnSkullDropEvent.RemoveListener(onSupernaturalEvent);
     }
 
     void Update()
@@ -59,7 +59,7 @@ public class PlayerSanity : MonoBehaviour
         GameService.Instance.GetGameUI().UpdateInsanity(1f - sanityLevel / maxSanity);
     }
 
-    private void IncreaseSanity(float amountToIncrease)
+    private void increaseSanity(float amountToIncrease)
     {
         Mathf.Floor(sanityLevel += amountToIncrease);
         if (sanityLevel > 100)
@@ -68,13 +68,13 @@ public class PlayerSanity : MonoBehaviour
         }
         GameService.Instance.GetGameUI().UpdateInsanity(1f - sanityLevel / maxSanity);
     }
-    private void OnSupernaturalEvent()
+    private void onSupernaturalEvent()
     {
         decreaseSanity(sanityDropAmountPerEvent);
     }
 
-    private void OnDrankPotion(int potionEffect)
+    private void onDrankPotion(int potionEffect)
     {
-        IncreaseSanity(potionEffect);
+        increaseSanity(potionEffect);
     }
 }
