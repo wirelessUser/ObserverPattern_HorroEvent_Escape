@@ -21,14 +21,14 @@ public class PlayerController
         this.playerScriptableObject.KeysEquipped = 0;
         playerState = PlayerState.InDark;
 
-        EventService.Instance.LightsOffByGhostEvent.AddListener(onLightsOffByGhost);
+        EventService.Instance.OnLightsOffByGhostEvent.AddListener(onLightsOffByGhost);
         EventService.Instance.OnLightSwitchToggled.AddListener(onLightsToggled);
         EventService.Instance.OnKeyPickedUp.AddListener(OnKeyPickedUp);
         EventService.Instance.PlayerEscapedEvent.AddListener(DisableControls);
     }
     ~PlayerController()
     {
-        EventService.Instance.LightsOffByGhostEvent.RemoveListener(onLightsOffByGhost);
+        EventService.Instance.OnLightsOffByGhostEvent.RemoveListener(onLightsOffByGhost);
         EventService.Instance.OnLightSwitchToggled.RemoveListener(onLightsToggled);
         EventService.Instance.OnKeyPickedUp.RemoveListener(OnKeyPickedUp);
         EventService.Instance.PlayerEscapedEvent.RemoveListener(DisableControls);

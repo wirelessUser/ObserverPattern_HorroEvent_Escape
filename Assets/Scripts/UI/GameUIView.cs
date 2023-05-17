@@ -22,7 +22,7 @@ public class GameUIView : MonoBehaviour
     private void OnEnable()
     {
         EventService.Instance.OnKeyPickedUp.AddListener(OnKeyEquipped);
-        EventService.Instance.LightsOffByGhostEvent.AddListener(SetRedVignette);
+        EventService.Instance.OnLightsOffByGhostEvent.AddListener(SetRedVignette);
         EventService.Instance.PlayerEscapedEvent.AddListener(OnPlayerEscaped);
         EventService.Instance.PlayerDeathEvent.AddListener(SetRedVignette);
         EventService.Instance.PlayerDeathEvent.AddListener(OnPlayerDeath);
@@ -34,7 +34,7 @@ public class GameUIView : MonoBehaviour
     private void OnDisable()
     {
         EventService.Instance.OnKeyPickedUp.RemoveListener(OnKeyEquipped);
-        EventService.Instance.LightsOffByGhostEvent.RemoveListener(SetRedVignette);
+        EventService.Instance.OnLightsOffByGhostEvent.RemoveListener(SetRedVignette);
         EventService.Instance.PlayerEscapedEvent.RemoveListener(OnPlayerEscaped);
         EventService.Instance.PlayerDeathEvent.RemoveListener(SetRedVignette);
         EventService.Instance.PlayerDeathEvent.RemoveListener(OnPlayerDeath);

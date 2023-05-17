@@ -9,7 +9,7 @@ public class LightsOffByGhostEvent : MonoBehaviour
     {
         if (other.GetComponent<PlayerView>() != null && GameService.Instance.GetPlayerController().KeysEquipped == keysRequiredToTrigger)
         {
-            EventService.Instance.LightsOffByGhostEvent.InvokeEvent();
+            EventService.Instance.OnLightsOffByGhostEvent.InvokeEvent();
             GameService.Instance.GetSoundView().PlaySoundEffects(soundToPlay);
             GetComponent<Collider>().enabled = false;
         }
