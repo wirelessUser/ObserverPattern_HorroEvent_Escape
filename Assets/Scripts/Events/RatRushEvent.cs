@@ -8,7 +8,6 @@ public class RatRushEvent : MonoBehaviour
 
     private float speed = 7.5f;
     private bool rushActive = false;
-    private bool reachedTarget = false;
 
     private void OnTriggerEnter(Collider other)
     {
