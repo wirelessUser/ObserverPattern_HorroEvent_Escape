@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -27,6 +28,18 @@ public class PlayerController
         this.playerScriptableObject.KeysEquipped = 0;
 
         playerState = PlayerState.InDark;
+        LightSwitchView.delegateLightToggle += LightSwitchToggle;
+    }
+
+    private void LightSwitchToggle()
+    {
+        if (playerState==PlayerState.InDark)
+        {
+            playerState = PlayerState.None;
+        }else 
+        {
+            playerState = PlayerState.InDark ;
+        }
     }
 
     public void Interact() => IsInteracted = Input.GetKeyDown(KeyCode.E) ? true : (Input.GetKeyUp(KeyCode.E) ? false : IsInteracted);
