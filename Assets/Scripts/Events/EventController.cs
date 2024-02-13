@@ -8,3 +8,21 @@ public class EventController
     public void InvokeEvent() => baseEvent?.Invoke();
 }
 
+public class EventController<T>
+{
+    public Action<T> baseClaasEvent;
+
+
+    public void AddLister(Action<T> lister) => baseClaasEvent += lister;
+   
+    public void RemoveLister(Action<T> lister) => baseClaasEvent -= lister;
+
+
+    public void InvokeEvent(T type)
+    {
+
+        if (baseClaasEvent != null) baseClaasEvent.Invoke(type);
+
+    }
+
+}
