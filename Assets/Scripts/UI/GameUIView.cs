@@ -23,9 +23,11 @@ public class GameUIView : MonoBehaviour
     {
         tryAgainButton.onClick.AddListener(OnTryAgainButtonClicked);
         quitButton.onClick.AddListener(OnQuitButtonClicked);
+        EventService.Instance.onKeyPickedUpEvent.AddLister(UpdateKeyText);
     }
     public void UpdateInsanity(float playerSanity) => insanityImage.rectTransform.localScale = new Vector3(1, playerSanity, 1);
-    private void OnKeyEquipped(int keys) => keysFoundText.SetText($"Keys Found: {keys}/3");
+    public void UpdateKeyText(int key) => keysFoundText.SetText($"Keys Found: {GameService.Instance.GetPlayerController().KeysEquipped}/3");
+
     private void OnQuitButtonClicked() => Application.Quit();
     private void OnTryAgainButtonClicked() => SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
 }
