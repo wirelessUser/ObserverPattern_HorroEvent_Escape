@@ -12,6 +12,7 @@ public class LightsOffByGhostEvent : MonoBehaviour
             EventService.Instance.OnLightsOffByGhostEvent.InvokeEvent();
             this.GetComponent<Collider>().enabled = false;
             GameService.Instance.GetSoundView().PlaySoundEffects(soundToPlay);
+            
         }
     }
 }
