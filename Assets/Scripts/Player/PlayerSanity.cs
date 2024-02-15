@@ -13,6 +13,17 @@ public class PlayerSanity : MonoBehaviour
         maxSanity = sanityLevel;
         playerController = GameService.Instance.GetPlayerController();
     }
+
+    private void OnEnable()
+    {
+        EventService.Instance.OnratRushEvent.AddListener(OnSupernaturalEvent);
+    }
+
+    private void OnDisable()
+    {
+        EventService.Instance.OnratRushEvent.RemoveListener(OnSupernaturalEvent);
+            
+    }
     void Update()
     {
         if (playerController.PlayerState == PlayerState.Dead)
