@@ -1906,9 +1906,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7654718d3c7e3a94e8b18c50a17f4b2e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sanityLevel: 100
-  sanityDropRate: 0.2
-  sanityDropAmountPerEvent: 10
+  sanityLevel: 200
+  sanityDropRate: 0.1
+  sanityDropAmountPerEvent: 0.5
 --- !u!114 &4600010124367288004
 MonoBehaviour:
   m_ObjectHideFlags: 0
